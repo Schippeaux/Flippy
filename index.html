@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Learning Spanish — v10.0</title>
+<title>Learning Spanish — v11.2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
@@ -257,72 +257,100 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 .dict-conj-table td:last-child { color:var(--text-dark); font-weight:500; }
 
 
-/* ── SPACED REPETITION SECTION ── */
-#srSplashScreen { overflow:hidden; display:flex; flex-direction:column; }
-.sr-splash-header { flex-shrink:0; padding:1rem 1.25rem; background:var(--card-bg); border-bottom:1px solid var(--border); }
-.sr-splash-title { font-family:'Lora',serif; font-weight:600; font-size:1.15rem; color:var(--text-dark); margin-bottom:0.3rem; }
-.sr-tabs { display:flex; flex-shrink:0; border-bottom:1px solid var(--border); background:var(--card-bg); }
-.sr-tab { flex:1; padding:0.75rem; border:none; font-family:'Inconsolata',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; background:var(--bg); color:var(--text-light); }
-.sr-tab.active { background:var(--text-dark); color:var(--card-bg); }
-.sr-tab-content { flex:1; overflow-y:auto; padding:1.5rem 1.25rem; display:none; }
-.sr-tab-content.active { display:block; }
-.sr-progress-section { margin-bottom:1.5rem; }
-.sr-progress-label { font-family:'Inconsolata',monospace; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-light); margin-bottom:0.5rem; }
-.sr-chapter-display { font-family:'Lora',serif; font-size:1rem; color:var(--text-dark); margin-bottom:0.15rem; }
-.sr-chapter-name { font-family:'Lora',serif; font-size:0.85rem; color:var(--text-mid); font-style:italic; margin-bottom:1rem; }
-.sr-progress-bar { height:2px; background:var(--border); border-radius:1px; margin-bottom:0.5rem; overflow:hidden; }
-.sr-progress-fill { height:100%; background:var(--text-dark); transition:width 0.3s; }
-.sr-progress-pct { font-size:0.6rem; color:var(--text-light); letter-spacing:0.04em; }
-.sr-cards-section { margin:1.5rem 0; padding:1rem; background:var(--bg); border-radius:12px; border:1px solid var(--border); }
-.sr-cards-row { display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.75rem; }
-.sr-cards-label { color:var(--text-light); }
-.sr-cards-value { color:var(--text-dark); font-weight:500; }
-.sr-cards-adjuster { display:flex; align-items:center; justify-content:center; gap:0.75rem; margin-top:1rem; }
-.sr-cards-btn { width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--card-bg); color:var(--text-dark); font-size:1.1rem; cursor:pointer; flex-shrink:0; }
-.sr-cards-btn:active { transform:scale(0.92); }
-.sr-cards-display { display:flex; align-items:center; justify-content:center; gap:0.5rem; flex:1; }
-.sr-cards-dot { width:12px; height:12px; border-radius:50%; background:var(--text-mid); }
-.sr-cards-count { font-family:'Inconsolata',monospace; font-size:0.8rem; color:var(--text-dark); min-width:20px; text-align:center; }
-.sr-about-heading { font-family:'Lora',serif; font-weight:600; font-size:1.1rem; color:var(--text-dark); margin-bottom:0.75rem; }
-.sr-about-section { margin-bottom:1.25rem; }
-.sr-about-section h3 { font-family:'Lora',serif; font-weight:500; font-size:0.95rem; color:var(--text-dark); margin-bottom:0.5rem; }
-.sr-about-section p { font-family:'Lora',serif; font-size:0.85rem; color:var(--text-mid); line-height:1.6; margin-bottom:0.5rem; }
-#srStudyScreen { overflow:hidden; }
-.sr-study-header { padding:0.9rem 1.25rem; background:var(--card-bg); border-bottom:1px solid var(--border); flex-shrink:0; }
-.sr-study-chapter { font-family:'Inconsolata',monospace; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-light); margin-bottom:0.4rem; }
-.sr-study-title { font-family:'Lora',serif; font-weight:600; font-size:1.1rem; color:var(--text-dark); }
-.sr-card-container { flex:1; display:flex; padding:0.5rem 1rem; min-height:0; }
-.sr-card-face { width:100%; height:100%; border-radius:20px; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; padding:1.8rem 1.8rem 2.5rem; padding-top:clamp(1.5rem, 8vh, 3.5rem); background:var(--card-bg); box-shadow:var(--shadow); border:1px solid var(--border); position:relative; overflow:hidden; cursor:pointer; user-select:none; transition:background 0.2s; }
-.sr-card-face.is-back { background:var(--card-back-bg); border-color:rgba(255,255,255,0.08); box-shadow:0 8px 32px rgba(0,0,0,0.3); }
-.sr-card-tag { font-family:'Inconsolata',monospace; font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; padding:0.2rem 0.7rem; border-radius:20px; margin-bottom:1rem; align-self:flex-start; pointer-events:none; }
-.sr-card-tag.en { background:rgba(0,0,0,0.05); color:var(--text-mid); }
-.sr-card-tag.es { background:rgba(116,172,223,0.12); color:var(--accent); }
-.sr-card-face.is-back .sr-card-tag { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.45); }
-.sr-card-target { font-family:'Lora',serif; font-weight:400; font-size:clamp(1.4rem,5vw,2rem); line-height:1.25; color:var(--text-dark); margin-bottom:0.6rem; pointer-events:none; }
-.sr-card-context { font-family:'Lora',serif; font-style:italic; font-size:clamp(0.78rem,2.6vw,0.9rem); line-height:1.6; color:var(--text-mid); pointer-events:none; }
-.sr-card-face.is-back .sr-card-target { color:#f0ece4; }
-.sr-card-face.is-back .sr-card-context { color:rgba(240,236,228,0.55); }
-.sr-rating-overlay { position:absolute; inset:0; background-color:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:100; opacity:0; pointer-events:none; transition:opacity 0.25s; border-radius:inherit; }
-.sr-rating-overlay.open { opacity:1; pointer-events:auto; }
-.sr-rating-menu { display:flex; flex-direction:column; gap:12px; padding:20px; align-items:center; animation:srSlideUp 0.25s ease-out; }
-.sr-rating-menu.closing { animation:srSlideDown 0.25s ease-in forwards; }
-.sr-rating-btn { width:48px; height:48px; border:none; border-radius:50%; font-size:28px; cursor:pointer; transition:opacity 0.15s; opacity:1; padding:0; display:flex; align-items:center; justify-content:center; }
-.sr-rating-btn[data-rating="1"] { background-color:#E74C3C; }
-.sr-rating-btn[data-rating="2"] { background-color:#F39C12; }
-.sr-rating-btn[data-rating="3"] { background-color:#F1C40F; }
-.sr-rating-btn[data-rating="4"] { background-color:#27AE60; }
-.sr-rating-btn.faded { opacity:0.3; }
-.sr-rating-btn:focus { outline:3px solid #74ACDF; outline-offset:2px; }
-@keyframes srSlideUp { from { transform:translateY(50px); opacity:0; } to { transform:translateY(0); opacity:1; } }
-@keyframes srSlideDown { from { transform:translateY(0); opacity:1; } to { transform:translateY(50px); opacity:0; } }
-.sr-bottom-bar { height:calc(72px + var(--safe-b)); padding-bottom:var(--safe-b); flex-shrink:0; display:flex; align-items:center; justify-content:space-around; padding-left:1.25rem; padding-right:1.25rem; background:var(--card-bg); border-top:1px solid var(--border); gap:0.6rem; }
-.sr-nav-btn { width:48px; height:48px; border-radius:50%; border:1px solid var(--border); background:var(--bg); color:var(--text-dark); font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.sr-nav-btn:active { transform:scale(0.92); }
-.sr-card-counter { font-family:'Inconsolata',monospace; font-size:0.65rem; color:var(--text-light); letter-spacing:0.04em; flex:1; text-align:center; }
-.sr-button-group { display:flex; gap:0.75rem; padding:1rem 0 1.5rem; }
-.sr-button { flex:1; padding:0.75rem; border:1px solid var(--border); border-radius:12px; background:var(--bg); color:var(--text-dark); font-family:'Lora',serif; font-size:0.9rem; cursor:pointer; }
-.sr-button:active { transform:scale(0.97); }
-.sr-button.primary { background:var(--text-dark); color:var(--card-bg); border-color:var(--text-dark); }
+/* ── SPACED REPETITION (GRAMMAR) ── */
+.sr-metre { font-family:'Inconsolata',monospace; font-size:0.62rem; letter-spacing:0.02em; }
+.sr-metre-dash { font-family:'Inconsolata',monospace; font-size:0.62rem; color:var(--text-light); }
+.lesson-sr-badges { display:flex; align-items:center; gap:0.5rem; flex-shrink:0; }
+.sr-level-badge { font-family:'Inconsolata',monospace; font-size:0.54rem; letter-spacing:0.06em; padding:0.12rem 0.35rem; border-radius:4px; background:rgba(0,0,0,0.06); color:var(--text-light); }
+/* Vertical charge-bar (chapter list) */
+.sr-chargebar { display:inline-flex; align-items:center; gap:3px; }
+.sr-chargebar-track { width:5px; height:18px; background:var(--border); border-radius:3px; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; flex-shrink:0; }
+.sr-chargebar-fill { width:100%; border-radius:3px; transition:height 0.3s; }
+.sr-chargebar-pct { font-family:'Inconsolata',monospace; font-size:0.58rem; letter-spacing:0.01em; }
+/* Study panel */
+.study-panel { flex:1; overflow-y:auto; padding:1.25rem; display:none; }
+.study-panel.active { display:block; }
+.study-explainer { font-family:'Lora',serif; font-size:0.87rem; color:var(--text-mid); line-height:1.75; margin-bottom:0.75rem; }
+.study-explainer strong { color:var(--text-dark); font-style:normal; }
+.study-definition { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:0.8rem 1rem; margin-bottom:0.5rem; }
+.study-definition-term { font-family:'Inconsolata',monospace; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dark); margin-bottom:0.25rem; }
+.study-definition-body { font-family:'Lora',serif; font-size:0.82rem; color:var(--text-mid); line-height:1.5; }
+.study-metres { display:flex; gap:1.5rem; margin-bottom:1.25rem; }
+.study-metre-block { display:flex; flex-direction:column; gap:0.3rem; }
+.study-metre-label { font-family:'Inconsolata',monospace; font-size:0.58rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); }
+.study-metre-value { font-family:'Inconsolata',monospace; font-size:2rem; font-weight:400; line-height:1; }
+.study-metre-track { height:4px; background:var(--border); border-radius:2px; overflow:hidden; margin-top:0.1rem; width:80px; }
+.study-metre-fill { height:100%; border-radius:2px; }
+.study-metre-dash-lg { font-family:'Inconsolata',monospace; font-size:2rem; color:var(--text-light); line-height:1; }
+.study-level-selector { display:flex; align-items:center; gap:0.6rem; margin-bottom:1.25rem; flex-wrap:wrap; }
+.study-level-lbl { font-family:'Inconsolata',monospace; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); min-width:42px; }
+.study-level-btn { padding:0.48rem 0.9rem; border:1px solid var(--border); border-radius:8px; font-family:'Inconsolata',monospace; font-size:0.68rem; letter-spacing:0.08em; cursor:pointer; transition:all 0.15s; background:var(--bg); color:var(--text-mid); min-height:40px; }
+.study-level-btn.active { background:var(--text-dark); color:var(--card-bg); border-color:var(--text-dark); }
+.study-level-btn:active { transform:scale(0.96); }
+.study-btn-row { display:flex; gap:0.6rem; margin-bottom:0.75rem; }
+.study-btn { flex:1; padding:0.82rem; border:1px solid var(--border); border-radius:12px; font-family:'Inconsolata',monospace; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; background:var(--bg); color:var(--text-dark); transition:transform 0.1s; min-height:48px; }
+.study-btn:active { transform:scale(0.97); }
+.study-btn.primary { background:var(--text-dark); color:var(--card-bg); border-color:var(--text-dark); }
+.study-landing-header { display:flex; align-items:center; justify-content:flex-end; margin-bottom:0.25rem; min-height:28px; }
+.study-debug-icon { width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.05rem; opacity:0.38; flex-shrink:0; }
+.study-debug-icon:active { opacity:0.75; }
+/* SR session bar (shown above card during session) */
+.sr-session-bar { flex-shrink:0; padding:0.45rem 1.25rem; background:var(--card-bg); border-bottom:1px solid var(--border); display:none; align-items:center; gap:0.75rem; min-height:38px; }
+.sr-session-bar.active { display:flex; }
+.sr-session-back { font-family:'Inconsolata',monospace; font-size:0.75rem; color:var(--text-mid); cursor:pointer; padding:0.3rem 0; flex-shrink:0; }
+.sr-session-back:active { opacity:0.6; }
+.sr-session-info { font-family:'Inconsolata',monospace; font-size:0.62rem; color:var(--text-light); letter-spacing:0.05em; }
+/* SR session bottom bar */
+.sr-session-bottom { height:calc(var(--bottombar-h) + var(--safe-b)); padding-bottom:var(--safe-b); flex-shrink:0; display:none; align-items:center; padding-left:1.25rem; padding-right:1.25rem; background:var(--card-bg); border-top:1px solid var(--border); gap:0.6rem; }
+.sr-session-bottom.active { display:flex; }
+/* Rating tray (fixed, slides up from bottom) */
+.sr-rating-tray { position:fixed; left:0; right:0; bottom:0; background:var(--card-bg); border-top:1px solid var(--border); padding:1rem 1.5rem calc(1rem + env(safe-area-inset-bottom,0px)); transform:translateY(100%); transition:transform 0.25s cubic-bezier(0.4,0,0.2,1); z-index:300; box-shadow:0 -4px 24px rgba(0,0,0,0.14); }
+.sr-rating-tray.open { transform:translateY(0); }
+.sr-rating-row { display:flex; justify-content:space-around; gap:0.5rem; }
+.sr-rating-circle { display:flex; flex-direction:column; align-items:center; gap:0.35rem; cursor:pointer; flex:1; -webkit-tap-highlight-color:transparent; }
+.sr-circle-btn { width:54px; height:54px; border-radius:50%; border:none; font-family:'Inconsolata',monospace; font-size:1.3rem; font-weight:700; color:#fff; cursor:pointer; transition:transform 0.1s, opacity 0.15s; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+.sr-circle-btn[data-r="1"] { background:#E74C3C; }
+.sr-circle-btn[data-r="2"] { background:#F39C12; }
+.sr-circle-btn[data-r="3"] { background:#F1C40F; color:#333; }
+.sr-circle-btn[data-r="4"] { background:#27AE60; }
+.sr-rating-circle:active .sr-circle-btn { transform:scale(0.9); }
+.sr-rating-circle.hint-locked { opacity:0.28; pointer-events:none; }
+.sr-circle-label { font-family:'Inconsolata',monospace; font-size:0.54rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-light); text-align:center; }
+/* Session complete */
+.sr-complete { padding:1.5rem 0 2rem; }
+.sr-complete-title { font-family:'Inconsolata',monospace; font-size:0.66rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-light); margin-bottom:1.25rem; }
+.sr-complete-stat { font-family:'Lora',serif; font-size:0.88rem; color:var(--text-mid); line-height:1.9; }
+.sr-complete-stat strong { color:var(--text-dark); }
+.sr-delta { font-family:'Inconsolata',monospace; font-size:0.65rem; }
+.sr-delta-up { color:#27AE60; }
+.sr-delta-dn { color:#E74C3C; }
+.sr-complete-next { font-family:'Inconsolata',monospace; font-size:0.68rem; color:var(--text-light); margin-top:1rem; letter-spacing:0.04em; }
+/* ── SETTINGS ── */
+.splash-settings-btn { position:absolute; top:1.1rem; right:1.1rem; width:36px; height:36px; border-radius:10px; border:1px solid var(--border); background:var(--card-bg); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1rem; color:var(--text-mid); transition:transform 0.1s; }
+.splash-settings-btn:active { transform:scale(0.92); }
+#settingsScreen { overflow-y:auto; }
+.settings-section { padding:1.25rem; }
+.settings-section-label { font-family:'Inconsolata',monospace; font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-light); margin-bottom:1rem; }
+.settings-row { background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:1rem 1.25rem; margin-bottom:0.75rem; }
+.settings-row-title { font-family:'Lora',serif; font-size:0.95rem; color:var(--text-dark); margin-bottom:0.3rem; }
+.settings-row-desc { font-family:'Inconsolata',monospace; font-size:0.62rem; color:var(--text-light); line-height:1.6; margin-bottom:0.9rem; letter-spacing:0.02em; }
+.settings-btn-row { display:flex; gap:0.6rem; }
+.settings-btn { flex:1; padding:0.75rem; border:1px solid var(--border); border-radius:10px; font-family:'Inconsolata',monospace; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; background:var(--bg); color:var(--text-dark); min-height:44px; transition:transform 0.1s; }
+.settings-btn:active { transform:scale(0.97); }
+.settings-btn.primary { background:var(--text-dark); color:var(--card-bg); border-color:var(--text-dark); }
+.settings-feedback { font-family:'Inconsolata',monospace; font-size:0.65rem; color:var(--green); margin-top:0.6rem; min-height:1.1rem; letter-spacing:0.04em; }
+
+/* Debug dashboard */
+.debug-section-title { font-family:'Inconsolata',monospace; font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-light); margin-bottom:0.6rem; margin-top:1.1rem; }
+.debug-bar-row { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.35rem; }
+.debug-bar-label { font-family:'Inconsolata',monospace; font-size:0.6rem; color:var(--text-mid); width:56px; text-align:right; flex-shrink:0; }
+.debug-bar-track { flex:1; height:7px; background:var(--border); border-radius:4px; overflow:hidden; }
+.debug-bar-fill { height:100%; border-radius:4px; }
+.debug-bar-count { font-family:'Inconsolata',monospace; font-size:0.6rem; color:var(--text-light); min-width:42px; flex-shrink:0; }
+.debug-table { border-collapse:collapse; font-family:'Inconsolata',monospace; font-size:0.62rem; margin-top:0.4rem; min-width:480px; }
+.debug-table th { text-align:left; padding:0.28rem 0.4rem; border-bottom:2px solid var(--border); color:var(--text-light); letter-spacing:0.05em; font-weight:400; white-space:nowrap; }
+.debug-table td { padding:0.28rem 0.4rem; border-bottom:1px solid var(--border); white-space:nowrap; color:var(--text-dark); }
+.debug-table tr:nth-child(even) td { background:rgba(0,0,0,0.018); }
 
 </style>
 </head>
@@ -330,9 +358,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 
 <!-- SPLASH -->
 <div class="screen" id="splashScreen">
-  <div class="splash-header">
+  <div class="splash-header" style="position:relative">
     <div class="splash-logo">Learning Spanish</div>
-    <div class="splash-sub">Buenos Aires · v10.0</div>
+    <div class="splash-sub">Buenos Aires · v11.2</div>
+    <button class="splash-settings-btn" onclick="openSettings()" title="Settings">⚙️</button>
   </div>
   <div class="splash-grid" id="splashGrid"></div>
   <button class="dict-fab" onclick="openDictionary()"><span class="dict-fab-icon">📖</span><span class="dict-fab-label">Dict</span></button>
@@ -429,6 +458,44 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
     <button class="flip-btn" id="flipBtn" onclick="reveal()">Flip</button>
     <button class="hint-btn" id="hintBtn" onclick="toggleHint()">hint</button>
     <button class="nav-btn"  onclick="next()">→</button>
+  </div>
+
+  <!-- Study panel (landing + complete screen for Study tab) -->
+  <div class="study-panel" id="studyPanel"></div>
+
+  <!-- SR session bar (shown above card during study session) -->
+  <div class="sr-session-bar" id="srSessionBar">
+    <span class="sr-session-back" onclick="srBackToLanding()">← back</span>
+    <span class="sr-session-info" id="srSessionInfo"></span>
+  </div>
+
+  <!-- SR session bottom bar (replaces bottom-bar during study session) -->
+  <div class="sr-session-bottom" id="srSessionBottom">
+    <button class="flip-btn" id="srFlipBtn" onclick="srFlipCard()">Flip</button>
+    <button class="hint-btn" id="srHintBtn" onclick="srToggleHint()">hint</button>
+  </div>
+
+</div>
+
+<!-- SR rating tray (fixed, slides up from bottom when FLIP tapped) -->
+<div class="sr-rating-tray" id="srRatingTray">
+  <div class="sr-rating-row">
+    <div class="sr-rating-circle" id="srCircle1" onclick="srRate(1)">
+      <button class="sr-circle-btn" data-r="1">1</button>
+      <span class="sr-circle-label">Forgotten</span>
+    </div>
+    <div class="sr-rating-circle" id="srCircle2" onclick="srRate(2)">
+      <button class="sr-circle-btn" data-r="2">2</button>
+      <span class="sr-circle-label">Difficult</span>
+    </div>
+    <div class="sr-rating-circle" id="srCircle3" onclick="srRate(3)">
+      <button class="sr-circle-btn" data-r="3">3</button>
+      <span class="sr-circle-label">Good</span>
+    </div>
+    <div class="sr-rating-circle" id="srCircle4" onclick="srRate(4)">
+      <button class="sr-circle-btn" data-r="4">4</button>
+      <span class="sr-circle-label">Perfect</span>
+    </div>
   </div>
 </div>
 
@@ -6699,6 +6766,133 @@ const sections = [
   },
 
 {
+  title: "Present Perfect",
+  info: {
+    title: "Present Perfect",
+    body: `<h3>Recent Past & Experiences</h3>
+<p>The present perfect (Pretérito Perfecto Compuesto) describes actions that started in the past and continue to the present, or actions that happened at an unspecified time.</p>
+<h3>Formation</h3>
+<p>Use the auxiliary verb <strong>haber</strong> + the <strong>past participle</strong> (-ado for -AR, -ido for -ER/-IR).</p>
+<table class="conj-table">
+<tr><td>yo</td><td>he</td><td>comido</td></tr>
+<tr><td>vos / tú</td><td>has</td><td>comido</td></tr>
+<tr><td>él/ella</td><td>ha</td><td>comido</td></tr>
+<tr><td>nosotros</td><td>hemos</td><td>comido</td></tr>
+<tr><td>ellos/uds</td><td>han</td><td>comido</td></tr>
+</table>
+<h3>Rioplatense Note</h3>
+<p>In the Rio de la Plata region, we often prefer the simple Preterite for very recent actions where Spaniards would use the Present Perfect. We use this tense mainly for life experiences: <em>"¿Alguna vez has ido a Bariloche?"</em></p>`
+  },
+  conceptCards: [
+    {
+      es: "He vivido en Buenos Aires toda mi vida.",
+      literal: "I-have / lived / in / Buenos / Aires / all / my / life.",
+      en: "I have lived in Buenos Aires all my life.",
+      note: "Haber (he) + vivir (vivido). This describes a state starting in the past and continuing now."
+    },
+    {
+      es: "¿Has visto mi celular por acá?",
+      literal: "Have-you / seen / my / cell-phone / through / here?",
+      en: "Have you seen my phone around here?",
+      note: "Ver has an irregular past participle: visto. Note the use of 'acá' for 'here' in Rioplatense."
+    },
+    {
+      es: "Todavía no hemos terminado el trabajo.",
+      literal: "Still / not / we-have / finished / the / work.",
+      en: "We haven't finished the work yet.",
+      note: "The word 'todavía' (still/yet) is a common trigger for the present perfect."
+    },
+    {
+      es: "Ellos han hecho mucho por nosotros.",
+      literal: "They / have / done / much / for / us.",
+      en: "They have done a lot for us.",
+      note: "Hacer has an irregular past participle: hecho."
+    }
+  ],
+  cards: [
+    {id:"G22_L1_001",en:"I have eaten.",es:"He comido.",hint:"haber + comer\nI-have / eaten"},
+    {id:"G22_L1_002",en:"Have you seen it?",es:"¿Lo has visto?",hint:"ver (irregular)\nHim/it / you-have / seen"},
+    {id:"G22_L1_003",en:"We have arrived.",es:"Hemos llegado.",hint:"llegar\nWe-have / arrived"},
+    {id:"G22_L1_004",en:"She has left.",es:"Ella se ha ido.",hint:"irse\nHerself / has / gone"},
+    {id:"G22_L1_005",en:"I have never been there.",es:"Nunca he estado ahí.",hint:"estar\nNever / I-have / been / there"},
+    {id:"G22_L1_006",en:"Have you finished?",es:"¿Has terminado?",hint:"terminar\nYou-have / finished?"},
+    {id:"G22_L1_007",en:"They have told me.",es:"Me han dicho.",hint:"decir (irregular)\nMe / they-have / told"},
+    {id:"G22_L1_008",en:"We have spoken.",es:"Hemos hablado.",hint:"hablar\nWe-have / spoken"},
+    {id:"G22_L1_009",en:"I have done it.",es:"Lo he hecho.",hint:"hacer (irregular)\nIt / I-have / done"},
+    {id:"G22_L1_010",en:"Has he arrived?",es:"¿Ha llegado?",hint:"llegar\nHas / he-arrived?"},
+    {id:"G22_L1_011",en:"I haven't seen him.",es:"No lo he visto.",hint:"ver\nNo / him / I-have / seen"},
+    {id:"G22_L1_012",en:"We have lost the keys.",es:"Hemos perdido las llaves.",hint:"perder\nWe-have / lost / the keys"},
+    {id:"G22_L1_013",en:"Have you heard?",es:"¿Has oído?",hint:"oír\nYou-have / heard?"},
+    {id:"G22_L1_014",en:"She has written a book.",es:"Ella ha escrito un libro.",hint:"escribir (irregular)\nShe / has / written / a book"},
+    {id:"G22_L1_015",en:"I have forgotten.",es:"Me he olvidado.",hint:"olvidarse\nMyself / I-have / forgotten"},
+    {id:"G22_L1_016",en:"They have returned.",es:"Han vuelto.",hint:"volver (irregular)\nThey-have / returned"},
+    {id:"G22_L1_017",en:"We have opened it.",es:"Lo hemos abierto.",hint:"abrir (irregular)\nIt / we-have / opened"},
+    {id:"G22_L1_018",en:"I have broken it.",es:"Lo he roto.",hint:"romper (irregular)\nIt / I-have / broken"},
+    {id:"G22_L1_019",en:"Have you seen the movie?",es:"¿Has visto la película?",hint:"ver\nYou-have / seen / the movie"},
+    {id:"G22_L1_020",en:"He has died.",es:"Ha muerto.",hint:"morir (irregular)\nHe-has / died"},
+    {id:"G22_L1_021",en:"I've bought the meat.",es:"He comprado la carne.",hint:"comprar\nI-have / bought / the meat"},
+    {id:"G22_L1_022",en:"Has it worked?",es:"¿Ha funcionado?",hint:"funcionar\nHas / it-worked?"},
+    {id:"G22_L1_023",en:"We have tried.",es:"Hemos probado.",hint:"probar\nWe-have / tried"},
+    {id:"G22_L1_024",en:"I have felt bad.",es:"Me he sentido mal.",hint:"sentirse\nMyself / I-have / felt / bad"},
+    {id:"G22_L1_025",en:"They have called.",es:"Han llamado.",hint:"llamar\nThey-have / called"},
+  ],
+  cardsL2: [
+    {id:"G22_L2_001",en:"I have eaten.",es:"He comido.",hint:"haber + comer\nI-have / eaten"},
+    {id:"G22_L2_002",en:"Have you seen it?",es:"¿Lo has visto?",hint:"ver (irregular)\nHim/it / you-have / seen"},
+    {id:"G22_L2_003",en:"We have arrived.",es:"Hemos llegado.",hint:"llegar\nWe-have / arrived"},
+    {id:"G22_L2_004",en:"She has left.",es:"Ella se ha ido.",hint:"irse\nHerself / has / gone"},
+    {id:"G22_L2_005",en:"I have never been there.",es:"Nunca he estado ahí.",hint:"estar\nNever / I-have / been / there"},
+    {id:"G22_L2_006",en:"Have you finished?",es:"¿Has terminado?",hint:"terminar\nYou-have / finished?"},
+    {id:"G22_L2_007",en:"They have told me.",es:"Me han dicho.",hint:"decir (irregular)\nMe / they-have / told"},
+    {id:"G22_L2_008",en:"We have spoken.",es:"Hemos hablado.",hint:"hablar\nWe-have / spoken"},
+    {id:"G22_L2_009",en:"I have done it.",es:"Lo he hecho.",hint:"hacer (irregular)\nIt / I-have / done"},
+    {id:"G22_L2_010",en:"Has he arrived?",es:"¿Ha llegado?",hint:"llegar\nHas / he-arrived?"},
+    {id:"G22_L2_011",en:"I haven't seen him.",es:"No lo he visto.",hint:"ver\nNo / him / I-have / seen"},
+    {id:"G22_L2_012",en:"We have lost the keys.",es:"Hemos perdido las llaves.",hint:"perder\nWe-have / lost / the keys"},
+    {id:"G22_L2_013",en:"Have you heard?",es:"¿Has oído?",hint:"oír\nYou-have / heard?"},
+    {id:"G22_L2_014",en:"She has written a book.",es:"Ella ha escrito un libro.",hint:"escribir (irregular)\nShe / has / written / a book"},
+    {id:"G22_L2_015",en:"I have forgotten.",es:"Me he olvidado.",hint:"olvidarse\nMyself / I-have / forgotten"},
+    {id:"G22_L2_016",en:"They have returned.",es:"Han vuelto.",hint:"volver (irregular)\nThey-have / returned"},
+    {id:"G22_L2_017",en:"We have opened it.",es:"Lo hemos abierto.",hint:"abrir (irregular)\nIt / we-have / opened"},
+    {id:"G22_L2_018",en:"I have broken it.",es:"Lo he roto.",hint:"romper (irregular)\nIt / I-have / broken"},
+    {id:"G22_L2_019",en:"Have you seen the movie?",es:"¿Has visto la película?",hint:"ver\nYou-have / seen / the movie"},
+    {id:"G22_L2_020",en:"He has died.",es:"Ha muerto.",hint:"morir (irregular)\nHe-has / died"},
+    {id:"G22_L2_021",en:"I've bought the meat.",es:"He comprado la carne.",hint:"comprar\nI-have / bought / the meat"},
+    {id:"G22_L2_022",en:"Has it worked?",es:"¿Ha funcionado?",hint:"funcionar\nHas / it-worked?"},
+    {id:"G22_L2_023",en:"We have tried.",es:"Hemos probado.",hint:"probar\nWe-have / tried"},
+    {id:"G22_L2_024",en:"I have felt bad.",es:"Me he sentido mal.",hint:"sentirse\nMyself / I-have / felt / bad"},
+    {id:"G22_L2_025",en:"They have called.",es:"Han llamado.",hint:"llamar\nThey-have / called"},
+  ],
+  cardsL3: [
+    {id:"G22_L3_001",en:"I have eaten.",es:"He comido.",hint:"haber + comer\nI-have / eaten"},
+    {id:"G22_L3_002",en:"Have you seen it?",es:"¿Lo has visto?",hint:"ver (irregular)\nHim/it / you-have / seen"},
+    {id:"G22_L3_003",en:"We have arrived.",es:"Hemos llegado.",hint:"llegar\nWe-have / arrived"},
+    {id:"G22_L3_004",en:"She has left.",es:"Ella se ha ido.",hint:"irse\nHerself / has / gone"},
+    {id:"G22_L3_005",en:"I have never been there.",es:"Nunca he estado ahí.",hint:"estar\nNever / I-have / been / there"},
+    {id:"G22_L3_006",en:"Have you finished?",es:"¿Has terminado?",hint:"terminar\nYou-have / finished?"},
+    {id:"G22_L3_007",en:"They have told me.",es:"Me han dicho.",hint:"decir (irregular)\nMe / they-have / told"},
+    {id:"G22_L3_008",en:"We have spoken.",es:"Hemos hablado.",hint:"hablar\nWe-have / spoken"},
+    {id:"G22_L3_009",en:"I have done it.",es:"Lo he hecho.",hint:"hacer (irregular)\nIt / I-have / done"},
+    {id:"G22_L3_010",en:"Has he arrived?",es:"¿Ha llegado?",hint:"llegar\nHas / he-arrived?"},
+    {id:"G22_L3_011",en:"I haven't seen him.",es:"No lo he visto.",hint:"ver\nNo / him / I-have / seen"},
+    {id:"G22_L3_012",en:"We have lost the keys.",es:"Hemos perdido las llaves.",hint:"perder\nWe-have / lost / the keys"},
+    {id:"G22_L3_013",en:"Have you heard?",es:"¿Has oído?",hint:"oír\nYou-have / heard?"},
+    {id:"G22_L3_014",en:"She has written a book.",es:"Ella ha escrito un libro.",hint:"escribir (irregular)\nShe / has / written / a book"},
+    {id:"G22_L3_015",en:"I have forgotten.",es:"Me he olvidado.",hint:"olvidarse\nMyself / I-have / forgotten"},
+    {id:"G22_L3_016",en:"They have returned.",es:"Han vuelto.",hint:"volver (irregular)\nThey-have / returned"},
+    {id:"G22_L3_017",en:"We have opened it.",es:"Lo hemos abierto.",hint:"abrir (irregular)\nIt / we-have / opened"},
+    {id:"G22_L3_018",en:"I have broken it.",es:"Lo he roto.",hint:"romper (irregular)\nIt / I-have / broken"},
+    {id:"G22_L3_019",en:"Have you seen the movie?",es:"¿Has visto la película?",hint:"ver\nYou-have / seen / the movie"},
+    {id:"G22_L3_020",en:"He has died.",es:"Ha muerto.",hint:"morir (irregular)\nHe-has / died"},
+    {id:"G22_L3_021",en:"I've bought the meat.",es:"He comprado la carne.",hint:"comprar\nI-have / bought / the meat"},
+    {id:"G22_L3_022",en:"Has it worked?",es:"¿Ha funcionado?",hint:"funcionar\nHas / it-worked?"},
+    {id:"G22_L3_023",en:"We have tried.",es:"Hemos probado.",hint:"probar\nWe-have / tried"},
+    {id:"G22_L3_024",en:"I have felt bad.",es:"Me he sentido mal.",hint:"sentirse\nMyself / I-have / felt / bad"},
+    {id:"G22_L3_025",en:"They have called.",es:"Han llamado.",hint:"llamar\nThey-have / called"},
+  ]
+  },
+
+{
   title: "Progressive Tenses",
   info: {
     title: "Progressive Tenses",
@@ -9995,492 +10189,698 @@ const searchIndex = {
   <div class="dict-detail" id="dictDetail"></div>
 </div>
 
-<!-- SPACED REPETITION SPLASH SCREEN -->
-<div class="screen hidden" id="srSplashScreen">
-  <div class="sr-splash-header">
-    <div class="topbar-back" onclick="goHome()">←</div>
-    <div class="sr-splash-title">Spaced Repetition</div>
-    <div class="sr-splash-subtitle">Adaptive learning system</div>
-  </div>
 
-  <div class="sr-tabs">
-    <button class="sr-tab active" onclick="srShowTab('progress')">Progress</button>
-    <button class="sr-tab" onclick="srShowTab('about')">About</button>
-  </div>
 
-  <!-- Progress Tab -->
-  <div class="sr-tab-content active" id="srTabProgress">
-    <div class="sr-progress-section">
-      <div class="sr-progress-label">Current Chapter</div>
-      <div class="sr-chapter-display" id="srCurrentChapter">G1</div>
-      <div class="sr-chapter-name" id="srCurrentChapterName">Present Tense Regular Verbs</div>
-      <div class="sr-progress-bar"><div class="sr-progress-fill" id="srProgressFill" style="width:0%"></div></div>
-      <div class="sr-progress-pct" id="srProgressPct">0 / 12 cards (0%)</div>
-    </div>
-
-    <div class="sr-cards-section">
-      <div class="sr-cards-row">
-        <span class="sr-cards-label">Recommended cards:</span>
-        <span class="sr-cards-value" id="srRecommendedValue">20</span>
-      </div>
-      <div class="sr-cards-row">
-        <span class="sr-cards-label">Today's cards:</span>
-        <span class="sr-cards-value" id="srTodaysValue">20</span>
-      </div>
-      <div class="sr-cards-adjuster">
-        <button class="sr-cards-btn" onclick="srAdjustCards(-5)">−</button>
-        <div class="sr-cards-display" id="srCardsDisplay">
-          <span id="srCardsDots"></span>
-          <span class="sr-cards-count" id="srCardsCount">20</span>
-        </div>
-        <button class="sr-cards-btn" onclick="srAdjustCards(5)">+</button>
-      </div>
-    </div>
-
-    <div class="sr-button-group">
-      <button class="sr-button primary" onclick="srStartStudy()">Start Study</button>
-    </div>
-    <div class="sr-button-group">
-      <button class="sr-button" onclick="srChangeChapter()">Change Chapter</button>
-    </div>
-  </div>
-
-  <!-- About Tab -->
-  <div class="sr-tab-content" id="srTabAbout">
-    <div class="sr-about-heading">What is Spaced Repetition?</div>
-
-    <div class="sr-about-section">
-      <h3>How it works</h3>
-      <p>Spaced Repetition is a learning technique that shows you information at the exact moment right before you forget it. By spacing out reviews, you strengthen memory and learn efficiently.</p>
-    </div>
-
-    <div class="sr-about-section">
-      <h3>Your study process</h3>
-      <ol class="sr-about-list">
-        <li><strong>Study a card:</strong> Read English and Spanish</li>
-        <li><strong>Flip to see answer:</strong> Check your understanding</li>
-        <li><strong>Rate your confidence:</strong> ○ (hard) to ● (easy)</li>
-        <li><strong>System schedules review:</strong> Based on your rating</li>
-        <li><strong>Review when due:</strong> At optimal time for memory</li>
-      </ol>
-    </div>
-
-    <div class="sr-about-section">
-      <h3>Why it works</h3>
-      <p>Research shows that reviewing information at expanding intervals maximizes retention and minimizes study time. Each card is reviewed at the moment you're most likely to forget it, strengthening long-term memory.</p>
-    </div>
-
-    <div class="sr-about-section">
-      <h3>Ratings explained</h3>
-      <ul class="sr-about-list">
-        <li><strong>○ (Again):</strong> Hard — review immediately</li>
-        <li><strong>◔ (Hard):</strong> Struggled — review soon</li>
-        <li><strong>◕ (Good):</strong> Got it — review in days</li>
-        <li><strong>● (Easy):</strong> Very confident — review in weeks</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- SPACED REPETITION STUDY SCREEN -->
-<div class="screen hidden" id="srStudyScreen">
+<!-- SETTINGS SCREEN -->
+<div class="screen hidden" id="settingsScreen">
   <div class="topbar">
-    <div class="topbar-back" onclick="goHome()">←</div>
-    <div class="topbar-title" id="srStudyTitle">G1 | Present Tense Regular Verbs</div>
+    <div class="topbar-back" onclick="closeSettings()">←</div>
+    <div class="topbar-title">Settings</div>
   </div>
-
-  <div class="lesson-title-bar" id="srLessonTitleBar">
-    <h1 id="srLessonTitleHeading">Spaced Repetition</h1>
-  </div>
-
-  <!-- Progress (cards only) -->
-  <div class="progress-area" id="srProgressArea">
-    <div class="progress-meta">
-      <span id="srProgressLabel">1 of 20</span>
-      <span id="srProgressPct">0%</span>
-    </div>
-    <div class="progress-track">
-      <div class="progress-fill" id="srProgressFill" style="width:0%"></div>
-    </div>
-  </div>
-
-  <!-- Card viewport -->
-  <div class="card-viewport active" id="srCardViewport">
-    <div class="card-scene" id="srCardScene">
-      <div class="card-face" id="srCardFace" onclick="srRevealCard()">
-        <div class="card-tag" id="srCardTag">ENGLISH</div>
-        <div class="card-target" id="srCardTarget">—</div>
-        <div class="card-context" id="srCardContext"></div>
-        <div class="tap-hint" id="srTapHint">tap to flip</div>
-        <!-- Hint overlay -->
-        <div class="hint-overlay" id="srHintOverlay">
-          <div class="hint-row">
-            <span class="hint-label">Key word</span>
-            <span class="hint-value" id="srHintVerb">—</span>
-          </div>
-          <div class="hint-row">
-            <span class="hint-label">Literal</span>
-            <span class="hint-value literal" id="srHintLiteral">—</span>
-          </div>
-        </div>
-        <!-- Rating Overlay (appears on hint reveal) -->
-        <div class="sr-rating-overlay" id="srRatingOverlay">
-          <div class="sr-rating-menu" id="srRatingMenu">
-            <button class="sr-rating-btn" data-rating="1" onclick="srSubmitRating(1)" title="Hard">○</button>
-            <button class="sr-rating-btn" data-rating="2" onclick="srSubmitRating(2)" title="Medium">◔</button>
-            <button class="sr-rating-btn" data-rating="3" onclick="srSubmitRating(3)" title="Good">◕</button>
-            <button class="sr-rating-btn" data-rating="4" onclick="srSubmitRating(4)" title="Confident">●</button>
-          </div>
-        </div>
+  <div class="settings-section">
+    <div class="settings-section-label">Study Data</div>
+    <div class="settings-row">
+      <div class="settings-row-title">Backup &amp; Restore</div>
+      <div class="settings-row-desc">Export your study progress to a JSON file you can save as a backup. Import it back at any time to restore your ratings.</div>
+      <div class="settings-btn-row">
+        <button class="settings-btn primary" onclick="srExportData()">↑ Export</button>
+        <button class="settings-btn" onclick="srImportData()">↓ Import</button>
       </div>
+      <div class="settings-feedback" id="settingsFeedback"></div>
     </div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div class="bottom-bar" id="srBottomBar">
-    <button class="nav-btn">←</button>
-    <button class="flip-btn" id="srFlipBtn" onclick="srRevealCard()">Flip</button>
-    <button class="hint-btn" id="srHintBtn" onclick="srToggleHint()">hint</button>
-    <button class="nav-btn" onclick="srToggleRatingMenu()">→</button>
   </div>
 </div>
-
-<script>
-// ── SPACED REPETITION FUNCTIONS ──
-
-// SR State
-let srCurrentChapter = 1;
-let srCurrentLevel = 1;
-let srDeck = [];
-let srCardIdx = 0;
-let srRatingMenuOpen = false;
-let srRevealed = false;
-let srRecommendedCards = 20;
-let srTodaysCards = 20;
-let srCardsReviewedToday = 0;
-let srGoodEasyToday = 0;
-
-// Open Spaced Repetition section
-function openSpacedRepetition() {
-  srLoadState();
-  srUpdateProgress();
-  showScreen('srSplashScreen');
-}
-
-// Load SR state from localStorage
-function srLoadState() {
-  const saved = localStorage.getItem('srState');
-  if (saved) {
-    try {
-      const state = JSON.parse(saved);
-      srCurrentChapter = state.chapter || 1;
-      srCurrentLevel = state.level || 1;
-      srRecommendedCards = state.recommendedCards || 20;
-      srTodaysCards = state.todaysCards || 20;
-      srCardsReviewedToday = state.cardsReviewed || 0;
-      srGoodEasyToday = state.goodEasy || 0;
-      srLastCalibrationDate = state.lastCalibrationDate || null;
-    } catch(e) {}
-  }
-}
-
-// Save SR state to localStorage
-function srSaveState() {
-  const state = {
-    chapter: srCurrentChapter,
-    level: srCurrentLevel,
-    recommendedCards: srRecommendedCards,
-    todaysCards: srTodaysCards,
-    cardsReviewed: srCardsReviewedToday,
-    goodEasy: srGoodEasyToday,
-    lastCalibrationDate: srLastCalibrationDate
-  };
-  localStorage.setItem('srState', JSON.stringify(state));
-}
-
-// Show/hide SR tabs
-function srShowTab(tabName) {
-  document.querySelectorAll('.sr-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.sr-tab-content').forEach(c => c.classList.remove('active'));
-
-  if (tabName === 'progress') {
-    document.querySelectorAll('.sr-tab')[0].classList.add('active');
-    document.getElementById('srTabProgress').classList.add('active');
-  } else {
-    document.querySelectorAll('.sr-tab')[1].classList.add('active');
-    document.getElementById('srTabAbout').classList.add('active');
-  }
-}
-
-// Update progress display
-function srUpdateProgress() {
-  const chapterNum = `G${srCurrentChapter}`;
-  const chapterData = sections[0]?.chapters[srCurrentChapter - 1];
-
-  document.getElementById('srCurrentChapter').textContent = chapterNum;
-  document.getElementById('srCurrentChapterName').textContent = chapterData?.title || 'Unknown';
-  document.getElementById('srRecommendedValue').textContent = srRecommendedCards;
-  document.getElementById('srTodaysValue').textContent = srTodaysCards;
-  document.getElementById('srCardsCount').textContent = srTodaysCards;
-
-  // Update card dots display
-  const dots = '●'.repeat(Math.ceil(srTodaysCards / 5)).padEnd(10, '○');
-  document.getElementById('srCardsDots').textContent = dots;
-
-  // Calculate progress percentage
-  const cardCount = chapterData?.cards?.length || 12;
-  const pct = srCardsReviewedToday > 0 ? Math.round((srCardsReviewedToday / cardCount) * 100) : 0;
-  document.getElementById('srProgressFill').style.width = pct + '%';
-  document.getElementById('srProgressPct').textContent = `${srCardsReviewedToday} / ${cardCount} cards (${pct}%)`;
-}
-
-// Adjust daily cards
-function srAdjustCards(delta) {
-  srTodaysCards = Math.max(20, Math.min(50, srTodaysCards + delta));
-  document.getElementById('srTodaysValue').textContent = srTodaysCards;
-  document.getElementById('srCardsCount').textContent = srTodaysCards;
-
-  const dots = '●'.repeat(Math.ceil(srTodaysCards / 5)).padEnd(10, '○');
-  document.getElementById('srCardsDots').textContent = dots;
-}
-
-// Start studying
-function srStartStudy() {
-  if (!sections || sections.length === 0) {
-    alert('No chapters loaded yet');
-    return;
-  }
-
-  // Load cards from current chapter
-  const chapterData = sections[0]?.chapters[srCurrentChapter - 1];
-  if (!chapterData || !chapterData.cards || chapterData.cards.length === 0) {
-    alert('No cards available for this chapter');
-    return;
-  }
-
-  srDeck = chapterData.cards.slice();
-  srCardIdx = 0;
-  srRevealed = false;
-
-  // Update study header
-  const chapterTitle = `G${srCurrentChapter} | ${chapterData.title}`;
-  document.getElementById('srStudyTitle').textContent = chapterTitle;
-
-  showScreen('srStudyScreen');
-  srShowCard();
-}
-
-// Show current card
-function srShowCard() {
-  if (srCardIdx >= srDeck.length || srCardIdx >= srTodaysCards) {
-    srChapterComplete();
-    return;
-  }
-
-  const card = srDeck[srCardIdx];
-  document.getElementById('srCardTag').textContent = 'ENGLISH';
-  document.getElementById('srCardTarget').textContent = card.en;
-  document.getElementById('srCardContext').textContent = card.enCtx || '';
-  document.getElementById('srCardFace').classList.remove('is-back');
-
-  // Update progress
-  document.getElementById('srProgressLabel').textContent = `${srCardIdx + 1} of ${srTodaysCards}`;
-  const pct = Math.round(((srCardIdx + 1) / srTodaysCards) * 100);
-  document.getElementById('srProgressPct').textContent = pct + '%';
-  document.getElementById('srProgressFill').style.width = pct + '%';
-
-  srRevealed = false;
-  srCloseHint();
-  srCloseRatingMenu();
-}
-
-// Reveal card back
-function srRevealCard() {
-  if (srRevealed) return;
-  srRevealed = true;
-
-  const card = srDeck[srCardIdx];
-  document.getElementById('srCardTag').textContent = 'SPANISH';
-  document.getElementById('srCardTarget').textContent = card.es;
-  document.getElementById('srCardContext').textContent = card.esCtx || '';
-  document.getElementById('srCardFace').classList.add('is-back');
-}
-
-// Toggle hint (like grammar section)
-let srHintOpen = false;
-function srToggleHint() {
-  srHintOpen = !srHintOpen;
-  const card = srDeck[srCardIdx];
-  const hintParts = (card && card.hint) ? card.hint.split('\n') : [];
-  const clean = s => s.replace(/^\[?(?:verb|order|literal|key\s*word):\s*/i,'').replace(/\]$/,'').trim();
-
-  document.getElementById('srHintVerb').innerHTML = hintParts[0] ? clean(hintParts[0]) : 'key word';
-  document.getElementById('srHintLiteral').innerHTML = hintParts[1] ? clean(hintParts[1]) : 'literal translation';
-  document.getElementById('srHintOverlay').classList.toggle('open', srHintOpen);
-  document.getElementById('srHintBtn').classList.toggle('active', srHintOpen);
-}
-
-function srCloseHint() {
-  srHintOpen = false;
-  document.getElementById('srHintOverlay').classList.remove('open');
-  document.getElementById('srHintBtn').classList.remove('active');
-}
-
-// Toggle rating menu (show after hint is opened)
-function srToggleRatingMenu() {
-  if (!srRevealed) {
-    // First tap: reveal card
-    srRevealCard();
-    return;
-  }
-
-  // Show rating menu
-  const overlay = document.getElementById('srRatingOverlay');
-  overlay.classList.add('open');
-
-  // If hint was opened, disable "Good" and "Confident" buttons
-  if (srHintOpen) {
-    document.querySelectorAll('.sr-rating-btn[data-rating="3"], .sr-rating-btn[data-rating="4"]').forEach(btn => {
-      btn.disabled = true;
-      btn.style.opacity = '0.3';
-      btn.style.cursor = 'not-allowed';
-    });
-  } else {
-    // Enable all buttons if hint wasn't used
-    document.querySelectorAll('.sr-rating-btn').forEach(btn => {
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      btn.style.cursor = 'pointer';
-    });
-  }
-}
-
-function srCloseRatingMenu() {
-  const overlay = document.getElementById('srRatingOverlay');
-  overlay.classList.remove('open');
-}
-
-// Submit rating
-function srSubmitRating(rating) {
-  const card = srDeck[srCardIdx];
-
-  // Record rating
-  srCardsReviewedToday++;
-  if (rating >= 3) {  // Good or Easy
-    srGoodEasyToday++;
-  }
-
-  // Visual feedback: fade other buttons
-  document.querySelectorAll('.sr-rating-btn').forEach(btn => {
-    if (parseInt(btn.dataset.rating) !== rating) {
-      btn.classList.add('faded');
-    }
-  });
-
-  // Store rating data
-  const ratingData = {
-    cardId: card.id || `G${srCurrentChapter}_L${srCurrentLevel}_${srCardIdx + 1}`,
-    rating: rating,
-    timestamp: Date.now()
-  };
-
-  // Brief pause for feedback
-  setTimeout(() => {
-    srLoadNextCard();
-  }, 150);
-}
-
-// Load next card
-function srLoadNextCard() {
-  // Reset rating menu
-  document.querySelectorAll('.sr-rating-btn').forEach(btn => btn.classList.remove('faded'));
-  document.getElementById('srRatingOverlay').classList.remove('open');
-  srRatingMenuOpen = false;
-  srRevealed = false;
-
-  srCardIdx++;
-
-  if (srCardIdx < srTodaysCards && srCardIdx < srDeck.length) {
-    srShowCard();
-  } else {
-    srChapterComplete();
-  }
-}
-
-// Previous card
-function srPrevCard() {
-  if (srCardIdx > 0) {
-    srCardIdx--;
-    document.getElementById('srRatingOverlay').classList.remove('open');
-    srRatingMenuOpen = false;
-    srShowCard();
-  }
-}
-
-// Chapter complete
-function srChapterComplete() {
-  // Recalibrate if >= 5 cards reviewed
-  if (srCardsReviewedToday >= 5) {
-    const successRate = (srGoodEasyToday / srCardsReviewedToday) * 100;
-    const targetRate = 70;
-    const scalingFactor = successRate / targetRate;
-    const newRecommended = Math.round(srTodaysCards * scalingFactor / 5) * 5;
-    srRecommendedCards = Math.max(20, Math.min(50, newRecommended));
-  }
-
-  // Save state
-  srSaveState();
-
-  // Show completion message
-  alert(`Chapter G${srCurrentChapter} L${srCurrentLevel} complete!\nYou reviewed ${srCardsReviewedToday} cards.\nSuccess rate: ${srCardsReviewedToday > 0 ? Math.round((srGoodEasyToday / srCardsReviewedToday) * 100) : 0}%`);
-
-  // Return to splash
-  srResetSession();
-  openSpacedRepetition();
-}
-
-// Reset session counters
-function srResetSession() {
-  srCardsReviewedToday = 0;
-  srGoodEasyToday = 0;
-  srDeck = [];
-  srCardIdx = 0;
-}
-
-// Change chapter
-function srChangeChapter() {
-  const newChapter = parseInt(prompt(`Enter chapter (1-30):`, srCurrentChapter.toString()));
-  if (newChapter && newChapter >= 1 && newChapter <= 30) {
-    srCurrentChapter = newChapter;
-    srResetSession();
-    srUpdateProgress();
-  }
-}
-
-// Update showScreen to handle SR screens
-const originalShowScreen = showScreen;
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => {
-    if (s.id === id) {
-      s.classList.remove('hidden', 'slide-left');
-    } else if (id === 'splashScreen') {
-      s.classList.remove('slide-left');
-      s.classList.add('hidden');
-    } else if (id === 'srSplashScreen') {
-      s.classList.add('hidden');
-    } else {
-      s.classList.add('hidden');
-    }
-  });
-}
-
-// Add SR to splash grid
-</script>
 
 </body>
 </html>
 <script>
 // ══ JS INJECTED ══
+
+// ══════════════════════════════════════════════════════════
+//  SR ENGINE — ported from 8_Simulator/algorithm.js
+//  Simulator scaffolding (generateRating, playRound, etc.)
+//  has been removed. See 0_Docs/6_SR_SIMULATOR.md Part 2.
+// ══════════════════════════════════════════════════════════
+const SR_DEBUG_MODE = true;
+const SR_DAILY_LIMIT = 20;
+
+const SRFormula = {
+  efChange: { 1: -0.5, 2: -0.3, 3: 0.0, 4: 0.2 },
+  masteryStreakRequired:    3,
+  masteryRegressionChance: 0.05,
+  minEF:                   1.3,
+  efThreshold:             2.5,
+  freshnessFractionTarget: 0.66,
+  freshnessHalfLife:       14,
+  maintenanceRate:         20
+};
+
+class Card {
+  constructor(id) {
+    this.id                 = id;
+    this.ef                 = SRFormula.minEF;
+    this.dueDate            = 0;
+    this.interval           = 0;
+    this.reviews            = [];
+    this.lastReviewDay      = -999;
+    this.consecutiveCorrect = 0;
+    this.consecutive4s      = 0;
+  }
+  getStatus(today) {
+    if (this.reviews.length === 0) return 'new';
+    if (today < this.dueDate)      return 'high';
+    return 'due';
+  }
+  getStorageStrength() {
+    if (this.reviews.length === 0) return 0;
+    if (this.consecutive4s >= 3)   return 100;
+    if (this.consecutive4s === 2)  return 85;
+    if (this.consecutive4s === 1)  return 75;
+    const avg = this.reviews.reduce((s, r) => s + r.rating, 0) / this.reviews.length;
+    if (avg >= 3) return 50;
+    if (avg >= 2) return 20;
+    return 0;
+  }
+  getFreshness(today) {
+    if (this.reviews.length === 0) return 0;
+    const daysSince = Math.max(0, (today - this.lastReviewDay) - 1);
+    return 100 * Math.pow(SRFormula.freshnessFractionTarget,
+                          daysSince / SRFormula.freshnessHalfLife);
+  }
+  updateEF(rating) {
+    const delta = SRFormula.efChange[rating] || 0;
+    this.ef = Math.max(SRFormula.minEF, this.ef + delta);
+  }
+  calculateNextInterval(rating) {
+    if (rating <= 2)               return 1;
+    if (this.reviews.length === 0) return 1;
+    if (this.reviews.length === 1) return 3;
+    return Math.round(this.interval * this.ef);
+  }
+  recordReview(today, rating) {
+    this.reviews.push({ day: today, rating });
+    this.lastReviewDay      = today;
+    this.consecutiveCorrect = rating >= 3 ? this.consecutiveCorrect + 1 : 0;
+    this.consecutive4s      = rating === 4 ? this.consecutive4s      + 1 : 0;
+    this.updateEF(rating);
+    this.interval = this.calculateNextInterval(rating);
+    this.dueDate  = today + this.interval;
+  }
+}
+
+function getCardsForToday(deck, today) {
+  const due = deck
+    .filter(c => c.dueDate <= today && c.reviews.length > 0)
+    .sort((a, b) => a.dueDate - b.dueDate);
+  const newCards = deck.filter(c => c.reviews.length === 0);
+  const ahead = deck
+    .filter(c => c.dueDate > today && c.reviews.length > 0)
+    .sort((a, b) => {
+      const diff = (a.dueDate - today) - (b.dueDate - today);
+      return diff !== 0 ? diff : a.ef - b.ef;
+    });
+  return [...due, ...newCards, ...ahead];
+}
+
+function getChapterConfidence(deck) {
+  const reviewed = deck.filter(c => c.reviews.length > 0);
+  if (reviewed.length === 0) return 0;
+  return reviewed.reduce((sum, c) => sum + c.getStorageStrength(), 0) / reviewed.length;
+}
+
+function getChapterFreshness(deck, today) {
+  const reviewed = deck.filter(c => c.reviews.length > 0);
+  if (reviewed.length === 0) return 0;
+  return reviewed.reduce((sum, c) => sum + c.getFreshness(today), 0) / reviewed.length;
+}
+
+// ── SR PERSISTENCE ────────────────────────────────────────
+function srToday() { return Math.floor(Date.now() / 86400000); }
+
+function srLoadDeck(chapterId, level, chapterCards) {
+  const key = `sr_chapter_${chapterId}_${level}`;
+  let savedArr = [];
+  try { savedArr = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+  const savedMap = {};
+  savedArr.forEach(s => { savedMap[s.id] = s; });
+  return chapterCards.map(cardData => {
+    const c = new Card(cardData.id);
+    const sv = savedMap[cardData.id];
+    if (sv) {
+      c.ef                 = sv.ef                 ?? SRFormula.minEF;
+      c.dueDate            = sv.dueDate            ?? 0;
+      c.interval           = sv.interval           ?? 0;
+      c.lastReviewDay      = sv.lastReviewDay      ?? -999;
+      c.consecutiveCorrect = sv.consecutiveCorrect ?? 0;
+      c.consecutive4s      = sv.consecutive4s      ?? 0;
+      c.reviews            = sv.reviews            ?? [];
+    }
+    return c;
+  });
+}
+
+function srSaveDeck(chapterId, level, deck) {
+  const key = `sr_chapter_${chapterId}_${level}`;
+  localStorage.setItem(key, JSON.stringify(deck.map(c => ({
+    id: c.id, ef: c.ef, dueDate: c.dueDate, interval: c.interval,
+    lastReviewDay: c.lastReviewDay, consecutiveCorrect: c.consecutiveCorrect,
+    consecutive4s: c.consecutive4s, reviews: c.reviews
+  }))));
+}
+
+function srSaveSession(chapterId, level, queue, idx) {
+  localStorage.setItem(`sr_session_${chapterId}_${level}`,
+    JSON.stringify({ queue, currentIdx: idx, sessionDate: srToday() }));
+}
+
+function srLoadSession(chapterId, level) {
+  try {
+    const s = JSON.parse(localStorage.getItem(`sr_session_${chapterId}_${level}`) || 'null');
+    if (!s) return null;
+    if (s.sessionDate !== srToday()) {
+      localStorage.removeItem(`sr_session_${chapterId}_${level}`);
+      return null;
+    }
+    return s;
+  } catch(e) { return null; }
+}
+
+function srClearSession(chapterId, level) {
+  localStorage.removeItem(`sr_session_${chapterId}_${level}`);
+}
+
+// ── SR UI STATE ───────────────────────────────────────────
+let srChapterId  = null;
+let srLevel      = 'L1';
+let srLiveDeck   = [];
+let srLiveCards  = [];
+let srQueue      = [];
+let srQueueIdx   = 0;
+let srHintUsed   = false;
+let srRatings    = [0, 0, 0, 0, 0];
+let srPreConf    = 0;
+let srPreFresh   = 0;
+let srInSession  = false;
+
+// ── METRE HELPERS ─────────────────────────────────────────
+function srMetreColor(v, low, mid) {
+  return v < low ? '#E74C3C' : v < mid ? '#F39C12' : '#27AE60';
+}
+
+// Inline text metre (kept for any future use)
+function srMetreHtml(v, low, mid) {
+  const c = srMetreColor(v, low, mid);
+  return `<span class="sr-metre" style="color:${c}">▮ ${Math.round(v)}%</span>`;
+}
+
+// Vertical charge-bar for chapter list rows
+function _srChargebar(v, low, mid) {
+  const c   = srMetreColor(v, low, mid);
+  const pct = Math.round(v);
+  const h   = Math.max(2, Math.round(v / 100 * 18));  // fill height 0–18px
+  return `<span class="sr-chargebar" style="color:${c}">
+    <span class="sr-chargebar-track">
+      <span class="sr-chargebar-fill" style="height:${h}px;background:${c}"></span>
+    </span>
+    <span class="sr-chargebar-pct">${pct}%</span>
+  </span>`;
+}
+
+// Large metre block for Study tab landing
+function _srLandingMetre(label, v, low, mid, hasData) {
+  if (!hasData) {
+    return `<div class="study-metre-block">
+      <span class="study-metre-label">${label}</span>
+      <span class="study-metre-dash-lg">—</span>
+    </div>`;
+  }
+  const c   = srMetreColor(v, low, mid);
+  const pct = Math.round(v);
+  return `<div class="study-metre-block">
+    <span class="study-metre-label">${label}</span>
+    <span class="study-metre-value" style="color:${c}">${pct}%</span>
+    <div class="study-metre-track">
+      <div class="study-metre-fill" style="width:${pct}%;background:${c}"></div>
+    </div>
+  </div>`;
+}
+
+// Compute metres for a chapter (used by chapter list and landing)
+function srGetMetres(chapterId, level, chapterCards) {
+  const deck = srLoadDeck(chapterId, level, chapterCards);
+  if (!deck.some(c => c.reviews.length > 0)) return null;
+  const today = srToday();
+  return {
+    confidence: getChapterConfidence(deck),
+    freshness:  getChapterFreshness(deck, today)
+  };
+}
+
+// ── STUDY TAB ENTRY POINT ─────────────────────────────────
+function openStudyTab() {
+  srInSession = false;
+  document.getElementById('srSessionBar').classList.remove('active');
+  document.getElementById('srSessionBottom').classList.remove('active');
+  document.getElementById('srRatingTray').classList.remove('open');
+  document.getElementById('cardViewport').classList.remove('active');
+  document.getElementById('studyPanel').classList.add('active');
+  document.getElementById('studyPanel').style.display = '';
+  _srRenderLanding();
+}
+
+function _srCardsForLevel(ch, level) {
+  if (level === 'L2') return ch.cardsL2 || ch.cards;
+  if (level === 'L3') return ch.cardsL3 || ch.cards;
+  return ch.cards;
+}
+
+function _srRenderLanding() {
+  const ch    = sections[currentSubjectIdx].chapters[currentLessonIdx];
+  const chId  = `G${currentLessonIdx + 1}`;
+  const level = srLevel;
+  srChapterId = chId;
+  srLiveCards = _srCardsForLevel(ch, level);
+  srLiveDeck  = srLoadDeck(chId, level, srLiveCards);
+
+  const today    = srToday();
+  const hasData  = srLiveDeck.some(c => c.reviews.length > 0);
+  const conf     = getChapterConfidence(srLiveDeck);
+  const fresh    = getChapterFreshness(srLiveDeck, today);
+  const hasSaved = srLoadSession(chId, level) !== null;
+
+  // Check which levels have card data
+  const hasL2 = !!(ch.cardsL2 && ch.cardsL2.length > 0);
+  const hasL3 = !!(ch.cardsL3 && ch.cardsL3.length > 0);
+
+  const debugBtn = SR_DEBUG_MODE
+    ? `<div class="study-debug-icon" onclick="srOpenDebug()" title="Debug dashboard">⏱</div>`
+    : '';
+
+  const panel = document.getElementById('studyPanel');
+  panel.innerHTML = `
+    <div class="study-landing-header">${debugBtn}</div>
+
+    <p class="study-explainer">Spaced Repetition shows you each card at the moment you're most likely to forget it — not too soon, not too late. The more you know a card, the less often it appears. Cards you struggle with come back quickly.</p>
+    <p class="study-explainer">After each card, rate how well you recalled it:</p>
+    <p class="study-explainer"><strong>1</strong> — Drew a blank. Back soon.<br><strong>2</strong> — Got it, but it was hard.<br><strong>3</strong> — Recalled it correctly.<br><strong>4</strong> — Instant and confident.</p>
+    <p class="study-explainer">Around <strong>20 cards per day</strong> is the sweet spot for lasting retention. You can do more, but pacing yourself is what makes Spaced Repetition work.</p>
+
+    <div class="study-definition">
+      <div class="study-definition-term">Confidence</div>
+      <div class="study-definition-body">How well you know these cards, based on your rating streaks. Builds as you consistently rate Good or Perfect.</div>
+    </div>
+    <div class="study-definition" style="margin-bottom:1.5rem">
+      <div class="study-definition-term">Freshness</div>
+      <div class="study-definition-body">How recently you've reviewed. 100% right after a session; fades over days without study.</div>
+    </div>
+
+    <div class="study-metres">
+      ${_srLandingMetre('Confidence', conf, 40, 70, hasData)}
+      ${_srLandingMetre('Freshness',  fresh, 30, 60, hasData)}
+    </div>
+
+    <div class="study-level-selector">
+      <span class="study-level-lbl">Level</span>
+      <button class="study-level-btn${level==='L1'?' active':''}" onclick="srSetLevel('L1')">L1</button>
+      ${hasL2 ? `<button class="study-level-btn${level==='L2'?' active':''}" onclick="srSetLevel('L2')">L2</button>` : ''}
+      ${hasL3 ? `<button class="study-level-btn${level==='L3'?' active':''}" onclick="srSetLevel('L3')">L3</button>` : ''}
+    </div>
+
+    <div class="study-btn-row">
+      <button class="study-btn primary" onclick="srNewSession()">New Session</button>
+      ${hasSaved ? `<button class="study-btn" onclick="srContinueSession()">Continue</button>` : ''}
+    </div>
+  `;
+}
+
+function srSetLevel(level) {
+  srLevel = level;
+  _srRenderLanding();
+}
+
+// ── SESSION MANAGEMENT ────────────────────────────────────
+function srNewSession() {
+  const saved = srLoadSession(srChapterId, srLevel);
+  if (saved) {
+    if (!confirm('This will discard your current session. Start a new one?')) return;
+    srClearSession(srChapterId, srLevel);
+  }
+  const today   = srToday();
+  const ordered = getCardsForToday(srLiveDeck, today);
+  srQueue    = ordered.slice(0, SR_DAILY_LIMIT).map(c => c.id);
+  srQueueIdx = 0;
+  srRatings  = [0, 0, 0, 0, 0];
+  srPreConf  = Math.round(getChapterConfidence(srLiveDeck));
+  srPreFresh = Math.round(getChapterFreshness(srLiveDeck, today));
+  srSaveSession(srChapterId, srLevel, srQueue, srQueueIdx);
+  _srStartSession();
+}
+
+function srContinueSession() {
+  const saved = srLoadSession(srChapterId, srLevel);
+  if (!saved) { _srRenderLanding(); return; }
+  srQueue    = saved.queue;
+  srQueueIdx = saved.currentIdx;
+  srRatings  = [0, 0, 0, 0, 0];
+  const today = srToday();
+  srPreConf   = Math.round(getChapterConfidence(srLiveDeck));
+  srPreFresh  = Math.round(getChapterFreshness(srLiveDeck, today));
+  _srStartSession();
+}
+
+function _srStartSession() {
+  srInSession = true;
+  srHintUsed  = false;
+  // Show card viewport + session bars, hide study landing
+  document.getElementById('studyPanel').classList.remove('active');
+  document.getElementById('studyPanel').style.display = 'none';
+  document.getElementById('cardViewport').classList.add('active');
+  document.getElementById('srSessionBar').classList.add('active');
+  document.getElementById('srSessionBottom').classList.add('active');
+  _srShowCard();
+}
+
+function srBackToLanding() {
+  // Preserve session state
+  if (srQueue.length > 0 && srQueueIdx < srQueue.length) {
+    srSaveSession(srChapterId, srLevel, srQueue, srQueueIdx);
+  }
+  srInSession = false;
+  document.getElementById('srRatingTray').classList.remove('open');
+  document.getElementById('hintOverlay').classList.remove('open');
+  document.getElementById('srHintBtn').classList.remove('active');
+  document.getElementById('cardViewport').classList.remove('active');
+  document.getElementById('srSessionBar').classList.remove('active');
+  document.getElementById('srSessionBottom').classList.remove('active');
+  document.getElementById('studyPanel').style.display = '';
+  document.getElementById('studyPanel').classList.add('active');
+  // Reload deck to reflect any reviews done in this partial session
+  srLiveDeck = srLoadDeck(srChapterId, srLevel, srLiveCards);
+  _srRenderLanding();
+}
+
+// ── SESSION CARD DISPLAY ──────────────────────────────────
+function _srShowCard() {
+  if (srQueueIdx >= srQueue.length) {
+    _srSessionComplete();
+    return;
+  }
+
+  const cardId  = srQueue[srQueueIdx];
+  const rawCard = srLiveCards.find(c => c.id === cardId);
+  if (!rawCard) { srQueueIdx++; _srShowCard(); return; }
+
+  // Reset per-card state
+  srHintUsed = false;
+  document.getElementById('srCircle4').classList.remove('hint-locked');
+
+  // Update session info bar
+  document.getElementById('srSessionInfo').textContent =
+    `${srChapterId}  ·  Card ${srQueueIdx + 1} of ${srQueue.length}`;
+
+  // Populate card face (front = English)
+  const face = document.getElementById('cardFace');
+  face.classList.remove('is-back');
+  document.getElementById('hintOverlay').classList.remove('open');
+  document.getElementById('srHintBtn').classList.remove('active');
+
+  const tag = document.getElementById('cardTag');
+  tag.className   = 'card-tag en';
+  tag.textContent = 'ENGLISH';
+  document.getElementById('cardTarget').textContent  = rawCard.en;
+  document.getElementById('cardContext').textContent = '';
+  document.getElementById('cardAlt').style.display   = 'none';
+  document.getElementById('cardHintText').textContent = '';
+  document.getElementById('tapHint').style.display   = 'block';
+
+  // Pre-load hint content
+  const hintParts = rawCard.hint ? rawCard.hint.split('\n') : [];
+  const _clean = s => s.replace(/^\[?(?:verb|order|literal|key\s*word):\s*/i,'').replace(/\]$/,'').trim();
+  document.getElementById('hintVerb').textContent    = hintParts[0] ? _clean(hintParts[0]) : (rawCard.es || '—');
+  document.getElementById('hintLiteral').textContent = hintParts[1] ? _clean(hintParts[1]) : '—';
+
+  // Reset flip button label and close rating tray
+  document.getElementById('srFlipBtn').textContent = 'Flip';
+  document.getElementById('srRatingTray').classList.remove('open');
+}
+
+function srFlipCard() {
+  const cardId  = srQueue[srQueueIdx];
+  const rawCard = srLiveCards.find(c => c.id === cardId);
+  if (!rawCard) return;
+
+  // Flip to back
+  const face = document.getElementById('cardFace');
+  face.classList.add('is-back');
+  const tag = document.getElementById('cardTag');
+  tag.className   = 'card-tag es';
+  tag.textContent = 'ESPAÑOL';
+  document.getElementById('cardTarget').textContent  = rawCard.es;
+  document.getElementById('cardContext').textContent = '';
+  document.getElementById('tapHint').style.display   = 'none';
+
+  // Apply hint-lock to rating 4 if hint was used
+  if (srHintUsed) {
+    document.getElementById('srCircle4').classList.add('hint-locked');
+  } else {
+    document.getElementById('srCircle4').classList.remove('hint-locked');
+  }
+
+  // Slide up rating tray (250ms ease-out via CSS)
+  document.getElementById('srRatingTray').classList.add('open');
+}
+
+function srToggleHint() {
+  const overlay = document.getElementById('hintOverlay');
+  const btn     = document.getElementById('srHintBtn');
+  if (!overlay.classList.contains('open')) {
+    overlay.classList.add('open');
+    btn.classList.add('active');
+    srHintUsed = true;   // lock rating 4 for this card
+  } else {
+    overlay.classList.remove('open');
+    btn.classList.remove('active');
+  }
+}
+
+function srRate(rating) {
+  // Guard: hint-locked rating 4
+  if (srHintUsed && rating === 4) return;
+
+  const today   = srToday();
+  const cardId  = srQueue[srQueueIdx];
+  const card    = srLiveDeck.find(c => c.id === cardId);
+  if (!card) { srQueueIdx++; _srShowCard(); return; }
+
+  card.recordReview(today, rating);
+  srSaveDeck(srChapterId, srLevel, srLiveDeck);
+  srRatings[rating]++;
+  srQueueIdx++;
+  srSaveSession(srChapterId, srLevel, srQueue, srQueueIdx);
+
+  // Close tray + hint overlay, advance
+  document.getElementById('srRatingTray').classList.remove('open');
+  document.getElementById('hintOverlay').classList.remove('open');
+  document.getElementById('srHintBtn').classList.remove('active');
+
+  // Brief pause so tray animation clears before card changes
+  setTimeout(() => _srShowCard(), 60);
+}
+
+// ── SESSION COMPLETE ──────────────────────────────────────
+function _srSessionComplete() {
+  srInSession = false;
+  srClearSession(srChapterId, srLevel);
+
+  const today     = srToday();
+  const postConf  = Math.round(getChapterConfidence(srLiveDeck));
+  const postFresh = Math.round(getChapterFreshness(srLiveDeck, today));
+  const confDelta  = postConf  - srPreConf;
+  const freshDelta = postFresh - srPreFresh;
+  const total     = srRatings.slice(1).reduce((a, b) => a + b, 0);
+  const dueTomorrow = srLiveDeck.filter(c => c.dueDate <= today + 1 && c.dueDate > today).length;
+
+  // Hide session UI
+  document.getElementById('cardViewport').classList.remove('active');
+  document.getElementById('srSessionBar').classList.remove('active');
+  document.getElementById('srSessionBottom').classList.remove('active');
+  document.getElementById('srRatingTray').classList.remove('open');
+
+  function _delta(d) {
+    if (d > 0) return `<span class="sr-delta sr-delta-up">▲ +${d}%</span>`;
+    if (d < 0) return `<span class="sr-delta sr-delta-dn">▼ ${d}%</span>`;
+    return `<span class="sr-delta" style="color:var(--text-light)">—</span>`;
+  }
+
+  const panel = document.getElementById('studyPanel');
+  panel.style.display = '';
+  panel.classList.add('active');
+  panel.innerHTML = `
+    <div class="sr-complete">
+      <div class="sr-complete-title">Session Complete</div>
+      <div class="sr-complete-stat">Cards reviewed: <strong>${total}</strong></div>
+      <div class="sr-complete-stat" style="margin-top:0.6rem">
+        <strong>4</strong> — Perfect:   <strong>${srRatings[4]}</strong><br>
+        <strong>3</strong> — Good:      <strong>${srRatings[3]}</strong><br>
+        <strong>2</strong> — Difficult: <strong>${srRatings[2]}</strong><br>
+        <strong>1</strong> — Forgotten: <strong>${srRatings[1]}</strong>
+      </div>
+      <div class="sr-complete-stat" style="margin-top:1rem">
+        Chapter progress:<br>
+        Confidence: <strong>${postConf}%</strong> ${_delta(confDelta)}<br>
+        Freshness: <strong>${postFresh}%</strong> ${_delta(freshDelta)}
+      </div>
+      ${dueTomorrow > 0 ? `<p class="sr-complete-next">${dueTomorrow} new card${dueTomorrow !== 1 ? 's' : ''} ready next session</p>` : ''}
+      <div class="study-btn-row" style="margin-top:1.75rem">
+        <button class="study-btn primary" onclick="srDone()">Done</button>
+      </div>
+    </div>
+  `;
+}
+
+function srDone() {
+  srLiveDeck = srLoadDeck(srChapterId, srLevel, srLiveCards);
+  _srRenderLanding();
+}
+
+// ── DEBUG DASHBOARD ───────────────────────────────────────
+function srOpenDebug() {
+  const today   = srToday();
+  const panel   = document.getElementById('studyPanel');
+  const reviewed = srLiveDeck.filter(c => c.reviews.length > 0);
+
+  const buckets = [
+    { label: '80–100%', min: 80, max: 101, color: '#27AE60' },
+    { label: '60–80%',  min: 60, max: 80,  color: '#84cc16' },
+    { label: '40–60%',  min: 40, max: 60,  color: '#eab308' },
+    { label: '20–40%',  min: 20, max: 40,  color: '#f59e0b' },
+    { label: '0–20%',   min: 0,  max: 20,  color: '#E74C3C' },
+  ];
+  const counts  = buckets.map(b => srLiveDeck.filter(c => {
+    const v = c.getStorageStrength(); return v >= b.min && v < b.max;
+  }).length);
+  const maxCnt  = Math.max(...counts, 1);
+
+  const barRows = buckets.map((b, i) => `
+    <div class="debug-bar-row">
+      <span class="debug-bar-label">${b.label}</span>
+      <div class="debug-bar-track">
+        <div class="debug-bar-fill" style="width:${Math.round(counts[i]/maxCnt*100)}%;background:${b.color}"></div>
+      </div>
+      <span class="debug-bar-count">${counts[i]} card${counts[i]!==1?'s':''}</span>
+    </div>`).join('');
+
+  const tableRows = srLiveDeck.map(c => {
+    const dId   = c.id.replace(/_/g,'.').replace(/\.0+(\d+)$/,'.$1');
+    const since = c.reviews.length > 0 ? (today - c.lastReviewDay) + 'd' : '—';
+    const until = c.reviews.length > 0 ? (c.dueDate - today) + 'd' : '—';
+    const fresh = c.reviews.length > 0 ? Math.round(c.getFreshness(today)) + '%' : '—';
+    const last  = c.reviews.length > 0 ? c.reviews[c.reviews.length-1].rating : '—';
+    const avg   = c.reviews.length > 0
+      ? (c.reviews.reduce((s,r)=>s+r.rating,0)/c.reviews.length).toFixed(1) : '—';
+    return `<tr><td>${dId}</td><td>${since}</td><td>${until}</td><td>${fresh}</td><td>${last}</td><td>${avg}</td><td>${c.ef.toFixed(2)}</td><td>${c.getStorageStrength()}%</td></tr>`;
+  }).join('');
+
+  panel.innerHTML = `
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.1rem">
+      <span style="cursor:pointer;font-family:'Inconsolata',monospace;font-size:0.72rem;color:var(--accent)"
+            onclick="srLiveDeck=srLoadDeck(srChapterId,srLevel,srLiveCards);_srRenderLanding()">← back</span>
+      <span style="font-family:'Inconsolata',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-light)">${srChapterId} — debug</span>
+    </div>
+
+    <div class="debug-section-title">Confidence Distribution</div>
+    ${barRows}
+
+    <div class="debug-section-title" style="margin-top:1rem">Overview</div>
+    <div style="font-family:'Inconsolata',monospace;font-size:0.7rem;color:var(--text-mid);line-height:1.9">
+      Total cards: ${srLiveDeck.length} &nbsp;·&nbsp; Reviewed: ${reviewed.length}<br>
+      Global Confidence: ${Math.round(getChapterConfidence(srLiveDeck))}%<br>
+      Global Freshness: ${Math.round(getChapterFreshness(srLiveDeck, today))}%
+    </div>
+
+    <div class="debug-section-title" style="margin-top:1rem">Card Table</div>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+      <table class="debug-table">
+        <thead><tr>
+          <th>Card ID</th><th>Since</th><th>Until</th>
+          <th>Fresh</th><th>Last</th><th>Avg</th><th>EF</th><th>Conf</th>
+        </tr></thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+
+// ── SETTINGS ──────────────────────────────────────────────
+function openSettings() {
+  document.getElementById('splashScreen').classList.add('slide-left');
+  document.getElementById('settingsScreen').classList.remove('hidden');
+}
+function closeSettings() {
+  document.getElementById('settingsScreen').classList.add('hidden');
+  document.getElementById('splashScreen').classList.remove('slide-left');
+}
+function _settingsFeedback(msg, isError) {
+  const el = document.getElementById('settingsFeedback');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = isError ? 'var(--terracotta)' : 'var(--green)';
+  clearTimeout(_settingsFeedback._t);
+  _settingsFeedback._t = setTimeout(() => { el.textContent = ''; }, 3500);
+}
+function srExportData() {
+  const data = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && (key.startsWith('sr_chapter_') || key.startsWith('sr_session_'))) {
+      try { data[key] = JSON.parse(localStorage.getItem(key)); }
+      catch(e) { data[key] = localStorage.getItem(key); }
+    }
+  }
+  const count = Object.keys(data).length;
+  if (count === 0) { _settingsFeedback('No study data to export yet.', true); return; }
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `spanish_sr_${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  _settingsFeedback(`Exported ${count} data entries ✓`);
+}
+function srImportData() {
+  const input    = document.createElement('input');
+  input.type     = 'file';
+  input.accept   = '.json,application/json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        let count  = 0;
+        Object.entries(data).forEach(([key, value]) => {
+          if (key.startsWith('sr_chapter_') || key.startsWith('sr_session_')) {
+            localStorage.setItem(key, JSON.stringify(value));
+            count++;
+          }
+        });
+        if (count === 0) { _settingsFeedback('No valid SR keys found in file.', true); return; }
+        _settingsFeedback(`Imported ${count} entries ✓`);
+      } catch(err) {
+        _settingsFeedback('Import failed — not a valid backup file.', true);
+      }
+    };
+    reader.readAsText(file);
+  };
+  document.body.appendChild(input);
+  input.click();
+  document.body.removeChild(input);
+}
 
 // ── STATE ──
 let currentSubjectIdx = 0;
@@ -10495,7 +10895,6 @@ let savedCardIdx = 0;
 
 // ── SUBJECT CONFIG ──
 const subjectConfig = {
-  'Spaced Repetition': { icon:'○ ◔ ◕ ●', color:'#2A7F62', group:null },
   'Grammar':           { icon:'📖', color:'#C4622D', group:null        },
   'Vocabulary':        { icon:'💬', color:'#4A7C59', group:null        },
   'Buenos Aires':      { icon:'🇦🇷', color:'#74ACDF', group:'Dialects' },
@@ -10758,15 +11157,6 @@ function buildSplash() {
   const grid = document.getElementById('splashGrid');
   grid.innerHTML = '';
 
-  // Add SR card at the top
-  const srCard = document.createElement('div');
-  srCard.className = 'subject-card';
-  srCard.innerHTML = `<div class="subject-card-accent" style="background:#2A7F62"></div>
-    <div class="subject-card-icon">○ ◔ ◕ ●</div>
-    <div class="subject-card-name">Spaced Repetition</div>
-    <div class="subject-card-meta">Adaptive learning</div>`;
-  srCard.onclick = openSpacedRepetition;
-  grid.appendChild(srCard);
 
   const direct = sections.filter(s => !subjectConfig[s.label]?.group);
   const groups = {};
@@ -10830,17 +11220,32 @@ function openGroup(group) {
 // ── SUBJECT → LESSON LIST ──
 function openSubject(subjectIdx) {
   currentSubjectIdx = subjectIdx;
-  const s = sections[subjectIdx];
+  const s          = sections[subjectIdx];
+  const isGrammar  = s.prefix === 'G';
   document.getElementById('lessonScreenTitle').textContent = s.label;
   document.getElementById('lessonBack').onclick = goHome;
   const list = document.getElementById('lessonList');
   list.innerHTML = '';
   s.chapters.forEach((ch, ci) => {
-    const div = document.createElement('div');
+    const chId = `${s.prefix}${ci + 1}`;
+    const div  = document.createElement('div');
     div.className = 'lesson-item';
+
+    // SR metres for Grammar chapters
+    let srBadges = '';
+    if (isGrammar) {
+      const metres = srGetMetres(chId, srLevel || 'L1', ch.cards);
+      const badge  = `<span class="sr-level-badge">${srLevel || 'L1'}</span>`;
+      if (metres) {
+        srBadges = `<span class="lesson-sr-badges">${badge}${_srChargebar(metres.confidence,40,70)}${_srChargebar(metres.freshness,30,60)}</span>`;
+      } else {
+        srBadges = `<span class="lesson-sr-badges">${badge}<span class="sr-metre-dash">—</span></span>`;
+      }
+    }
+
     div.innerHTML = `<span class="lesson-num">${s.prefix}${ci+1}</span>
       <span class="lesson-name">${ch.title}</span>
-      <span class="lesson-count">${ch.cards.length}</span>
+      ${srBadges}
       <span class="lesson-arrow">›</span>`;
     div.onclick = () => openLesson(subjectIdx, ci);
     list.appendChild(div);
@@ -10853,10 +11258,42 @@ function openLesson(subjectIdx, lessonIdx) {
   currentSubjectIdx = subjectIdx;
   currentLessonIdx  = lessonIdx;
   savedCardIdx = 0;
-  const ch = sections[subjectIdx].chapters[lessonIdx];
-  document.getElementById('lessonTitleHeading').textContent = ch.title;
+  const ch       = sections[subjectIdx].chapters[lessonIdx];
+  const prefix   = sections[subjectIdx].prefix;
+  const hasStudy = prefix === 'G';
+  const chapterLabel = prefix === 'G'
+    ? `${prefix}${lessonIdx + 1} — ${ch.title}`
+    : ch.title;
+  document.getElementById('lessonTitleHeading').textContent = chapterLabel;
   const hasInfo = ch.info !== null;
   document.getElementById('tabInfo').style.display = hasInfo ? '' : 'none';
+
+  // Add or remove Study tab
+  let tabStudy = document.getElementById('tabStudy');
+  if (hasStudy) {
+    if (!tabStudy) {
+      tabStudy = document.createElement('button');
+      tabStudy.className = 'chapter-tab';
+      tabStudy.id        = 'tabStudy';
+      tabStudy.textContent = 'Study';
+      tabStudy.onclick = () => showTab('study');
+      document.getElementById('chapterTabs').appendChild(tabStudy);
+    }
+    tabStudy.style.display = '';
+  } else {
+    if (tabStudy) tabStudy.style.display = 'none';
+  }
+
+  // Reset any lingering session UI
+  if (srInSession) {
+    srInSession = false;
+    document.getElementById('srRatingTray').classList.remove('open');
+    document.getElementById('srSessionBar').classList.remove('active');
+    document.getElementById('srSessionBottom').classList.remove('active');
+  }
+  document.getElementById('studyPanel').classList.remove('active');
+  document.getElementById('studyPanel').style.display = 'none';
+
   buildInfoPanel(ch);
   buildDeck();
   showTab(hasInfo ? 'info' : 'cards');
@@ -10908,19 +11345,50 @@ function updateConceptNav(total) {
 // ── TABS ──
 function showTab(tab) {
   const isInfo  = tab === 'info';
+  const isCards = tab === 'cards';
+  const isStudy = tab === 'study';
+
+  // If navigating away from an active session, preserve it
+  if (srInSession && !isStudy) {
+    if (srQueue.length > 0 && srQueueIdx < srQueue.length) {
+      srSaveSession(srChapterId, srLevel, srQueue, srQueueIdx);
+    }
+    srInSession = false;
+    document.getElementById('srRatingTray').classList.remove('open');
+    document.getElementById('hintOverlay').classList.remove('open');
+    document.getElementById('srSessionBar').classList.remove('active');
+    document.getElementById('srSessionBottom').classList.remove('active');
+  }
+
+  // Panel visibility
   document.getElementById('infoPanel').classList.toggle('active', isInfo);
-  document.getElementById('cardViewport').classList.toggle('active', !isInfo);
-  document.getElementById('progressArea').style.display = isInfo ? 'none' : '';
-  document.getElementById('bottomBar').style.display    = isInfo ? 'none' : '';
+  document.getElementById('cardViewport').classList.toggle('active', isCards);
+  document.getElementById('studyPanel').classList.toggle('active', isStudy);
+  document.getElementById('studyPanel').style.display = isStudy ? '' : 'none';
+
+  // Chrome visibility
+  document.getElementById('progressArea').style.display = isCards ? '' : 'none';
+  document.getElementById('bottomBar').style.display    = isCards ? '' : 'none';
+  if (!isStudy) {
+    document.getElementById('srSessionBar').classList.remove('active');
+    document.getElementById('srSessionBottom').classList.remove('active');
+  }
+
+  // Tab button active states
   document.getElementById('tabInfo').classList.toggle('active',  isInfo);
-  document.getElementById('tabCards').classList.toggle('active', !isInfo);
+  document.getElementById('tabCards').classList.toggle('active', isCards);
+  const tabStudy = document.getElementById('tabStudy');
+  if (tabStudy) tabStudy.classList.toggle('active', isStudy);
+
   if (isInfo) {
     savedCardIdx = cardIdx;
-  } else {
+  } else if (isCards) {
     cardIdx = savedCardIdx;
     revealed = false;
     closeHint();
     showCard();
+  } else if (isStudy) {
+    openStudyTab();
   }
 }
 
