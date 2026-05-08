@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Learning Spanish — v11.5</title>
+<title>Learning Spanish — v12.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
@@ -376,7 +376,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 <div class="screen" id="splashScreen">
   <div class="splash-header" style="position:relative">
     <div class="splash-logo">Learning Spanish</div>
-    <div class="splash-sub">Buenos Aires · v11.5</div>
+    <div class="splash-sub">Buenos Aires · v12.0</div>
     <button class="splash-settings-btn" onclick="openSettings()" title="Settings">⚙️</button>
   </div>
   <div class="splash-grid" id="splashGrid"></div>
@@ -525,7 +525,34 @@ const sections = [
 
   {
     title: "Nouns, Articles & Adjectives",
-    info: { title: "Nouns, Articles & Adjectives", body: `<p>Simple SVO sentences: article + noun + ser/tener + adjective. Gender and number agreement drill.</p>` },
+    info: { title: "Nouns, Articles & Adjectives", body: `<h3>The Basics</h3>
+<p>Every noun is masculine or feminine. The article must match.</p>
+<table class="conj-table"><tr><td>Masculine</td><td>el / un</td></tr><tr><td>Feminine</td><td>la / una</td></tr><tr><td>Masc. plural</td><td>los / unos</td></tr><tr><td>Fem. plural</td><td>las / unas</td></tr></table>
+<h3>Adjectives</h3>
+<p>Adjectives agree with the noun in gender and number. Most come <em>after</em> the noun.</p>
+<p>un libro <strong>nuevo</strong> — una casa <strong>nueva</strong> — los libros <strong>nuevos</strong></p>
+<h3>Watch out</h3>
+<p>Some nouns look feminine but are masculine: <strong>el agua, el mapa, el día</strong>.</p>` },
+    conceptCards: [
+      {
+        es: "El libro nuevo está en la mesa.",
+        literal: "The(masc) book new(masc) / is / on / the table.",
+        en: "The new book is on the table.",
+        note: "Every Spanish noun is masculine or feminine, and both the article and any adjective must match. Masculine nouns take el/un and adjectives end in -o. Feminine nouns take la/una and adjectives end in -a."
+      },
+      {
+        es: "Tengo tres libros nuevos y dos casas viejas.",
+        literal: "I-have / three / books(masc-pl) new(masc-pl) / and / two / houses(fem-pl) old(fem-pl).",
+        en: "I have three new books and two old houses.",
+        note: "Adjectives must agree in both gender AND number. Add -s for plural. So nuevo becomes nuevos (masc pl) and nueva becomes viejas (fem pl). Both the noun and adjective change."
+      },
+      {
+        es: "El agua fría está en la heladera.",
+        literal: "The(masc) water(fem) cold(fem) / is / in / the fridge.",
+        en: "The cold water is in the fridge.",
+        note: "El agua is feminine — use la in most contexts, but el before feminine nouns starting with stressed 'a' sound (agua, hacha, alma). The adjective still agrees as feminine: agua fría, not frío."
+      },
+    ],
     cards:   [
   {
     id: "G01_L1_001",
@@ -784,7 +811,49 @@ const sections = [
 
   {
     title: "Estar, Ser & Subject Pronouns",
-    info: { title: "Estar, Ser & Subject Pronouns", body: `<p>Single-clause ser or estar sentences. Introduces all subject pronouns and the ser/estar distinction.</p>` },
+    info: { title: "Estar, Ser & Subject Pronouns", body: `<h3>Subject Pronouns</h3>
+<table class="conj-table">
+<tr><td>yo</td><td>I</td></tr>
+<tr><td>vos / tú</td><td>you (informal) — <span class="rio">vos</span> is Rioplatense</td></tr>
+<tr><td>él / ella</td><td>he / she</td></tr>
+<tr><td>nosotros/as</td><td>we</td></tr>
+<tr><td>ellos / ellas</td><td>they</td></tr>
+<tr><td>usted (Ud.)</td><td>you (formal)</td></tr>
+</table>
+<h3>Ser — permanent</h3>
+<p>Identity, origin, profession, time, relationships.</p>
+<table class="conj-table">
+<tr><td>soy / sos / es</td><td>I am / you are / he is</td></tr>
+<tr><td>somos / son</td><td>we are / they are</td></tr>
+</table>
+<h3>Estar — temporary</h3>
+<p>Location, condition, emotion, state.</p>
+<table class="conj-table">
+<tr><td>estoy / estás / está</td><td>I am / you are / he is</td></tr>
+<tr><td>estamos / están</td><td>we are / they are</td></tr>
+</table>
+<h3>Vos in Buenos Aires</h3>
+<p><span class="rio">Vos hablás, vos comés, vos vivís</span> — drop the i from the infinitive, stress the last syllable.</p>` },
+    conceptCards: [
+      {
+        es: "Soy arquitecto. Soy de Buenos Aires.",
+        literal: "I-am / architect. / I-am / from / Buenos Aires.",
+        en: "I am an architect. I am from Buenos Aires.",
+        note: "Ser is used for identity — who you are, what you do, where you're from, what something is made of, and time. These are defining, not situational. Note: in Spanish, no article before professions (soy arquitecto, not soy un arquitecto)."
+      },
+      {
+        es: "El café está en la esquina. Está cerrado.",
+        literal: "The café / is / on / the corner. / It-is / closed.",
+        en: "The café is on the corner. It's closed.",
+        note: "Estar is used for location and current condition or state. Closed is a temporary state (it could open later), so it uses estar. Compare: el café es bueno (it's a good café — quality, permanent) vs el café está frío (the coffee is cold — current condition)."
+      },
+      {
+        es: "Él es aburrido. Hoy está aburrido.",
+        literal: "He / is / boring. / Today / he-is / bored.",
+        en: "He is boring. Today he is bored.",
+        note: "The same adjective can mean different things with ser vs estar. Es aburrido = he's a boring person (character). Está aburrido = he's bored right now (state). This pattern applies to many adjectives: es listo (he's clever) vs está listo (he's ready)."
+      },
+    ],
     cards:   [
   {
     id: "G02_L1_001",
@@ -1060,7 +1129,38 @@ const sections = [
 
   {
     title: "Possessives",
-    info: { title: "Possessives", body: `<p>Simple possessive adjectives (mi/tu/su/nuestro) then pronouns (mío/tuyo/etc.) then "de" clarification</p>` },
+    info: { title: "Possessives", body: `<h3>Possessive Adjectives</h3>
+<p>Come before the noun and agree in number (and sometimes gender).</p>
+<table class="conj-table">
+<tr><td>mi / mis</td><td>my</td></tr>
+<tr><td>tu / tus</td><td>your (informal)</td></tr>
+<tr><td>su / sus</td><td>his / her / your (formal) / their</td></tr>
+<tr><td>nuestro/a/os/as</td><td>our</td></tr>
+</table>
+<h3>Possessive Pronouns</h3>
+<p>Replace the noun entirely: <strong>el mío, la mía, los míos, las mías</strong> (mine).</p>
+<h3>With vos (BA)</h3>
+<p>In Buenos Aires, <span class="rio">vos</span> uses <strong>tu/tus</strong> for possessives — same as tú.</p>` },
+    conceptCards: [
+      {
+        es: "Mi libro está en mi bolsa.",
+        literal: "My book / is / in / my bag.",
+        en: "My book is in my bag.",
+        note: "Mi, tu, su, and sus do NOT change for gender — they only change for number (mi/mis, tu/tus, su/sus). So 'mi' works before both mi libro (masc) and mi casa (fem). Only nuestro/a agrees with the gender of the noun."
+      },
+      {
+        es: "Nuestra casa es grande. Nuestro coche es rojo.",
+        literal: "Our(fem) house / is / big. / Our(masc) car / is / red.",
+        en: "Our house is big. Our car is red.",
+        note: "Nuestro/a is the only possessive adjective that agrees in gender. It must match the noun it describes, not the owner. Casa is feminine → nuestra casa. Coche is masculine → nuestro coche."
+      },
+      {
+        es: "Su perro es enorme — ¿de quién es?",
+        literal: "His/Her/Their/Your dog / is / enormous — / of / whom / is-it?",
+        en: "His/her/their dog is enormous — whose is it?",
+        note: "Su (and sus) is ambiguous — it covers his, her, their, and your (formal). In speech, context usually makes it clear. To remove ambiguity you can add: el perro de él / de ella / de ellos / de usted."
+      },
+    ],
     cards:   [
   {
     id: "G03_L1_001",
@@ -1324,7 +1424,42 @@ const sections = [
 
   {
     title: "Hay & Interrogatives",
-    info: { title: "Hay & Interrogatives", body: `<p>Simple hay statements and single question-word questions; hay vs está contrast introduced in cards 16–20</p>` },
+    info: { title: "Hay & Interrogatives", body: `<h3>Hay</h3>
+<p><strong>Hay</strong> = there is / there are. It never changes for singular or plural.</p>
+<p>¿Hay leche? — Is there milk? | Hay muchas personas. — There are many people.</p>
+<h3>Key Question Words</h3>
+<table class="conj-table">
+<tr><td>¿qué?</td><td>what?</td></tr>
+<tr><td>¿quién?</td><td>who?</td></tr>
+<tr><td>¿dónde?</td><td>where?</td></tr>
+<tr><td>¿cuándo?</td><td>when?</td></tr>
+<tr><td>¿cómo?</td><td>how?</td></tr>
+<tr><td>¿por qué?</td><td>why?</td></tr>
+<tr><td>¿cuánto/a?</td><td>how much?</td></tr>
+<tr><td>¿cuántos/as?</td><td>how many?</td></tr>
+</table>
+<h3>Days & Months</h3>
+<p>All lowercase in Spanish. Days: lunes to domingo. Months: enero to diciembre.</p>` },
+    conceptCards: [
+      {
+        es: "Hay muchas personas en la plaza.",
+        literal: "There-is/are / many / people / in / the square.",
+        en: "There are many people in the square.",
+        note: "Hay means both 'there is' and 'there are' — it never changes. One word covers all: ¿Hay leche? (Is there milk?), Hay tres mensajes (there are three messages). Contrast with está/están, which you use for specific located things: El mercado está en la plaza."
+      },
+      {
+        es: "¿Qué es esto? — ¿Cuál es tu número?",
+        literal: "What / is / this? — / Which / is / your / number?",
+        en: "What is this? — What is your number?",
+        note: "¿Qué? asks for a definition or explanation. ¿Cuál? asks you to identify or select from a set — it often translates as 'what' in English but implies a choice. ¿Cuál es tu dirección? (What is your address?) is really asking you to identify the one that's yours."
+      },
+      {
+        es: "¿A qué hora llegás? Llego a las nueve.",
+        literal: "At / what / time / you-arrive? / I-arrive / at / the / nine.",
+        en: "What time do you arrive? I arrive at nine.",
+        note: "Spanish question words carry a written accent (¿qué?, ¿cuándo?, ¿dónde?, ¿cómo?, ¿quién?). Unlike English, you don't rearrange the sentence much — ¿Cuándo llegás? keeps the same verb form as the statement Llegás a las nueve."
+      },
+    ],
     cards:   [
 
   // ── CARDS 1–5: Simple hay statements ────────────────────────────────────────
@@ -1627,7 +1762,63 @@ const sections = [
 
   {
     title: "Negation",
-    info: { title: "Negation", body: `<p>Simple no + verb; double negatives no...nada and no...nunca; expanding to nadie, ningún, tampoco, para nada, and ni...ni</p>` },
+    info: { title: "Negation", body: `<h3>Negatives in Spanish</h3>
+<p>Spanish uses <strong>double negatives</strong> where English uses single negatives. Put <strong>no</strong> before the verb, and the negative word (nunca, nada, nadie, etc.) comes after.</p>
+
+<h3>Main Negative Words</h3>
+<table class="conj-table">
+<tr><td><strong>no</strong></td><td>not / no (before the verb)</td></tr>
+<tr><td><strong>nunca / jamás</strong></td><td>never</td></tr>
+<tr><td><strong>nada</strong></td><td>nothing / anything</td></tr>
+<tr><td><strong>nadie</strong></td><td>nobody / anyone</td></tr>
+<tr><td><strong>tampoco</strong></td><td>not either / neither</td></tr>
+<tr><td><strong>ningún / ninguna</strong></td><td>no / none</td></tr>
+<tr><td><strong>ni... ni...</strong></td><td>neither... nor...</td></tr>
+</table>
+
+<h3>Key Patterns</h3>
+<p><strong>Basic negation:</strong> No + verb + (negative word). "No tengo dinero" (I don't have money).</p>
+<p><strong>Negative word before verb:</strong> If the negative word comes before the verb, drop the "no." "Nunca viajo en invierno" (I never travel in winter).</p>
+<p><strong>Double negatives are correct:</strong> "No veo nada" (I see nothing). This is proper Spanish, not an error.</p>
+<p><strong>Ninguno agreement:</strong> Ningún (m. singular), ninguna (f.), ningunos (m. pl.), ningunas (f. pl.).</p>` },
+    conceptCards: [
+      {
+        es: "No tengo hambre.",
+        literal: "No / I-have / hunger.",
+        en: "I am not hungry.",
+        note: "In Spanish, 'no' always comes directly before the verb. Never at the end."
+      },
+      {
+        es: "No veo nada.",
+        literal: "No / I-see / nothing.",
+        en: "I don't see anything.",
+        note: "Spanish uses double negatives — 'no' before the verb AND 'nada' after. Both are required. This is correct grammar, not an error."
+      },
+      {
+        es: "Nunca como carne.",
+        literal: "Never / I-eat / meat.",
+        en: "I never eat meat.",
+        note: "When a negative word (nunca, nada, nadie) comes BEFORE the verb, you drop the 'no'. When it comes after, you need both: 'No como carne nunca.'"
+      },
+      {
+        es: "No hay nadie en casa.",
+        literal: "No / there-is / nobody / in house.",
+        en: "There is nobody at home.",
+        note: "Nadie (nobody), nada (nothing), nunca (never), ningún (no/none) — all work the same way. Spanish stacks negatives where English avoids them."
+      },
+      {
+        es: "Está encima de la mesa.",
+        literal: "It-is / on-top-of / the table.",
+        en: "It is on top of the table.",
+        note: "Many Spanish prepositions are compound: encima de, debajo de, delante de, detrás de. The 'de' is required — don't drop it."
+      },
+      {
+        es: "Voy a llegar antes de las ocho.",
+        literal: "I-go / to arrive / before / of the eight.",
+        en: "I am going to arrive before eight.",
+        note: "Time prepositions: antes de (before), después de (after), hasta (until), desde (since/from). Note 'de' after antes/después."
+      },
+    ],
     cards:   [
   {
     id: "G05_L1_001",
@@ -1889,7 +2080,50 @@ const sections = [
 
   {
     title: "Regular Verbs",
-    info: { title: "Regular Verbs", body: `<p>Simple SVO sentences cycling all persons through core regular verbs; introduces 8 new regular verbs in cards 11–30</p>` },
+    info: { title: "Regular Verbs", body: `<h3>-AR verbs (hablar)</h3>
+<table class="conj-table">
+<tr><td>yo</td><td>hablo</td></tr>
+<tr><td><span class="rio">vos</span></td><td><span class="rio">hablás</span></td></tr>
+<tr><td>él/ella</td><td>habla</td></tr>
+<tr><td>nosotros</td><td>hablamos</td></tr>
+<tr><td>ellos</td><td>hablan</td></tr>
+</table>
+<h3>-ER verbs (comer)</h3>
+<table class="conj-table">
+<tr><td>yo</td><td>como</td></tr>
+<tr><td><span class="rio">vos</span></td><td><span class="rio">comés</span></td></tr>
+<tr><td>él/ella</td><td>come</td></tr>
+<tr><td>nosotros</td><td>comemos</td></tr>
+<tr><td>ellos</td><td>comen</td></tr>
+</table>
+<h3>-IR verbs (vivir)</h3>
+<table class="conj-table">
+<tr><td>yo</td><td>vivo</td></tr>
+<tr><td><span class="rio">vos</span></td><td><span class="rio">vivís</span></td></tr>
+<tr><td>él/ella</td><td>vive</td></tr>
+<tr><td>nosotros</td><td>vivimos</td></tr>
+<tr><td>ellos</td><td>viven</td></tr>
+</table>` },
+    conceptCards: [
+      {
+        es: "Hablo español. ¿Hablás inglés?",
+        literal: "I-speak / Spanish. / You-speak / English?",
+        en: "I speak Spanish. Do you speak English?",
+        note: "-AR verbs: drop -ar, then add -o (yo), -ás (vos), -a (él/ella), -amos (nosotros), -an (ellos). The ending tells you who is acting, so subject pronouns are usually dropped — 'Hablo' means 'I speak' without needing 'yo'."
+      },
+      {
+        es: "Como en casa. Ella vive cerca del parque.",
+        literal: "I-eat / at home. / She / lives / near / of-the / park.",
+        en: "I eat at home. She lives near the park.",
+        note: "-ER verbs (like comer): drop -er, add -o, -és, -e, -emos, -en. -IR verbs (like vivir): drop -ir, add -o, -ís, -e, -imos, -en. The yo form (-o) is the same for all three types. This is the most regular part of the whole system."
+      },
+      {
+        es: "Trabajamos juntos. Ellos trabajan hasta tarde.",
+        literal: "We-work / together. / They / work / until / late.",
+        en: "We work together. They work late.",
+        note: "The nosotros and ellos endings are key: -amos/-emos/-imos for we, -an/-en for they. Note that nosotros never has an accent mark on regular verbs (trabajamos, comemos, vivimos), but the vos forms do (trabajás, comés, vivís)."
+      },
+    ],
     cards:   [
   {
     id: "G06_L1_001",
@@ -2155,7 +2389,41 @@ const sections = [
 
   {
     title: "Irregular Verbs",
-    info: { title: "Irregular Verbs", body: `<p>Yo-go irregulars in cards 1–10 (all persons); stem-changing verbs in cards 11–20 (vos advantage highlighted); combined irregulars + new vocabulary in cards 21–30</p>` },
+    info: { title: "Irregular Verbs", body: `<h3>Key Irregulars</h3>
+<p>These don't follow the standard pattern — memorise them.</p>
+<table class="conj-table">
+<tr><td>tener</td><td>tengo, <span class="rio">tenés</span>, tiene, tenemos, tienen</td></tr>
+<tr><td>hacer</td><td>hago, <span class="rio">hacés</span>, hace, hacemos, hacen</td></tr>
+<tr><td>poner</td><td>pongo, <span class="rio">ponés</span>, pone, ponemos, ponen</td></tr>
+<tr><td>salir</td><td>salgo, <span class="rio">salís</span>, sale, salimos, salen</td></tr>
+<tr><td>venir</td><td>vengo, <span class="rio">venís</span>, viene, venimos, vienen</td></tr>
+<tr><td>decir</td><td>digo, <span class="rio">decís</span>, dice, decimos, dicen</td></tr>
+<tr><td>traer</td><td>traigo, <span class="rio">traés</span>, trae, traemos, traen</td></tr>
+</table>
+<h3>Stem-changers (e→ie, o→ue)</h3>
+<p>poder → puedo, <span class="rio">podés</span>, puede, podemos, pueden</p>
+<p>querer → quiero, <span class="rio">querés</span>, quiere, queremos, quieren</p>
+<p>saber → sé, <span class="rio">sabés</span>, sabe, sabemos, saben</p>` },
+    conceptCards: [
+      {
+        es: "Tengo mucho trabajo. Hago lo que puedo.",
+        literal: "I-have / much / work. / I-do / that / I-can.",
+        en: "I have a lot of work. I do what I can.",
+        note: "Many common verbs are irregular only in the yo form: tengo (tener), hago (hacer), pongo (poner), salgo (salir), digo (decir), vengo (venir). All other forms follow a regular pattern. Memorise the yo form — everything else clicks into place."
+      },
+      {
+        es: "¿Sabés cocinar? ¿Conocés a su familia?",
+        literal: "You-know / to-cook? / You-know / to / his / family?",
+        en: "Do you know how to cook? Do you know his family?",
+        note: "Saber = to know a fact, or know how to do something. Conocer = to know a person, place, or thing through experience. Both are irregular in yo only: sé, conozco. After conocer, use the personal 'a' before a person."
+      },
+      {
+        es: "Quiero comer algo. Puedo ayudarte.",
+        literal: "I-want / to-eat / something. / I-can / to-help-you.",
+        en: "I want to eat something. I can help you.",
+        note: "Stem-changing verbs (poder, querer, venir, tener) change the vowel in their stem for all forms except nosotros. Querer: quiero, querés, quiere, queremos, quieren. The stem change doesn't appear in the infinitive — you have to learn these separately."
+      },
+    ],
     cards:   [
   {
     id: "G07_L1_001",
@@ -11582,6 +11850,375 @@ const sections = [
     ]
   }
   ]
+},
+{
+  label: "Expressions",
+  prefix: "EX",
+  chapters: [
+
+  // ── Prepositional (45 cards) ──
+  {
+    title: "Prepositional",
+    info: { body: `<p>Prepositional expressions are multi-word clusters built around a preposition. Spanish prepositions often combine with articles, verbs, and nouns to create fixed phrases that don't map to English equivalents. Learning these as chunks — rather than word by word — is how native speakers reach for them.</p>` },
+    cards: [
+      { id: "EX_PREP_003", en: "instead of", es: "en vez de", enCtx: "Instead of a taxi, I took the metro.", esCtx: "En vez de taxi, tomé el subte." },
+      { id: "EX_PREP_004", en: "from (a point in time) onwards", es: "a partir de", enCtx: "From Monday onwards, everything changes.", esCtx: "A partir del lunes, todo cambia." },
+      { id: "EX_PREP_006", en: "on behalf of / from (someone)", es: "de parte de", enCtx: "I'm sending you greetings from my mum.", esCtx: "Te mando saludos de parte de mi mamá." },
+      { id: "EX_PREP_008", en: "because of (implies blame)", es: "por culpa de", enCtx: "We arrived late because of the traffic.", esCtx: "Llegamos tarde por culpa del tráfico.", hint: "Carries a sense of blame or fault, unlike 'debido a' which is neutral." },
+      { id: "EX_PREP_012", en: "across from / facing", es: "frente a", enCtx: "The café is right across from the station.", esCtx: "El café está justo frente a la estación." },
+      { id: "EX_PREP_017", en: "in the middle of / amid", es: "en medio de", enCtx: "The power went out in the middle of dinner.", esCtx: "Nos quedamos sin luz en medio de la cena." },
+      { id: "EX_PREP_021", en: "in addition to / as well as", es: "además de", enCtx: "In addition to singing, she plays the guitar.", esCtx: "Además de cantar, toca la guitarra." },
+      { id: "EX_PREP_022", en: "through / via / across", es: "a través de", enCtx: "I met him through a friend.", esCtx: "Lo conocí a través de una amiga." },
+      { id: "EX_PREP_024", en: "within / inside / in (time)", es: "dentro de", enCtx: "I'll be back within an hour.", esCtx: "Vuelvo dentro de una hora.", hint: "Dentro de + time = within a time period (future). Dentro de la casa = inside the house (space)." },
+      { id: "EX_PREP_030", en: "instead of (formal)", es: "en lugar de", enCtx: "Instead of complaining, find a solution.", esCtx: "En lugar de quejarte, buscá una solución.", hint: "Interchangeable with 'en vez de'. Slightly more formal in written contexts." },
+      { id: "EX_PREP_007", en: "in charge of", es: "a cargo de", enCtx: "The project is in charge of Martina.", esCtx: "El proyecto está a cargo de Martina." },
+      { id: "EX_PREP_009", en: "around / approximately", es: "alrededor de", enCtx: "We arrived at around eight.", esCtx: "Llegamos alrededor de las ocho." },
+      { id: "EX_PREP_013", en: "unlike / as opposed to", es: "a diferencia de", enCtx: "Unlike her brother, she is very punctual.", esCtx: "A diferencia de su hermano, ella es muy puntual." },
+      { id: "EX_PREP_015", en: "with regard to / regarding", es: "con respecto a", enCtx: "With regard to your question, I don't have an answer yet.", esCtx: "Con respecto a tu pregunta, no tengo respuesta todavía." },
+      { id: "EX_PREP_016", en: "along / throughout (time or space)", es: "a lo largo de", enCtx: "Throughout the years, everything gradually changed.", esCtx: "A lo largo de los años, todo fue cambiando." },
+      { id: "EX_PREP_018", en: "about / regarding (a topic)", es: "acerca de", enCtx: "Do you know anything about that book?", esCtx: "¿Sabés algo acerca de ese libro?" },
+      { id: "EX_PREP_019", en: "in exchange for", es: "a cambio de", enCtx: "I'll help you, but in exchange for something.", esCtx: "Te ayudo, pero a cambio de algo." },
+      { id: "EX_PREP_023", en: "above / beyond / over", es: "por encima de", enCtx: "The plane passed above the clouds.", esCtx: "El avión pasó por encima de las nubes." },
+      { id: "EX_PREP_025", en: "in favour of / for", es: "a favor de", enCtx: "I am completely in favour of the proposal.", esCtx: "Estoy completamente a favor de la propuesta." },
+      { id: "EX_PREP_026", en: "against", es: "en contra de", enCtx: "He voted against the new law.", esCtx: "Él votó en contra de la nueva ley." },
+      { id: "EX_PREP_027", en: "with the exception of / except for", es: "a excepción de", enCtx: "With the exception of her, everyone arrived late.", esCtx: "A excepción de ella, todos llegaron tarde." },
+      { id: "EX_PREP_028", en: "next to / alongside / together with", es: "junto a", enCtx: "I worked alongside her for three years.", esCtx: "Trabajé junto a ella durante tres años." },
+      { id: "EX_PREP_034", en: "by means of / through / via", es: "por medio de", enCtx: "They communicated through an interpreter.", esCtx: "Se comunicaron por medio de un intérprete." },
+      { id: "EX_PREP_035", en: "on the part of / from / by", es: "por parte de", enCtx: "There was a great effort on the part of the team.", esCtx: "Hubo un gran esfuerzo por parte del equipo." },
+      { id: "EX_PREP_036", en: "heading towards / bound for", es: "rumbo a", enCtx: "The boat left heading towards Montevideo.", esCtx: "El barco salió rumbo a Montevideo." },
+      { id: "EX_PREP_037", en: "together with / along with", es: "junto con", enCtx: "They came along with their friends.", esCtx: "Vinieron junto con sus amigos." },
+      { id: "EX_PREP_040", en: "in relation to / with regard to", es: "en relación con", enCtx: "This has nothing to do with what we discussed.", esCtx: "Esto no tiene nada que ver en relación con lo que hablamos." },
+      { id: "EX_PREP_042", en: "below / under / beneath (figurative or literal)", es: "por debajo de", enCtx: "The result was below what was expected.", esCtx: "El resultado estuvo por debajo de lo esperado." },
+      { id: "EX_PREP_043", en: "on behalf of / in the name of", es: "en nombre de", enCtx: "I speak on behalf of the whole team.", esCtx: "Hablo en nombre de todo el equipo." },
+      { id: "EX_PREP_001", en: "throughout / all over", es: "por todo", enCtx: "There are small villages throughout the country.", esCtx: "Hay pueblos pequeños por todo el país.", hint: "Literally 'for/by all'. English speakers reach for 'throughout' but Spanish uses this prepositional phrase." },
+      { id: "EX_PREP_002", en: "despite / in spite of", es: "a pesar de", enCtx: "Despite the cold, we went out for a walk.", esCtx: "A pesar del frío, salimos a caminar." },
+      { id: "EX_PREP_005", en: "regarding / as for", es: "en cuanto a", enCtx: "As for the price, I still don't know.", esCtx: "En cuanto al precio, todavía no lo sé." },
+      { id: "EX_PREP_010", en: "based on / living off", es: "a base de", enCtx: "He lived off mate and croissants.", esCtx: "Vivía a base de mate y medialunas." },
+      { id: "EX_PREP_011", en: "on the house / at the company's expense", es: "por cuenta de", enCtx: "Lunch is on the company.", esCtx: "El almuerzo corre por cuenta de la empresa." },
+      { id: "EX_PREP_014", en: "around / surrounding / on the subject of", es: "en torno a", enCtx: "There was a lot of debate surrounding that decision.", esCtx: "Hubo mucho debate en torno a esa decisión." },
+      { id: "EX_PREP_020", en: "as a result of / following", es: "a raíz de", enCtx: "Following the accident, the rules were changed.", esCtx: "A raíz del accidente, cambiaron las reglas." },
+      { id: "EX_PREP_031", en: "at the cost of", es: "a costa de", enCtx: "She managed it, but at the cost of her health.", esCtx: "Lo logró, pero a costa de su salud." },
+      { id: "EX_PREP_032", en: "facing / with a view to / ahead of", es: "de cara a", enCtx: "We need to prepare ourselves for the future.", esCtx: "Hay que prepararse de cara al futuro." },
+      { id: "EX_PREP_033", en: "depending on / as a function of", es: "en función de", enCtx: "The price varies depending on demand.", esCtx: "El precio varía en función de la demanda." },
+      { id: "EX_PREP_029", en: "through / by dint of / thanks to sheer", es: "a fuerza de", enCtx: "Through sheer practice, she managed it.", esCtx: "A fuerza de práctica, lo logró." },
+      { id: "EX_PREP_038", en: "by way of / as a kind of", es: "a modo de", enCtx: "He said it by way of a joke.", esCtx: "Lo dijo a modo de broma." },
+      { id: "EX_PREP_039", en: "on the subject of / speaking of", es: "a propósito de", enCtx: "Speaking of that, I had something to ask you.", esCtx: "A propósito de eso, tenía algo para preguntarte.", hint: "Different from 'a propósito' alone (which means 'by the way' or 'on purpose'). This form is followed by a noun." },
+      { id: "EX_PREP_041", en: "at the mercy of", es: "a merced de", enCtx: "We were at the mercy of the storm.", esCtx: "Quedamos a merced de la tormenta." },
+      { id: "EX_PREP_044", en: "on the eve of / just before", es: "en vísperas de", enCtx: "They arrived on the eve of the holidays.", esCtx: "Llegaron en vísperas de las fiestas." },
+      { id: "EX_PREP_045", en: "on condition that / provided that", es: "a condición de que", enCtx: "I'll lend you the car, on condition that you bring it back on time.", esCtx: "Te presto el auto, a condición de que lo traigás a tiempo.", hint: "Triggers subjunctive. Voseo: traigás. More formal than 'siempre que' or 'con tal de que'." },
+    ]
+  },
+
+  // ── Verb Phrase (53 cards) ──
+  {
+    title: "Verb Phrase",
+    info: { body: `<p>Verb phrase expressions are multi-word constructions built around a verb, often with a non-obvious complement. Common patterns include <em>tener/dar/hacer</em> + noun, reflexive constructions, and infinitive chains. The meaning usually can't be inferred from the individual words.</p>` },
+    cards: [
+      { id: "EX_VERB_006", en: "to take into account / to bear in mind", es: "tener en cuenta", enCtx: "We have to take the weather into account.", esCtx: "Hay que tener en cuenta el clima." },
+      { id: "EX_VERB_008", en: "to turn (something) over", es: "dar vuelta", enCtx: "Turn the meat over.", esCtx: "Dale vuelta a la carne.", hint: "Also used figuratively: dar vuelta una situación (to turn a situation around)." },
+      { id: "EX_VERB_013", en: "to be careful / to watch out", es: "andar con cuidado", enCtx: "Be careful in that area.", esCtx: "Andá con cuidado en esa zona.", hint: "Uses voseo imperative 'andá'. In non-Rioplatense Spanish: anda con cuidado." },
+      { id: "EX_VERB_015", en: "to end up / to wind up (doing something)", es: "terminar + gerundio", enCtx: "I ended up buying everything at the market.", esCtx: "Terminé comprando todo en el mercado.", hint: "Terminar + gerund (not infinitive) for 'end up doing': terminé comprando, terminó llorando." },
+      { id: "EX_VERB_016", en: "to be worth it", es: "valer la pena", enCtx: "It's worth waiting.", esCtx: "Vale la pena esperar." },
+      { id: "EX_VERB_017", en: "to stop doing something", es: "dejar de", enCtx: "I stopped smoking two years ago.", esCtx: "Dejé de fumar hace dos años.", hint: "Dejar de + infinitive = to stop doing. Dejar solo (without de) means to let or to leave." },
+      { id: "EX_VERB_018", en: "to do something again", es: "volver a", enCtx: "He called again three times.", esCtx: "Volvió a llamar tres veces.", hint: "Volver a + infinitive = to do again. Elegant alternative to 'otra vez'. Volvió a llamar = llamó otra vez." },
+      { id: "EX_VERB_021", en: "to listen / to pay attention / to do as told", es: "hacer caso", enCtx: "Listen! / Do as you're told!", esCtx: "¡Hacé caso!", hint: "Voseo imperative: hacé caso. Also: no me hizo caso (he didn't listen to me / he ignored me)." },
+      { id: "EX_VERB_024", en: "to be right", es: "tener razón", enCtx: "You're right, I was wrong.", esCtx: "Tenés razón, me equivoqué.", hint: "Voseo: tenés razón. In tuteo: tienes razón." },
+      { id: "EX_VERB_025", en: "to lend a hand / to help out", es: "echar una mano", enCtx: "Can you give me a hand with this?", esCtx: "¿Me echás una mano con esto?", hint: "Voseo: echás. In tuteo: ¿me echas una mano?" },
+      { id: "EX_VERB_026", en: "to go well / to turn out well (or badly)", es: "salir bien / salir mal", enCtx: "The exam went well for me.", esCtx: "El examen me salió bien.", hint: "Salir bien/mal is used for results and outcomes where English uses 'go well/badly' or 'turn out'." },
+      { id: "EX_VERB_030", en: "to waste time", es: "perder el tiempo", enCtx: "Don't waste your time on that.", esCtx: "No pierdas el tiempo con eso." },
+      { id: "EX_VERB_034", en: "to count on / to rely on / to have available", es: "contar con", enCtx: "Count on me for whatever you need.", esCtx: "Contá conmigo para lo que necesites.", hint: "Voseo: contá. In tuteo: cuenta conmigo." },
+      { id: "EX_VERB_036", en: "to miss (someone or something)", es: "extrañar", enCtx: "I really miss my family.", esCtx: "Extraño mucho a mi familia.", hint: "Rioplatense form. Other dialects use 'echar de menos'. In Argentina, 'extrañar' is the natural choice." },
+      { id: "EX_VERB_038", en: "to get along well with", es: "llevarse bien con", enCtx: "I get along really well with my colleagues.", esCtx: "Me llevo muy bien con mis compañeros de trabajo.", hint: "The opposite is llevarse mal con. Also: ¿cómo te llevás con ella? (How do you get along with her?)" },
+      { id: "EX_VERB_039", en: "to get into / to meddle in", es: "meterse en", enCtx: "Don't meddle in things that don't concern you.", esCtx: "No te metás en lo que no te importa.", hint: "Voseo: no te metás. Also: meterse en un lío (to get into trouble), meterse en política (to get into politics)." },
+      { id: "EX_VERB_042", en: "to make a good / bad impression", es: "quedar bien / quedar mal", enCtx: "He made a great impression with that speech.", esCtx: "Quedó muy bien con ese discurso.", hint: "Quedar bien/mal is about reputation or impression, not physical appearance." },
+      { id: "EX_VERB_048", en: "to be exhausted / to have had enough / to be at one's limit", es: "no poder más", enCtx: "I can't take any more, I need to rest.", esCtx: "No puedo más, necesito descansar." },
+      { id: "EX_VERB_053", en: "to feed (a person or animal)", es: "dar de comer", enCtx: "We need to feed the dog.", esCtx: "Hay que dar de comer al perro." },
+      { id: "EX_VERB_011", en: "to be up to date / to be in the know", es: "estar al tanto", enCtx: "Are you up to date with the news?", esCtx: "¿Estás al tanto de las novedades?" },
+      { id: "EX_VERB_012", en: "to lose sight of / to take your eye off", es: "perder de vista", enCtx: "Let's not lose sight of the goal.", esCtx: "No perdamos de vista el objetivo." },
+      { id: "EX_VERB_019", en: "to start doing something / to set about", es: "ponerse a", enCtx: "It suddenly started raining.", esCtx: "Se puso a llover de repente.", hint: "Ponerse a + infinitive = to start doing. Often implies a sudden or energetic start." },
+      { id: "EX_VERB_022", en: "to put into practice", es: "poner en práctica", enCtx: "We need to put into practice what we learned.", esCtx: "Hay que poner en práctica lo que aprendimos." },
+      { id: "EX_VERB_028", en: "to make something clear / to clarify", es: "dejar en claro", enCtx: "I want to make it clear that I disagree.", esCtx: "Quiero dejar en claro que no estoy de acuerdo.", hint: "Also: dejar claro (without 'en'). Both are correct; 'dejar en claro' is more common in Rioplatense." },
+      { id: "EX_VERB_031", en: "to draw conclusions", es: "sacar conclusiones", enCtx: "Let's not jump to conclusions.", esCtx: "No saquemos conclusiones apresuradas." },
+      { id: "EX_VERB_037", en: "to get to the point", es: "ir al grano", enCtx: "Let's get to the point — what's the problem?", esCtx: "Vayamos al grano — ¿cuál es el problema?" },
+      { id: "EX_VERB_040", en: "to bring up to date / to catch up", es: "poner al día", enCtx: "I need to bring my notes up to date.", esCtx: "Tengo que poner al día mis apuntes." },
+      { id: "EX_VERB_041", en: "to get in touch with", es: "ponerse en contacto con", enCtx: "Get in touch with her as soon as possible.", esCtx: "Ponete en contacto con ella lo antes posible.", hint: "Voseo: ponete. In tuteo: ponte en contacto." },
+      { id: "EX_VERB_044", en: "to take place / to happen (formal)", es: "tener lugar", enCtx: "The concert will take place next Friday.", esCtx: "El concierto tendrá lugar el próximo viernes.", hint: "More formal than 'pasar' or 'ocurrir'. Used for scheduled or planned events." },
+      { id: "EX_VERB_045", en: "to face / to deal with / to confront", es: "hacer frente a", enCtx: "We need to face the difficulties.", esCtx: "Hay que hacer frente a las dificultades." },
+      { id: "EX_VERB_046", en: "to pull through / to get ahead / to manage", es: "salir adelante", enCtx: "Despite everything, they pulled through.", esCtx: "A pesar de todo, salieron adelante." },
+      { id: "EX_VERB_049", en: "to bear in mind / to keep in mind", es: "tener presente", enCtx: "Bear in mind that the deadline is Friday.", esCtx: "Tené presente que el plazo es el viernes.", hint: "Voseo: tené. Similar to 'tener en cuenta', but 'tener presente' implies keeping something actively in mind." },
+      { id: "EX_VERB_050", en: "to turn the page / to move on", es: "dar vuelta la página", enCtx: "It's time to turn the page.", esCtx: "Es hora de dar vuelta la página." },
+      { id: "EX_VERB_051", en: "to throw in the towel / to give up", es: "tirar la toalla", enCtx: "This is not the moment to throw in the towel.", esCtx: "No es momento de tirar la toalla." },
+      { id: "EX_VERB_001", en: "to feel like doing something", es: "tener ganas de", enCtx: "I feel like going for a walk.", esCtx: "Tengo ganas de salir a caminar.", hint: "Followed by infinitive: tener ganas de + infinitive." },
+      { id: "EX_VERB_002", en: "to need / to be needed", es: "hacer falta", enCtx: "I need a coffee. (Literally: A coffee is needed by me.)", esCtx: "Me hace falta un café.", hint: "Works like 'gustar' — the thing needed is the subject. Me hace falta = I need." },
+      { id: "EX_VERB_003", en: "to realise / to notice", es: "darse cuenta de", enCtx: "I realised I had forgotten my keys.", esCtx: "Me di cuenta de que había olvidado las llaves." },
+      { id: "EX_VERB_007", en: "to like / to get on well with someone", es: "caerle bien a alguien", enCtx: "I really like your friend. (He makes a good impression on me.)", esCtx: "Me cae muy bien tu amigo.", hint: "Literally 'to fall well on someone'. The opposite is caerle mal. Works like gustar — the person is the subject." },
+      { id: "EX_VERB_010", en: "to agree to / to arrange to meet", es: "quedar en", enCtx: "We agreed to meet on Thursday.", esCtx: "Quedamos en vernos el jueves.", hint: "Followed by infinitive. Very common in River Plate Spanish for making plans." },
+      { id: "EX_VERB_014", en: "to have a good time", es: "pasarla bien", enCtx: "We had a great time at the party.", esCtx: "Nos la pasamos bien en la fiesta.", hint: "Rioplatense form. In other dialects: pasarlo bien." },
+      { id: "EX_VERB_023", en: "to feel sorry / to be a shame (emotionally)", es: "dar pena", enCtx: "I feel bad leaving him alone.", esCtx: "Me da pena dejarlo solo.", hint: "Works like gustar — the thing causing the feeling is the subject. Me da pena = it makes me feel sad/sorry." },
+      { id: "EX_VERB_027", en: "to keep / to hold onto / to go with", es: "quedarse con", enCtx: "Keep the change.", esCtx: "Quedate con el cambio.", hint: "Voseo imperative: quedate. Also used for preference: me quedo con la primera opción (I'll go with the first option)." },
+      { id: "EX_VERB_033", en: "to be embarrassing / to feel embarrassed", es: "dar vergüenza", enCtx: "I'm embarrassed to speak in public.", esCtx: "Me da vergüenza hablar en público.", hint: "Works like gustar. Me da vergüenza = it embarrasses me / I'm embarrassed. Same structure as dar pena, dar miedo." },
+      { id: "EX_VERB_004", en: "to come to an agreement / to agree", es: "ponerse de acuerdo", enCtx: "We finally came to an agreement.", esCtx: "Finalmente nos pusimos de acuerdo." },
+      { id: "EX_VERB_005", en: "to carry out / to implement", es: "llevar a cabo", enCtx: "We will carry out the plan next week.", esCtx: "Llevaremos a cabo el plan la semana que viene." },
+      { id: "EX_VERB_009", en: "to take charge / to take responsibility", es: "hacerse cargo", enCtx: "He took charge of the situation.", esCtx: "Él se hizo cargo de la situación." },
+      { id: "EX_VERB_020", en: "to imply / to suggest / to give the impression", es: "dar a entender", enCtx: "He implied that he didn't want to come.", esCtx: "Dio a entender que no quería venir." },
+      { id: "EX_VERB_029", en: "to beat around the bush", es: "andarse con rodeos", enCtx: "Don't beat around the bush, tell me what happened.", esCtx: "No te andés con rodeos, decime qué pasó.", hint: "Voseo: no te andés, decime. Rodeos = detours, roundabout ways." },
+      { id: "EX_VERB_032", en: "to come to one's senses / to see reason", es: "entrar en razón", enCtx: "Eventually she'll come to her senses.", esCtx: "Eventualmente va a entrar en razón." },
+      { id: "EX_VERB_035", en: "to give rise to / to lead to", es: "dar lugar a", enCtx: "The situation gave rise to an intense debate.", esCtx: "La situación dio lugar a un debate intenso." },
+      { id: "EX_VERB_043", en: "to make the most of / to take advantage of", es: "sacar partido de", enCtx: "You need to know how to make the most of opportunities.", esCtx: "Hay que saber sacar partido de las oportunidades." },
+      { id: "EX_VERB_047", en: "to realise / to click / to cotton on", es: "caer en la cuenta", enCtx: "I only just realised I had made a mistake.", esCtx: "Recién caí en la cuenta de que me había equivocado.", hint: "Similar to 'darse cuenta', but often implies a delayed realisation — the penny dropping." },
+      { id: "EX_VERB_052", en: "to be falling apart / to have holes in it (figurative)", es: "hacer agua", enCtx: "The project is falling apart at the seams.", esCtx: "El proyecto hace agua por todos lados.", hint: "Literally 'to take on water'. Used figuratively for arguments, plans, or situations that are failing." },
+    ]
+  },
+
+  // ── Connector (38 cards) ──
+  {
+    title: "Connector",
+    info: { body: `<p>Connectors are the linking expressions that structure speech and writing — signalling contrast, cause, condition, sequence, and purpose. Many are followed by the subjunctive (flagged in the notes). Mastering connectors is what makes the difference between choppy and fluent Spanish.</p>` },
+    cards: [
+      { id: "EX_CONN_001", en: "however / nevertheless", es: "sin embargo", enCtx: "It's expensive; however, it's worth it.", esCtx: "Es caro; sin embargo, vale la pena." },
+      { id: "EX_CONN_002", en: "that is / I mean / in other words", es: "o sea", enCtx: "I mean, I don't understand why he did it.", esCtx: "O sea, no entiendo por qué lo hizo.", hint: "Extremely common in spoken Rioplatense Spanish. Can open a sentence or interrupt mid-thought." },
+      { id: "EX_CONN_003", en: "in fact / actually", es: "de hecho", enCtx: "In fact, it doesn't surprise me at all.", esCtx: "De hecho, no me sorprende nada." },
+      { id: "EX_CONN_004", en: "the thing is / it's just that", es: "es que", enCtx: "The thing is, I couldn't finish in time.", esCtx: "Es que no pude terminar a tiempo.", hint: "Used to introduce an explanation or mild excuse." },
+      { id: "EX_CONN_008", en: "moreover / besides / also", es: "además", enCtx: "Moreover, he arrived late.", esCtx: "Además, llegó tarde." },
+      { id: "EX_CONN_010", en: "in short / anyway / well (conclusion)", es: "en fin", enCtx: "Anyway, there's not much to be done.", esCtx: "En fin, no hay mucho que hacer.", hint: "Often signals resignation or wrapping up. Very common in spoken Rioplatense." },
+      { id: "EX_CONN_011", en: "anyway / in any case", es: "de todas formas", enCtx: "Anyway, thanks for trying.", esCtx: "De todas formas, gracias por intentarlo." },
+      { id: "EX_CONN_012", en: "just in case", es: "por si acaso", enCtx: "Take the umbrella just in case.", esCtx: "Llevá el paraguas por si acaso.", hint: "Often shortened to just 'por si' in casual speech." },
+      { id: "EX_CONN_013", en: "even / including", es: "incluso", enCtx: "Even he was surprised.", esCtx: "Incluso él se sorprendió." },
+      { id: "EX_CONN_018", en: "that is to say / in other words", es: "es decir", enCtx: "He arrived late, that is to say, at ten.", esCtx: "Llegó tarde, es decir, a las diez." },
+      { id: "EX_CONN_021", en: "so / and so / therefore (casual)", es: "así que", enCtx: "I was tired, so I left early.", esCtx: "Estaba cansado, así que me fui temprano." },
+      { id: "EX_CONN_029", en: "since / given that (causal)", es: "ya que", enCtx: "Since you're here, help me with this.", esCtx: "Ya que estás acá, ayudame con esto." },
+      { id: "EX_CONN_031", en: "so that / in order that", es: "para que", enCtx: "I'll explain it to you so that you understand.", esCtx: "Te lo explico para que entiendas.", hint: "Always triggers subjunctive. Para + infinitive (same subject) vs. para que + subjunctive (different subject)." },
+      { id: "EX_CONN_038", en: "anyway / in any case (synonym of de todas formas)", es: "de todas maneras", enCtx: "Anyway, thanks for trying.", esCtx: "De todas maneras, gracias por intentarlo." },
+      { id: "EX_CONN_005", en: "therefore / so", es: "por lo tanto", enCtx: "It rained all week; therefore, we didn't go to the countryside.", esCtx: "Llovió toda la semana; por lo tanto, no fuimos al campo." },
+      { id: "EX_CONN_007", en: "on the other hand / whereas / instead", es: "en cambio", enCtx: "I prefer coffee; he, on the other hand, drinks mate.", esCtx: "Yo prefiero el café; él, en cambio, toma mate." },
+      { id: "EX_CONN_009", en: "on the other hand", es: "por otro lado", enCtx: "On the other hand, we have to consider the cost.", esCtx: "Por otro lado, hay que considerar el costo." },
+      { id: "EX_CONN_019", en: "ultimately / when all is said and done", es: "en definitiva", enCtx: "Ultimately, what matters is the result.", esCtx: "En definitiva, lo que importa es el resultado." },
+      { id: "EX_CONN_020", en: "in summary / to sum up", es: "en resumen", enCtx: "In summary, the project was a success.", esCtx: "En resumen, el proyecto fue un éxito." },
+      { id: "EX_CONN_022", en: "unless", es: "a menos que", enCtx: "We're going, unless it rains.", esCtx: "Vamos, a menos que llueva.", hint: "Always triggers subjunctive." },
+      { id: "EX_CONN_024", en: "firstly / in the first place", es: "en primer lugar", enCtx: "Firstly, we need to analyse the problem.", esCtx: "En primer lugar, hay que analizar el problema." },
+      { id: "EX_CONN_025", en: "lastly / finally (in a sequence)", es: "por último", enCtx: "Lastly, I want to thank everyone.", esCtx: "Por último, quiero agradecer a todos.", hint: "For 'finally' as in 'after a long wait', use 'por fin' instead." },
+      { id: "EX_CONN_027", en: "whereas / while (contrast)", es: "mientras que", enCtx: "He prefers the countryside, whereas she prefers the city.", esCtx: "Él prefiere el campo, mientras que ella prefiere la ciudad." },
+      { id: "EX_CONN_033", en: "in order to / with the aim of (formal)", es: "con el fin de", enCtx: "He did it with the aim of helping.", esCtx: "Lo hizo con el fin de ayudar.", hint: "More formal than 'para'. Followed by infinitive." },
+      { id: "EX_CONN_035", en: "despite everything / all the same", es: "a pesar de todo", enCtx: "Despite everything, it worked out.", esCtx: "A pesar de todo, salió bien." },
+      { id: "EX_CONN_030", en: "nevertheless / nonetheless (formal)", es: "no obstante", enCtx: "Nevertheless, the project continued.", esCtx: "No obstante, el proyecto continuó.", hint: "More formal than 'sin embargo'. Common in written Spanish and formal speech." },
+      { id: "EX_CONN_017", en: "although / even though / even if", es: "aunque", enCtx: "Even if it rains, we're going.", esCtx: "Aunque llueva, vamos.", hint: "With indicative: states a fact (aunque es tarde = even though it's late). With subjunctive: hypothetical (aunque sea tarde = even if it's late)." },
+      { id: "EX_CONN_028", en: "perhaps / maybe", es: "tal vez / quizás", enCtx: "Perhaps she's right.", esCtx: "Tal vez tenga razón.", hint: "Can be followed by indicative (more certainty) or subjunctive (more doubt). Tal vez and quizás are interchangeable." },
+      { id: "EX_CONN_006", en: "in turn", es: "a su vez", enCtx: "Each problem generates, in turn, new solutions.", esCtx: "Cada problema genera, a su vez, nuevas soluciones." },
+      { id: "EX_CONN_015", en: "provided that / as long as", es: "siempre que", enCtx: "You can go out, as long as you're back before twelve.", esCtx: "Podés salir, siempre que llegués antes de las doce.", hint: "Triggers subjunctive when referring to future or hypothetical conditions." },
+      { id: "EX_CONN_016", en: "given that / since", es: "dado que", enCtx: "Given that there was no time, we cancelled the meeting.", esCtx: "Dado que no había tiempo, cancelamos la reunión." },
+      { id: "EX_CONN_026", en: "as soon as", es: "en cuanto", enCtx: "I'll call you as soon as I arrive.", esCtx: "Te llamo en cuanto llegue.", hint: "Triggers subjunctive when referring to a future event. En cuanto + subjunctive = as soon as (something happens)." },
+      { id: "EX_CONN_032", en: "however much / no matter how much", es: "por más que", enCtx: "No matter how hard I tried, I couldn't manage it.", esCtx: "Por más que lo intenté, no lo logré." },
+      { id: "EX_CONN_034", en: "so that / in such a way that", es: "de manera que", enCtx: "She spoke in such a way that everyone understood.", esCtx: "Habló de manera que todos entendieran.", hint: "With indicative: result (de manera que = and so, resulting in). With subjunctive: purpose (de manera que = so that)." },
+      { id: "EX_CONN_037", en: "as long as / provided that", es: "con tal de que", enCtx: "We can go, as long as we come back early.", esCtx: "Podemos ir, con tal de que volvamos temprano.", hint: "Always triggers subjunctive." },
+      { id: "EX_CONN_014", en: "that said / having said that", es: "dicho esto", enCtx: "That said, we can continue.", esCtx: "Dicho esto, podemos continuar." },
+      { id: "EX_CONN_023", en: "although / while (formal or written)", es: "si bien", enCtx: "Although I understand your point, I disagree.", esCtx: "Si bien entiendo tu punto, no estoy de acuerdo.", hint: "More formal than 'aunque'. Common in written Spanish and formal speech." },
+      { id: "EX_CONN_036", en: "without (something happening)", es: "sin que", enCtx: "He left without anyone noticing.", esCtx: "Se fue sin que nadie lo notara.", hint: "Always triggers subjunctive. When the subject changes between clauses: sin que + subjunctive." },
+    ]
+  },
+
+  // ── Conversational (48 cards) ──
+  {
+    title: "Conversational",
+    info: { body: `<p>Conversational expressions are the social lubricant of everyday speech — greetings, exclamations, fillers, and reactions. Many are specific to <span class="rio-highlight">Rioplatense Spanish</span> and won't be found in standard textbooks. These are the expressions a learner hears constantly in Buenos Aires.</p>` },
+    cards: [
+      { id: "EX_CONV_001", en: "go ahead / ok / sure / come on", es: "dale", enCtx: "Shall we go to the cinema? — Sure.", esCtx: "¿Vamos al cine? — Dale.", hint: "One of the most versatile words in Rioplatense Spanish. Can mean agreement, encouragement, go ahead, or even farewell." },
+      { id: "EX_CONV_002", en: "hey (to get attention or express emotion)", es: "che", enCtx: "Hey, do you know what happened?", esCtx: "Che, ¿sabés qué pasó?", hint: "Quintessentially Rioplatense. Used to address someone, express surprise, or just fill conversational space." },
+      { id: "EX_CONV_003", en: "great / fantastic / brilliant", es: "bárbaro/a", enCtx: "Brilliant, it turned out perfect!", esCtx: "¡Bárbaro, quedó perfecto!", hint: "Agrees in gender with the noun: ¡Qué bárbaro! (how great!) or una idea bárbara (a great idea)." },
+      { id: "EX_CONV_004", en: "no idea / I have no idea", es: "ni idea", enCtx: "Where is he? — No idea.", esCtx: "¿Dónde está? — Ni idea." },
+      { id: "EX_CONV_005", en: "thank goodness / just as well", es: "menos mal", enCtx: "Thank goodness I brought an umbrella.", esCtx: "Menos mal que llevé paraguas." },
+      { id: "EX_CONV_007", en: "you're welcome", es: "de nada", enCtx: "Thank you very much. — You're welcome.", esCtx: "Muchas gracias. — De nada." },
+      { id: "EX_CONV_008", en: "it's no use / there's nothing to be done", es: "no hay caso", enCtx: "It's no use, he just doesn't get it.", esCtx: "No hay caso, no entiende." },
+      { id: "EX_CONV_009", en: "how are you going? / how are things?", es: "¿cómo andás?", enCtx: "Hey, how are you going!", esCtx: "¡Che, cómo andás!", hint: "Voseo form. In tuteo: ¿cómo andas? Common Rioplatense greeting alongside ¿cómo estás?" },
+      { id: "EX_CONV_010", en: "seriously / really (surprise or emphasis)", es: "en serio", enCtx: "Seriously? I can't believe it.", esCtx: "¿En serio? No lo puedo creer." },
+      { id: "EX_CONV_012", en: "look / listen (to draw attention)", es: "mirá", enCtx: "Look, it's not that hard.", esCtx: "Mirá, no es tan difícil.", hint: "Voseo imperative. In tuteo: mira. Used to introduce a point, similar to 'look' or 'listen' in English." },
+      { id: "EX_CONV_013", en: "watch out / careful / mind you", es: "ojo", enCtx: "Watch out for that step.", esCtx: "Ojo con ese escalón.", hint: "Literally 'eye'. Used as a warning or a 'bear in mind' qualifier." },
+      { id: "EX_CONV_014", en: "honestly / to tell the truth", es: "la verdad", enCtx: "Honestly, I didn't like it.", esCtx: "La verdad, no me gustó." },
+      { id: "EX_CONV_015", en: "well / okay (filler or transition)", es: "bueno", enCtx: "Well then, shall we go?", esCtx: "Bueno, ¿vamos?", hint: "As a filler, 'bueno' softens transitions or signals acceptance. Different from its adjective meaning 'good'." },
+      { id: "EX_CONV_016", en: "absolutely / let's do it / for sure", es: "¡de una!", enCtx: "Are we going to the barbecue? — Absolutely!", esCtx: "¿Vamos al asado? — ¡De una!", hint: "Enthusiastic agreement, stronger than 'dale'. Quintessentially Rioplatense." },
+      { id: "EX_CONV_017", en: "no way! / absolutely not!", es: "¡ni en pedo!", enCtx: "Are you going to apologise to him? — No way.", esCtx: "¿Vas a pedirle perdón? — Ni en pedo.", hint: "Vulgar but extremely common in casual Rioplatense conversation. A strong refusal." },
+      { id: "EX_CONV_018", en: "how cool! / awesome!", es: "¡qué copado/a!", enCtx: "I got tickets for the match. — How awesome!", esCtx: "Conseguí entradas para el partido. — ¡Qué copado!", hint: "Copado/a is a very common Rioplatense adjective meaning cool, great, awesome." },
+      { id: "EX_CONV_019", en: "imagine! / would you believe it! / check this out", es: "¡fijate!", enCtx: "Would you believe it, he called me at three in the morning.", esCtx: "Fijate que me llamó a las tres de la mañana.", hint: "Voseo imperative of fijarse. Also used to draw attention to something: fijate en esto (check this out)." },
+      { id: "EX_CONV_020", en: "what a mess! / what chaos!", es: "¡qué quilombo!", enCtx: "What a mess the meeting turned into!", esCtx: "¡Qué quilombo se armó en la reunión!", hint: "Lunfardo. Quilombo originally meant brothel, now means chaos, mess, or complicated situation." },
+      { id: "EX_CONV_021", en: "what a drag! / I can't be bothered", es: "¡qué fiaca!", enCtx: "What a drag having to get up early on Mondays!", esCtx: "¡Qué fiaca levantarse temprano los lunes!", hint: "Lunfardo. Fiaca = laziness, reluctance. Tener fiaca = to not feel like doing something." },
+      { id: "EX_CONV_022", en: "of course / certainly", es: "por supuesto", enCtx: "Can you help me? — Of course.", esCtx: "¿Me podés ayudar? — Por supuesto." },
+      { id: "EX_CONV_023", en: "what a shame! / what a pity!", es: "¡qué lástima!", enCtx: "What a shame you couldn't come!", esCtx: "¡Qué lástima que no pudiste venir!" },
+      { id: "EX_CONV_024", en: "you know? / right? / see? (discourse marker)", es: "¿viste?", enCtx: "It was a stupid thing, you know?", esCtx: "Fue una pavada, ¿viste?", hint: "One of the most distinctive Rioplatense discourse markers. Used to seek agreement or confirmation, like 'you know?' in English." },
+      { id: "EX_CONV_025", en: "not at all!", es: "¡para nada!", enCtx: "Did what I said bother you? — Not at all!", esCtx: "¿Te molestó lo que dije? — ¡Para nada!" },
+      { id: "EX_CONV_026", en: "forget about it / it's done / it's in the past", es: "¡ya fue!", enCtx: "Don't worry about it anymore, it's done.", esCtx: "No te preocupés más, ya fue.", hint: "Voseo: no te preocupés. 'Ya fue' signals closure — something is finished, past, or not worth worrying about." },
+      { id: "EX_CONV_027", en: "what a bummer! / what bad luck!", es: "¡qué garrón!", enCtx: "We lost the match in the last minute. What a bummer!", esCtx: "Perdimos el partido en el último minuto. ¡Qué garrón!", hint: "Lunfardo. Garrón = bad luck, something disappointing or unfair." },
+      { id: "EX_CONV_028", en: "of course / sure / obviously", es: "claro", enCtx: "Are you coming tomorrow? — Of course.", esCtx: "¿Venís mañana? — Claro.", hint: "Can also express mild sarcasm depending on tone: ¡claro que sí! (of course!), ¡claro que no! (of course not!)." },
+      { id: "EX_CONV_029", en: "how's it going? / how are things?", es: "¿cómo te va?", enCtx: "How's it going with the new job?", esCtx: "¿Cómo te va con el nuevo trabajo?", hint: "More open-ended than ¿cómo estás? Implies asking about a specific situation or life in general." },
+      { id: "EX_CONV_030", en: "I don't believe it! / no way!", es: "¡no te creo!", enCtx: "They offered me the job. — I don't believe it!", esCtx: "Me ofrecieron el trabajo. — ¡No te creo!", hint: "Voseo form (te creo addressing vos). Used as an exclamation of surprise, not literally disbelieving." },
+      { id: "EX_CONV_031", en: "no wonder! / that explains it!", es: "¡con razón!", enCtx: "He didn't sleep at all. No wonder he's tired!", esCtx: "No durmió nada. ¡Con razón está cansado!" },
+      { id: "EX_CONV_032", en: "long time no see!", es: "¡cuánto tiempo!", enCtx: "It's been such a long time!", esCtx: "¡Cuánto tiempo sin verte!" },
+      { id: "EX_CONV_033", en: "out of the question! / absolutely not!", es: "¡ni hablar!", enCtx: "Me pay? Out of the question!", esCtx: "¿Que pague yo? ¡Ni hablar!", hint: "Also used to mean 'don't mention it' (de nada) in some contexts." },
+      { id: "EX_CONV_034", en: "how awful! / good heavens! / unbelievable!", es: "¡qué barbaridad!", enCtx: "Good heavens, look at the state of everything!", esCtx: "¡Qué barbaridad, cómo está todo!" },
+      { id: "EX_CONV_035", en: "what great energy! / what a great person!", es: "¡qué buena onda!", enCtx: "Your friend is brilliant. Such great energy!", esCtx: "Tu amigo es genial. ¡Qué buena onda!", hint: "Onda = vibe, energy, attitude in Rioplatense slang. Buena onda = good energy, great person. Mala onda = bad vibes, unpleasant person." },
+      { id: "EX_CONV_036", en: "what's up? / what's going on?", es: "¿qué onda?", enCtx: "What's up, everything good?", esCtx: "¿Qué onda, todo bien?", hint: "Standard Rioplatense greeting among friends, equivalent to '¿qué pasa?' or 'what's up?'." },
+      { id: "EX_CONV_037", en: "enough! / stop it!", es: "¡basta!", enCtx: "Enough complaining, get to work!", esCtx: "¡Basta de quejas, a trabajar!" },
+      { id: "EX_CONV_038", en: "you don't say! / really! / is that so!", es: "¡no me digas!", enCtx: "They got married. — You don't say!", esCtx: "Se casaron. — ¡No me digas!" },
+      { id: "EX_CONV_039", en: "cheers! / bless you! (after a sneeze)", es: "¡salud!", enCtx: "Cheers! — Thank you!", esCtx: "¡Salud! — ¡Gracias!", hint: "Used for toasting (cheers) and after a sneeze (bless you). Context determines meaning." },
+      { id: "EX_CONV_040", en: "you know what?", es: "¿sabés qué?", enCtx: "You know what? I don't care anymore.", esCtx: "¿Sabés qué? No me importa más.", hint: "Voseo: sabés. Used to introduce a statement, often a decision or change of position." },
+      { id: "EX_CONV_041", en: "I swear! / I'm telling you! / honestly!", es: "¡te juro!", enCtx: "I swear I didn't know anything!", esCtx: "¡Te juro que no sabía nada!" },
+      { id: "EX_CONV_042", en: "just in case (Rioplatense form)", es: "por las dudas", enCtx: "Take a jacket just in case.", esCtx: "Llevá un abrigo por las dudas.", hint: "Rioplatense equivalent of 'por si acaso'. Both are understood, but 'por las dudas' is distinctly porteño." },
+      { id: "EX_CONV_043", en: "imagine! / can you believe it!", es: "¡imaginate!", enCtx: "Can you imagine, he arrived three hours late!", esCtx: "¡Imaginate, llegó tres horas tarde!", hint: "Voseo imperative of imaginarse. Used to express disbelief or to invite the listener to picture something." },
+      { id: "EX_CONV_044", en: "wait! / hold on!", es: "¡esperate!", enCtx: "Wait, don't go yet!", esCtx: "¡Esperate, no te vayas todavía!", hint: "Voseo imperative of esperar. In tuteo: ¡espérate! Both are common." },
+      { id: "EX_CONV_046", en: "with pleasure / gladly", es: "con mucho gusto", enCtx: "Can you help me with this? — With pleasure.", esCtx: "¿Me podés ayudar con esto? — Con mucho gusto." },
+      { id: "EX_CONV_006", en: "I don't know / something like that / who knows", es: "qué sé yo", enCtx: "He's I don't know how many years old.", esCtx: "Tiene qué sé yo cuántos años.", hint: "Used to express vagueness or approximate quantities. Also signals mild indifference." },
+      { id: "EX_CONV_011", en: "anyway / still / all the same", es: "igual", enCtx: "I still think it's too late.", esCtx: "Igual me parece que es tarde.", hint: "Colloquial use meaning 'anyway' or 'still'. Different from its literal meaning of 'equal' or 'the same'." },
+      { id: "EX_CONV_045", en: "by the way / on purpose (context-dependent)", es: "a propósito", enCtx: "By the way, have you seen Juan lately?", esCtx: "A propósito, ¿viste a Juan últimamente?", hint: "Two distinct meanings: 'by the way' (to introduce a new topic) and 'on purpose / deliberately'. Context is essential." },
+      { id: "EX_CONV_047", en: "that's all we needed! / just what we needed (ironic)", es: "¡lo que faltaba!", enCtx: "The fridge broke too. That's all we needed!", esCtx: "Se rompió la heladera también. ¡Lo que faltaba!", hint: "Always ironic. Used when something else goes wrong on top of existing problems." },
+      { id: "EX_CONV_048", en: "come on! / no way! (dismissive)", es: "¡qué va!", enCtx: "Are you tired already? — Come on, I've got plenty of energy!", esCtx: "¿Estás cansado ya? — ¡Qué va, tengo energía de sobra!", hint: "Used to dismiss a suggestion or contradict an assumption. More common in Castilian than Rioplatense, but understood." },
+    ]
+  },
+
+  // ── Idiomatic (37 cards) ──
+  {
+    title: "Idiomatic",
+    info: { body: `<p>Idiomatic expressions are fixed phrases where the meaning is opaque from the individual words. Spanish idioms often involve the body, animals, or everyday objects in unexpected combinations. Knowing them is what lets you follow native speakers who use them without thinking.</p>` },
+    cards: [
+      { id: "EX_IDIOM_002", en: "to put your foot in it / to blunder", es: "meter la pata", enCtx: "I put my foot in it with that comment.", esCtx: "Metí la pata con ese comentario." },
+      { id: "EX_IDIOM_003", en: "to pull someone's leg / to tease", es: "tomar el pelo", enCtx: "Are you pulling my leg?", esCtx: "¿Me estás tomando el pelo?" },
+      { id: "EX_IDIOM_008", en: "to be doing nothing / to be free", es: "estar al pedo", enCtx: "I've got nothing on today, shall we go out?", esCtx: "Estoy al pedo hoy, ¿salimos?", hint: "Informal / vulgar. Very common in casual Rioplatense conversation." },
+      { id: "EX_IDIOM_019", en: "to get one's act together / to pull one's socks up", es: "ponerse las pilas", enCtx: "Enough of that, get your act together.", esCtx: "Ya fue, ponete las pilas.", hint: "Literally 'to put in your batteries'. Voseo: ponete. Very common in Rioplatense Spanish." },
+      { id: "EX_IDIOM_033", en: "to give off good / bad energy / to be a good person", es: "tirar buena / mala onda", enCtx: "That guy gives off really good energy.", esCtx: "Ese tipo tira muy buena onda.", hint: "Lunfardo/Rioplatense. Onda = vibe, energy. Tirar buena onda = to be a good person, to have good energy." },
+      { id: "EX_IDIOM_005", en: "to have one's head in the clouds", es: "estar en las nubes", enCtx: "You've got your head in the clouds today, everything okay?", esCtx: "Estás en las nubes hoy, ¿todo bien?" },
+      { id: "EX_IDIOM_011", en: "to be in a mess / in chaos", es: "estar en el horno", enCtx: "If we don't finish today, we're in trouble.", esCtx: "Si no terminamos hoy, estamos en el horno.", hint: "Literally 'to be in the oven'. Rioplatense expression for being in a bad or difficult situation." },
+      { id: "EX_IDIOM_014", en: "overnight / suddenly / out of nowhere", es: "de la noche a la mañana", enCtx: "Overnight, everything changed.", esCtx: "De la noche a la mañana, todo cambió." },
+      { id: "EX_IDIOM_016", en: "to hit the nail on the head", es: "dar en el clavo", enCtx: "With that analysis, you hit the nail on the head.", esCtx: "Con ese análisis, diste en el clavo." },
+      { id: "EX_IDIOM_021", en: "at full speed / full steam ahead", es: "a todo vapor", enCtx: "The project is going full steam ahead.", esCtx: "El proyecto va a todo vapor." },
+      { id: "EX_IDIOM_023", en: "to get by / to muddle through / to manage", es: "salir del paso", enCtx: "With what I have, I can get by.", esCtx: "Con lo que tengo, salgo del paso." },
+      { id: "EX_IDIOM_025", en: "roughly / at a rough guess / by eye", es: "a ojo", enCtx: "I estimated by eye that there were about twenty.", esCtx: "Calculé a ojo que serían unos veinte.", hint: "Also: a ojo de buen cubero (more formal version). 'A ojo' alone is conversational and very common in Rio." },
+      { id: "EX_IDIOM_029", en: "to be up to one's neck / swamped (with work)", es: "estar hasta las manos", enCtx: "I'm swamped with the project.", esCtx: "Estoy hasta las manos con el proyecto.", hint: "Rioplatense expression. Literally 'to be up to the hands'. Equivalent to 'estar desbordado'." },
+      { id: "EX_IDIOM_030", en: "to be outrageous / to be beyond the pale", es: "no tener nombre", enCtx: "What he did is beyond the pale.", esCtx: "Lo que hizo no tiene nombre.", hint: "Literally 'to have no name' — the thing is so bad it can't even be named." },
+      { id: "EX_IDIOM_031", en: "to be a nuisance / to nag / to pester", es: "dar la lata", enCtx: "Stop pestering me about that.", esCtx: "No me des más la lata con eso." },
+      { id: "EX_IDIOM_037", en: "for food to agree / disagree with you", es: "caerle bien / mal la comida", enCtx: "Last night's pizza didn't agree with me.", esCtx: "Me cayó mal la pizza de anoche.", hint: "Works like gustar. La comida me cayó mal = the food didn't agree with me. Very common in everyday conversation." },
+      { id: "EX_IDIOM_001", en: "to not get anything right / to be off your game", es: "no dar pie con bola", enCtx: "I can't get anything right today.", esCtx: "Hoy no doy pie con bola." },
+      { id: "EX_IDIOM_004", en: "to play dumb / to pretend not to notice", es: "hacerse el/la distraído/a", enCtx: "Don't play dumb, I know you heard.", esCtx: "No te hagas el distraído, sé que escuchaste." },
+      { id: "EX_IDIOM_006", en: "to not mince words / to be outspoken", es: "no tener pelos en la lengua", enCtx: "She doesn't mince words — she'll tell you everything to your face.", esCtx: "Ella no tiene pelos en la lengua — te dice todo en la cara." },
+      { id: "EX_IDIOM_007", en: "to cost an arm and a leg", es: "costar un ojo de la cara", enCtx: "That restaurant costs an arm and a leg.", esCtx: "Ese restaurante cuesta un ojo de la cara." },
+      { id: "EX_IDIOM_009", en: "to not understand a thing", es: "no entender ni jota", enCtx: "I didn't understand a word the doctor said.", esCtx: "No entendí ni jota de lo que dijo el médico." },
+      { id: "EX_IDIOM_010", en: "to make your mouth water", es: "hacerse agua la boca", enCtx: "My mouth is watering from that smell.", esCtx: "Se me hace agua la boca con ese olor.", hint: "Literally 'to make the mouth water'. Note the reflexive pronoun: se me hace." },
+      { id: "EX_IDIOM_012", en: "to be just right / to fit perfectly", es: "caer como anillo al dedo", enCtx: "This job suits me perfectly.", esCtx: "Este trabajo me cae como anillo al dedo." },
+      { id: "EX_IDIOM_013", en: "in the blink of an eye", es: "en un abrir y cerrar de ojos", enCtx: "He disappeared in the blink of an eye.", esCtx: "Desapareció en un abrir y cerrar de ojos." },
+      { id: "EX_IDIOM_015", en: "between a rock and a hard place", es: "entre la espada y la pared", enCtx: "I'm between a rock and a hard place, I don't know what to do.", esCtx: "Estoy entre la espada y la pared, no sé qué hacer." },
+      { id: "EX_IDIOM_017", en: "to add fuel to the fire", es: "echar leña al fuego", enCtx: "Don't say that, you'll add fuel to the fire.", esCtx: "No digas eso, vas a echar leña al fuego." },
+      { id: "EX_IDIOM_018", en: "to turn a deaf ear / to ignore", es: "hacer oídos sordos", enCtx: "He turns a deaf ear to all the criticism.", esCtx: "Hace oídos sordos a todas las críticas." },
+      { id: "EX_IDIOM_020", en: "to take a weight off one's shoulders", es: "quitarse un peso de encima", enCtx: "With that decision, I took a weight off my shoulders.", esCtx: "Con esa decisión me saqué un peso de encima." },
+      { id: "EX_IDIOM_022", en: "suddenly / out of the blue / just like that", es: "de buenas a primeras", enCtx: "Out of the blue, he left without saying anything.", esCtx: "De buenas a primeras, se fue sin decir nada." },
+      { id: "EX_IDIOM_024", en: "to go off on a tangent / to beat around the bush", es: "irse por las ramas", enCtx: "Don't go off on a tangent, answer what they asked you.", esCtx: "No te vayas por las ramas, respondé lo que te preguntaron.", hint: "Voseo: no te vayas, respondé." },
+      { id: "EX_IDIOM_027", en: "there's no way around it / that's just how it is", es: "no hay vuelta que darle", enCtx: "That's how it is, there's no way around it.", esCtx: "Es así, no hay vuelta que darle.", hint: "Rioplatense expression of resignation or acceptance of an unavoidable fact." },
+      { id: "EX_IDIOM_028", en: "to kick up a fuss / to hit the roof", es: "poner el grito en el cielo", enCtx: "When she found out, she hit the roof.", esCtx: "Cuando se enteró, puso el grito en el cielo." },
+      { id: "EX_IDIOM_034", en: "to not be able to cope / to be overwhelmed", es: "no dar abasto", enCtx: "I can't cope with so much work.", esCtx: "No doy abasto con tanto trabajo." },
+      { id: "EX_IDIOM_035", en: "to be just what was needed / to come at the right moment", es: "venir al pelo", enCtx: "That nap was just what I needed.", esCtx: "Esta siesta me vino al pelo.", hint: "Literally 'to come to the hair'. Used when something is perfectly timed or perfectly suited." },
+      { id: "EX_IDIOM_036", en: "to ruin / to throw away / to destroy (an effort)", es: "echar por tierra", enCtx: "With that comment, he threw all the work away.", esCtx: "Con ese comentario echó por tierra todo el trabajo." },
+      { id: "EX_IDIOM_026", en: "in no time / in a jiffy", es: "en un santiamén", enCtx: "I finished it in no time.", esCtx: "Lo terminé en un santiamén." },
+      { id: "EX_IDIOM_032", en: "to grit one's teeth / to pluck up courage", es: "hacer de tripas corazón", enCtx: "She gritted her teeth and spoke in public.", esCtx: "Hizo de tripas corazón y habló en público.", hint: "Literally 'to make heart out of guts'. Used when doing something despite fear or reluctance." },
+    ]
+  },
+
+  // ── Proverb (25 cards) ──
+  {
+    title: "Proverb",
+    info: { body: `<p>Proverbs are complete fixed sayings that carry a cultural meaning beyond the literal words. Used less frequently than other expression types but culturally important — they appear in conversation, literature, and media, and give insight into Spanish-speaking worldviews.</p>` },
+    cards: [
+      { id: "EX_PROV_015", en: "time is precious / time is gold", es: "el tiempo es oro", enCtx: "Let's not waste more time arguing. Time is precious.", esCtx: "No perdamos más tiempo discutiendo. El tiempo es oro." },
+      { id: "EX_PROV_018", en: "to each their own / everyone has their thing", es: "cada loco con su tema", enCtx: "He collects train tickets. Well, to each their own.", esCtx: "Él colecciona boletos de tren. Bueno, cada loco con su tema.", hint: "Distinctly colloquial, affectionate, and very Rioplatense in tone." },
+      { id: "EX_PROV_002", en: "better late than never", es: "más vale tarde que nunca", enCtx: "You arrived two hours late, but better late than never.", esCtx: "Llegaste dos horas tarde, pero más vale tarde que nunca." },
+      { id: "EX_PROV_004", en: "things come in threes / bad things happen in threes", es: "no hay dos sin tres", enCtx: "That's two problems this week already. Bad things come in threes.", esCtx: "Ya van dos problemas esta semana. No hay dos sin tres." },
+      { id: "EX_PROV_005", en: "the early bird catches the worm", es: "el que madruga, Dios lo ayuda", enCtx: "I was first in line. The early bird catches the worm.", esCtx: "Llegué primero en la fila. El que madruga, Dios lo ayuda." },
+      { id: "EX_PROV_009", en: "out of sight, out of mind", es: "ojos que no ven, corazón que no siente", enCtx: "He went abroad and forgot everything. Out of sight, out of mind.", esCtx: "Se fue al exterior y lo olvidó todo. Ojos que no ven, corazón que no siente." },
+      { id: "EX_PROV_010", en: "you are the company you keep", es: "decime con quién andás y te diré quién sos", enCtx: "You hang around with very serious people. You are the company you keep.", esCtx: "Andás con gente muy seria. Decime con quién andás y te diré quién sos.", hint: "Voseo adaptation of the classical 'dime con quién andas...'. The Rio version uses andás, decime, sos." },
+      { id: "EX_PROV_011", en: "make the best of a bad situation / keep smiling", es: "a mal tiempo, buena cara", enCtx: "We lost the contract, but we have to make the best of it.", esCtx: "Perdimos el contrato, pero a mal tiempo, buena cara." },
+      { id: "EX_PROV_012", en: "he who laughs last, laughs longest", es: "el que ríe último, ríe mejor", enCtx: "They're laughing now, but he who laughs last, laughs longest.", esCtx: "Ahora se ríen, pero el que ríe último, ríe mejor." },
+      { id: "EX_PROV_014", en: "clothes don't make the man / appearances can be deceiving", es: "el hábito no hace al monje", enCtx: "He looks serious, but appearances can be deceiving.", esCtx: "Parece serio, pero el hábito no hace al monje." },
+      { id: "EX_PROV_019", en: "all that glitters is not gold", es: "no todo lo que brilla es oro", enCtx: "It seems like a perfect company, but all that glitters is not gold.", esCtx: "Parece una empresa perfecta, pero no todo lo que brilla es oro." },
+      { id: "EX_PROV_021", en: "every rose has its thorn / nothing is perfect", es: "no hay rosas sin espinas", enCtx: "The job is great but there's a lot of travel. Every rose has its thorn.", esCtx: "El trabajo es excelente pero hay mucho viaje. No hay rosas sin espinas." },
+      { id: "EX_PROV_022", en: "nothing ventured, nothing gained", es: "el que no arriesga, no gana", enCtx: "Send the CV even if you don't meet all the requirements. Nothing ventured, nothing gained.", esCtx: "Mandá el CV aunque no tengas todos los requisitos. El que no arriesga, no gana." },
+      { id: "EX_PROV_007", en: "familiarity breeds contempt", es: "donde hay confianza hay asco", enCtx: "They say anything to each other. Familiarity breeds contempt.", esCtx: "Se dicen de todo. Donde hay confianza hay asco.", hint: "Literally 'where there is trust there is disgust'. Typically used affectionately." },
+      { id: "EX_PROV_001", en: "every cloud has a silver lining", es: "no hay mal que por bien no venga", enCtx: "I lost that job, but I found a better one. Every cloud has a silver lining.", esCtx: "Perdí ese trabajo, pero encontré uno mejor. No hay mal que por bien no venga.", hint: "Literally 'there is no bad thing that does not come with some good'. Uses subjunctive." },
+      { id: "EX_PROV_003", en: "don't look a gift horse in the mouth", es: "a caballo regalado no se le miran los dientes", enCtx: "The apartment is small, but don't look a gift horse in the mouth.", esCtx: "El departamento es pequeño, pero a caballo regalado no se le miran los dientes." },
+      { id: "EX_PROV_006", en: "a bird in the hand is worth two in the bush", es: "más vale pájaro en mano que ciento volando", enCtx: "Accept the offer you have. A bird in the hand is worth two in the bush.", esCtx: "Aceptá la oferta que tenés. Más vale pájaro en mano que ciento volando." },
+      { id: "EX_PROV_013", en: "the cobbler's children have no shoes", es: "en casa del herrero, cuchillo de palo", enCtx: "The doctor never looks after his own health. The cobbler's children have no shoes.", esCtx: "El médico nunca cuida su propia salud. En casa del herrero, cuchillo de palo." },
+      { id: "EX_PROV_017", en: "you snooze, you lose", es: "camarón que se duerme, se lo lleva la corriente", enCtx: "They got there before us and took the best spots. You snooze, you lose.", esCtx: "Llegaron antes que nosotros y agarraron los mejores lugares. Camarón que se duerme, se lo lleva la corriente.", hint: "Literally 'the shrimp that falls asleep gets carried away by the current'." },
+      { id: "EX_PROV_008", en: "there's none so deaf as those who will not hear", es: "no hay peor sordo que el que no quiere oír", enCtx: "We explained it a thousand times and nothing. There's none so deaf as those who will not hear.", esCtx: "Le explicamos mil veces y nada. No hay peor sordo que el que no quiere oír." },
+      { id: "EX_PROV_016", en: "you can't have it both ways / you can't be in two places at once", es: "no se puede estar en misa y repicando", enCtx: "You want to work and rest at the same time. You can't have it both ways.", esCtx: "Querés trabajar y descansar al mismo tiempo. No se puede estar en misa y repicando.", hint: "Literally 'you can't be at mass and ringing the bells at the same time'." },
+      { id: "EX_PROV_020", en: "wisdom comes with age and experience", es: "más sabe el diablo por viejo que por diablo", enCtx: "Listen to his advice. Wisdom comes with experience.", esCtx: "Escuchá sus consejos. Más sabe el diablo por viejo que por diablo.", hint: "Literally 'the devil knows more from being old than from being the devil'." },
+      { id: "EX_PROV_023", en: "a leopard can't change its spots", es: "genio y figura hasta la sepultura", enCtx: "He tried to change, but after three days he was back to the same old ways. A leopard can't change its spots.", esCtx: "Intentó cambiar, pero a los tres días volvió a lo mismo. Genio y figura hasta la sepultura.", hint: "Literally 'character and appearance until the grave'." },
+      { id: "EX_PROV_024", en: "no good deed goes unpunished (lit: raise crows and they'll peck your eyes out)", es: "cría cuervos y te sacarán los ojos", enCtx: "I gave him the job and then he competed against me. No good deed goes unpunished.", esCtx: "Le di el trabajo y después me hizo la competencia. Cría cuervos y te sacarán los ojos." },
+      { id: "EX_PROV_025", en: "if you must do something unpleasant, do it quickly", es: "al mal paso, darle prisa", enCtx: "Don't put off that difficult conversation any longer. If it must be done, do it quickly.", esCtx: "No te demores más con esa conversación difícil. Al mal paso, darle prisa." },
+    ]
+  },
+
+  // ── Quantifier & Degree (25 cards) ──
+  {
+    title: "Quantifier & Degree",
+    info: { body: `<p>Quantifier and degree expressions convey amount, intensity, and approximation. They modify nouns and adjectives and are used constantly in everyday speech. Includes the Rioplatense intensifier <span class="rio-highlight">re-</span> (re bueno, re rápido) and common phrases like <em>un montón</em> and <em>más o menos</em>.</p>` },
+    cards: [
+      { id: "EX_QUANT_001", en: "a lot / loads (of)", es: "un montón (de)", enCtx: "There are loads of things to do.", esCtx: "Hay un montón de cosas que hacer." },
+      { id: "EX_QUANT_002", en: "more or less / roughly / so-so", es: "más o menos", enCtx: "I'll be there in roughly twenty minutes.", esCtx: "Llego en más o menos veinte minutos." },
+      { id: "EX_QUANT_003", en: "at least", es: "por lo menos", enCtx: "There are at least twenty people waiting.", esCtx: "Hay por lo menos veinte personas esperando." },
+      { id: "EX_QUANT_005", en: "more and more", es: "cada vez más", enCtx: "It's getting harder and harder to find work.", esCtx: "Está cada vez más difícil encontrar trabajo." },
+      { id: "EX_QUANT_006", en: "less and less", es: "cada vez menos", enCtx: "We go out less and less.", esCtx: "Salimos cada vez menos." },
+      { id: "EX_QUANT_008", en: "very (intensifier prefix)", es: "re-", enCtx: "That book is really good.", esCtx: "Está re bueno ese libro.", hint: "Rioplatense colloquial intensifier. Prefixed directly to adjectives and adverbs: re lindo, re rápido, re bien." },
+      { id: "EX_QUANT_009", en: "quite / fairly / enough", es: "bastante", enCtx: "I've eaten quite enough, thanks.", esCtx: "Ya comí bastante, gracias." },
+      { id: "EX_QUANT_010", en: "not a bit / not at all", es: "ni un poco", enCtx: "I didn't like it one bit.", esCtx: "No me gustó ni un poco." },
+      { id: "EX_QUANT_011", en: "above all / especially / most of all", es: "sobre todo", enCtx: "Above all, be honest.", esCtx: "Sobre todo, sé honesto." },
+      { id: "EX_QUANT_020", en: "generally / in general", es: "por lo general", enCtx: "Generally speaking, I arrive on time.", esCtx: "Por lo general, llego puntual." },
+      { id: "EX_QUANT_012", en: "not at all / absolutely not", es: "en absoluto", enCtx: "It doesn't matter to me at all.", esCtx: "No me importa en absoluto.", hint: "Always used with negation: no + verb + en absoluto. Never used affirmatively in modern Spanish." },
+      { id: "EX_QUANT_014", en: "halfway / half-done / fifty-fifty", es: "a medias", enCtx: "He did it halfway, he didn't finish anything.", esCtx: "Lo hizo a medias, no terminó nada." },
+      { id: "EX_QUANT_015", en: "hardly / scarcely / just (barely)", es: "apenas", enCtx: "I had barely arrived when they called me.", esCtx: "Apenas llegué, me llamaron." },
+      { id: "EX_QUANT_016", en: "in style / in a big way", es: "a lo grande", enCtx: "If we're going to do it, we do it in style.", esCtx: "Si lo vamos a hacer, lo hacemos a lo grande." },
+      { id: "EX_QUANT_017", en: "not a bit of / not a trace of", es: "ni pizca de", enCtx: "He doesn't have a shred of shame.", esCtx: "No tiene ni pizca de vergüenza." },
+      { id: "EX_QUANT_021", en: "first and foremost / above all else", es: "ante todo", enCtx: "First and foremost, the safety of the passengers.", esCtx: "Ante todo, la seguridad de los pasajeros.", hint: "Stronger and more formal than 'sobre todo'. Implies a clear priority ranking." },
+      { id: "EX_QUANT_022", en: "practically / virtually / almost", es: "prácticamente", enCtx: "She practically didn't sleep all night.", esCtx: "Prácticamente no durmió en toda la noche." },
+      { id: "EX_QUANT_024", en: "to the maximum / to the fullest", es: "al máximo", enCtx: "We made the most of the time.", esCtx: "Aprovechamos el tiempo al máximo." },
+      { id: "EX_QUANT_004", en: "at most", es: "a lo sumo", enCtx: "It will take at most an hour.", esCtx: "Tardará a lo sumo una hora." },
+      { id: "EX_QUANT_007", en: "loads / heaps (informal)", es: "cualquier cantidad", enCtx: "She has heaps of clothes.", esCtx: "Tiene cualquier cantidad de ropa.", hint: "Literally 'any quantity'. Used colloquially in Rioplatense to mean 'a huge amount'." },
+      { id: "EX_QUANT_013", en: "not entirely / not at all (in negative) / completely (in affirmative)", es: "del todo", enCtx: "I'm not entirely convinced.", esCtx: "No estoy del todo convencido.", hint: "Most common in negative: no del todo = not entirely, not completely. Affirmative use is less common." },
+      { id: "EX_QUANT_018", en: "as soon as possible / the sooner the better", es: "cuanto antes", enCtx: "We need to resolve it as soon as possible.", esCtx: "Hay que resolverlo cuanto antes." },
+      { id: "EX_QUANT_019", en: "mostly / for the most part", es: "en su mayoría", enCtx: "For the most part, the participants agreed.", esCtx: "En su mayoría, los participantes estuvieron de acuerdo." },
+      { id: "EX_QUANT_023", en: "to a large extent / largely", es: "en gran medida", enCtx: "To a large extent, it depends on you.", esCtx: "En gran medida, depende de vos.", hint: "Voseo: depende de vos. The phrase itself is standard Spanish." },
+      { id: "EX_QUANT_025", en: "broadly speaking / in broad strokes", es: "a grandes rasgos", enCtx: "Broadly speaking, this is the plan.", esCtx: "A grandes rasgos, el plan es este." },
+    ]
+  },
+
+  // ── Time (28 cards) ──
+  {
+    title: "Time",
+    info: { body: `<p>Time expressions convey when things happen, how often, and for how long. Several have Rioplatense-preferred forms — for example, <span class="rio-highlight">recién</span> (just now / recently) is preferred over <em>acabar de</em> in Buenos Aires Spanish.</p>` },
+    cards: [
+      { id: "EX_TIME_001", en: "from time to time / every now and then", es: "de vez en cuando", enCtx: "Every now and then we get together for a meal.", esCtx: "De vez en cuando nos juntamos a comer." },
+      { id: "EX_TIME_002", en: "suddenly / all of a sudden", es: "de repente", enCtx: "All of a sudden, it started raining.", esCtx: "De repente, empezó a llover." },
+      { id: "EX_TIME_003", en: "right away / immediately", es: "en seguida", enCtx: "The waiter said he'd be right over.", esCtx: "El mozo dijo que venía en seguida." },
+      { id: "EX_TIME_004", en: "a while ago / for a while now", es: "hace rato", enCtx: "I arrived a while ago, I waited for you.", esCtx: "Llegué hace rato, te esperé." },
+      { id: "EX_TIME_005", en: "finally / at last", es: "por fin", enCtx: "You're finally here!", esCtx: "¡Por fin llegaste!" },
+      { id: "EX_TIME_006", en: "suddenly / all at once", es: "de golpe", enCtx: "Suddenly the power went out.", esCtx: "De golpe se fue la luz.", hint: "Synonym of 'de repente', but more common in Rioplatense spoken Spanish." },
+      { id: "EX_TIME_007", en: "in a little while / soon", es: "en un rato", enCtx: "I'll be back in a little while.", esCtx: "Vuelvo en un rato." },
+      { id: "EX_TIME_008", en: "still / yet", es: "todavía", enCtx: "He still hasn't arrived.", esCtx: "Todavía no llegó.", hint: "Todavía no = still hasn't / not yet. Todavía (without no) = still." },
+      { id: "EX_TIME_010", en: "just / just now / recently", es: "recién", enCtx: "I just got here, give me a minute.", esCtx: "Recién llegué, dame un minuto.", hint: "In Rioplatense, 'recién' is extremely common for 'just now'. In other dialects, 'acabar de' is more typical." },
+      { id: "EX_TIME_013", en: "every so often / every now and again", es: "cada tanto", enCtx: "Every so often I think back to those days.", esCtx: "Cada tanto me acuerdo de esos días.", hint: "Rioplatense equivalent of 'de vez en cuando'. Both are used, but 'cada tanto' is distinctly porteño." },
+      { id: "EX_TIME_014", en: "sooner or later", es: "tarde o temprano", enCtx: "Sooner or later, it will turn up.", esCtx: "Tarde o temprano, va a aparecer." },
+      { id: "EX_TIME_016", en: "on time / in time", es: "a tiempo", enCtx: "We arrived just in time.", esCtx: "Llegamos justo a tiempo." },
+      { id: "EX_TIME_018", en: "meanwhile / in the meantime", es: "mientras tanto", enCtx: "You start; meanwhile, I'll finish this.", esCtx: "Vos empezá; mientras tanto, yo termino esto.", hint: "Voseo: vos empezá. 'Mientras tanto' is the same in all dialects; only the example uses Rioplatense." },
+      { id: "EX_TIME_020", en: "with time / in time / eventually", es: "con el tiempo", enCtx: "With time, everything is forgotten.", esCtx: "Con el tiempo, todo se olvida." },
+      { id: "EX_TIME_024", en: "at the last minute", es: "a última hora", enCtx: "As always, he did it at the last minute.", esCtx: "Como siempre, lo hizo a última hora." },
+      { id: "EX_TIME_025", en: "day by day / day to day", es: "día a día", enCtx: "We have to deal with things day by day.", esCtx: "Hay que ir resolviendo las cosas día a día." },
+      { id: "EX_TIME_027", en: "at that moment / at that point", es: "en aquel momento", enCtx: "At that moment, I didn't know what to say.", esCtx: "En aquel momento, no supe qué decir." },
+      { id: "EX_TIME_028", en: "as soon as possible", es: "lo antes posible", enCtx: "I need an answer as soon as possible.", esCtx: "Necesito una respuesta lo antes posible." },
+      { id: "EX_TIME_011", en: "in the long run", es: "a la larga", enCtx: "In the long run, it's better to be honest.", esCtx: "A la larga, es mejor ser honesto." },
+      { id: "EX_TIME_012", en: "from now on", es: "de ahora en adelante", enCtx: "From now on, you arrive on time.", esCtx: "De ahora en adelante, llegás puntual." },
+      { id: "EX_TIME_015", en: "any moment now", es: "de un momento a otro", enCtx: "She'll be here any moment now.", esCtx: "Llega de un momento a otro." },
+      { id: "EX_TIME_017", en: "back then / at that time", es: "en aquel entonces", enCtx: "Back then, everything was different.", esCtx: "En aquel entonces todo era diferente." },
+      { id: "EX_TIME_021", en: "at the right time / in due course / when the time comes", es: "en su momento", enCtx: "I'll tell you everything when the time comes.", esCtx: "En su momento te cuento todo." },
+      { id: "EX_TIME_026", en: "on the spot / immediately / right then and there", es: "en el acto", enCtx: "They fired him on the spot.", esCtx: "Lo despidieron en el acto." },
+      { id: "EX_TIME_009", en: "already / right away (context-dependent)", es: "ya", enCtx: "I already know. / I'm coming right now.", esCtx: "Ya sé. / Ya voy.", hint: "One of the most context-dependent words in Spanish. Can mean 'already', 'right now', 'soon', or just add emphasis." },
+      { id: "EX_TIME_019", en: "at this point / at this stage", es: "a estas alturas", enCtx: "At this point, there's no use complaining.", esCtx: "A estas alturas, ya no tiene sentido quejarse." },
+      { id: "EX_TIME_022", en: "at the wrong time / out of sync", es: "a destiempo", enCtx: "He always arrives at the wrong time.", esCtx: "Siempre llega a destiempo.", hint: "The opposite of 'a tiempo'. Also used in music to mean 'out of time'." },
+      { id: "EX_TIME_023", en: "after / at the end of (a period)", es: "al cabo de", enCtx: "After three hours, we finished.", esCtx: "Al cabo de tres horas, terminamos." },
+    ]
+  }
+  ]
 }
 ]; // end sections
 
@@ -12377,6 +13014,7 @@ function _srRenderLanding() {
   const ch    = sections[currentSubjectIdx].chapters[currentLessonIdx];
   const chId  = `${sections[currentSubjectIdx].prefix}${currentLessonIdx + 1}`;
   const level = srLevel;
+  const isExpressions = sections[currentSubjectIdx].prefix === 'EX';
   srChapterId = chId;
   srLiveCards = _srCardsForLevel(ch, level);
   srLiveDeck  = srLoadDeck(chId, level, srLiveCards);
@@ -12400,6 +13038,19 @@ function _srRenderLanding() {
     <rect x="4.5" y="1.5" width="11" height="10" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
   </svg>`;
 
+  // Level selector — shown for Grammar only; Expressions has a single flat deck
+  const levelSelector = isExpressions
+    ? `<div class="study-icons-row" style="margin-bottom:0.75rem">
+        <button class="study-deck-btn" onclick="srOpenCards()" title="Browse cards">${deckIcon}</button>
+      </div>`
+    : `<div class="study-level-selector">
+        <button class="study-deck-btn" onclick="srOpenCards()" title="Browse cards for active level">${deckIcon}</button>
+        <span class="study-level-lbl">Level</span>
+        <button class="study-level-btn${level==='L1'?' active':''}" onclick="srSetLevel('L1')">L1</button>
+        ${hasL2 ? `<button class="study-level-btn${level==='L2'?' active':''}" onclick="srSetLevel('L2')">L2</button>` : ''}
+        ${hasL3 ? `<button class="study-level-btn${level==='L3'?' active':''}" onclick="srSetLevel('L3')">L3</button>` : ''}
+      </div>`;
+
   const panel = document.getElementById('studyPanel');
   panel.innerHTML = `
     <div class="study-metres" style="margin-bottom:1rem">
@@ -12413,13 +13064,7 @@ function _srRenderLanding() {
       ${debugBtn}
     </div>
 
-    <div class="study-level-selector">
-      <button class="study-deck-btn" onclick="srOpenCards()" title="Browse cards for active level">${deckIcon}</button>
-      <span class="study-level-lbl">Level</span>
-      <button class="study-level-btn${level==='L1'?' active':''}" onclick="srSetLevel('L1')">L1</button>
-      ${hasL2 ? `<button class="study-level-btn${level==='L2'?' active':''}" onclick="srSetLevel('L2')">L2</button>` : ''}
-      ${hasL3 ? `<button class="study-level-btn${level==='L3'?' active':''}" onclick="srSetLevel('L3')">L3</button>` : ''}
-    </div>
+    ${levelSelector}
 
     <div class="study-btn-row">
       <button class="study-btn primary" onclick="srNewSession()">New Session</button>
@@ -12429,6 +13074,7 @@ function _srRenderLanding() {
 }
 
 function _srRenderInfo() {
+  const isExpressions = sections[currentSubjectIdx].prefix === 'EX';
   const panel = document.getElementById('studyPanel');
   panel.innerHTML = `
     <div class="sr-info-back" onclick="_srRenderLanding()">← Practice</div>
@@ -12449,8 +13095,8 @@ function _srRenderInfo() {
     <p class="sr-info-para"><strong>Freshness</strong> — how recently you've reviewed. 100% right after a session; fades naturally over days without study.</p>
 
     <div class="sr-info-section">Controls</div>
-    <p class="sr-info-para"><strong>Levels (L1 / L2 / L3)</strong> — each level is a separate card set for this chapter, progressing in difficulty. Your progress is tracked independently per level.</p>
-    <p class="sr-info-para"><strong>Deck icon</strong> — browse the cards for the active level in regular flashcard mode. Use this to explore before a session, or to review freely without ratings.</p>
+    ${isExpressions ? '' : `<p class="sr-info-para"><strong>Levels (L1 / L2 / L3)</strong> — each level is a separate card set for this chapter, progressing in difficulty. Your progress is tracked independently per level.</p>`}
+    <p class="sr-info-para"><strong>Deck icon</strong> — browse the cards${isExpressions ? '' : ' for the active level'} in regular flashcard mode. Use this to explore before a session, or to review freely without ratings.</p>
     <p class="sr-info-para"><strong>Dashboard (⏱)</strong> — detailed stats for the current deck: confidence distribution, individual card scores, intervals, and ease factors.</p>
   `;
 }
@@ -12875,6 +13521,7 @@ let savedCardIdx = 0;
 const subjectConfig = {
   'Grammar':           { icon:'📖', color:'#C4622D', group:null        },
   'Vocabulary':        { icon:'💬', color:'#4A7C59', group:null        },
+  'Expressions':       { icon:'💡', color:'#C9973A', group:null        },
   'Buenos Aires':      { icon:'🇦🇷', color:'#74ACDF', group:'Dialects' },
   'Mexican Spanish':   { icon:'🇲🇽', color:'#C4622D', group:'Dialects' },
   'Colombian Spanish': { icon:'🇨🇴', color:'#4A7C59', group:'Dialects' },
@@ -13199,7 +13846,7 @@ function openGroup(group) {
 function openSubject(subjectIdx) {
   currentSubjectIdx = subjectIdx;
   const s          = sections[subjectIdx];
-  const isGrammar  = s.prefix === 'G';
+  const isGrammar  = s.prefix === 'G' || s.prefix === 'EX';
   document.getElementById('lessonScreenTitle').textContent = s.label;
   document.getElementById('lessonBack').onclick = goHome;
   const list = document.getElementById('lessonList');
@@ -13238,7 +13885,7 @@ function openLesson(subjectIdx, lessonIdx) {
   savedCardIdx = 0;
   const ch       = sections[subjectIdx].chapters[lessonIdx];
   const prefix   = sections[subjectIdx].prefix;
-  const hasStudy = prefix === 'G';
+  const hasStudy = prefix === 'G' || prefix === 'EX';
   const chapterLabel = prefix === 'G'
     ? `${prefix}${lessonIdx + 1} — ${ch.title}`
     : ch.title;
@@ -13248,8 +13895,8 @@ function openLesson(subjectIdx, lessonIdx) {
   const tabCardsEl  = document.getElementById('tabCards');
 
   if (hasStudy) {
-    // Grammar: Theory + Practice only
-    tabInfoEl.textContent  = 'Theory';
+    // Grammar: Theory + Practice; Expressions: Info + Practice (no standalone Cards tab)
+    tabInfoEl.textContent  = prefix === 'EX' ? 'Info' : 'Theory';
     tabInfoEl.style.display = hasInfo ? '' : 'none';
     tabCardsEl.style.display = 'none';
   } else {
@@ -13301,12 +13948,8 @@ function buildInfoPanel(ch) {
   document.getElementById('infoPanelContent').innerHTML = ch.info ? (ch.info.body || '') : '';
   const area  = document.getElementById('conceptCardsArea');
   const slots = document.getElementById('conceptCardSlots');
-  if (!ch.info) { area.style.display = 'none'; return; }
-  const concepts = ch.conceptCards || [
-    { es:'Concepto 1', literal:'[verb infinitive]',       en:'Simple example showing the concept.',     note:'Core idea — content coming soon.' },
-    { es:'Concepto 2', literal:'[word order skeleton]',   en:'A slightly more complex example.',        note:'Builds on the first — content coming soon.' },
-    { es:'Concepto 3', literal:'[literal translation]',   en:'The concept applied in a fuller sentence.',note:'Pattern in real use — content coming soon.' },
-  ];
+  if (!ch.info || !ch.conceptCards || !ch.conceptCards.length) { area.style.display = 'none'; return; }
+  const concepts = ch.conceptCards;
   conceptIdx = 0;
   slots.innerHTML = '';
   concepts.forEach((c, i) => {
