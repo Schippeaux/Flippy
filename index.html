@@ -162,7 +162,21 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 /* Expression audio replay button */
 .expr-replay-btn { margin-top:1.2rem; padding:0.45rem 1.1rem; border:1px solid rgba(255,255,255,0.22); border-radius:20px; background:transparent; color:rgba(240,236,228,0.6); font-family:'Inconsolata',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; display:none; align-items:center; gap:0.4rem; transition:opacity 0.15s; pointer-events:auto; }
 .expr-replay-btn:active { opacity:0.6; }
-.expr-replay-btn.large { position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); font-size:1.1rem; padding:0.9rem 2rem; border:2px solid var(--accent); color:var(--accent); letter-spacing:0.08em; border-radius:30px; }
+.expr-replay-btn.large { position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); font-size:1.5rem; padding:0.9rem 1.8rem; border:2px solid var(--accent); color:var(--accent); letter-spacing:0; border-radius:30px; }
+/* English section shown on state-2 card (dark background) */
+.expr-en-divider { display:block; font-family:'Inconsolata',monospace; font-size:0.52rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(240,236,228,0.28); margin-bottom:0.4rem; margin-top:0.1rem; }
+.expr-en-word    { display:block; font-family:'Lora',serif; font-size:clamp(1rem,4vw,1.35rem); color:rgba(240,236,228,0.82); line-height:1.3; }
+.expr-en-ctx     { display:block; font-family:'Lora',serif; font-style:italic; font-size:clamp(0.72rem,2.4vw,0.84rem); color:rgba(240,236,228,0.42); margin-top:0.4rem; line-height:1.6; }
+/* Speed button + slide-up tray */
+.expr-speed-btn  { width:48px; height:48px; border-radius:50%; border:1px solid var(--border); background:var(--bg); color:var(--text-mid); cursor:pointer; display:none; align-items:center; justify-content:center; transition:transform 0.1s, background 0.15s; flex-shrink:0; padding:0; }
+.expr-speed-btn.visible { display:flex; }
+.expr-speed-btn.active  { background:var(--accent); border-color:var(--accent); }
+.expr-speed-btn:active  { transform:scale(0.92); }
+.expr-speed-tray { position:fixed; width:52px; bottom:calc(var(--bottombar-h) + var(--safe-b) + 10px); background:rgba(247,243,236,0.93); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:18px; padding:12px 0 12px; transform:translateY(calc(100% + var(--bottombar-h) + var(--safe-b) + 10px)); transition:transform 0.28s cubic-bezier(0.4,0,0.2,1); z-index:300; display:flex; flex-direction:column; align-items:center; gap:8px; box-shadow:0 4px 20px rgba(0,0,0,0.13); }
+.expr-speed-tray.open { transform:translateY(0); }
+.expr-speed-tray-val { font-family:'Inconsolata',monospace; font-size:0.62rem; letter-spacing:0.04em; color:var(--accent); }
+.expr-speed-track { display:flex; align-items:center; justify-content:center; height:110px; width:52px; }
+#exprSpeedSlider { writing-mode:vertical-lr; direction:rtl; -webkit-appearance:slider-vertical; width:28px; height:100px; accent-color:var(--accent); cursor:pointer; }
 
 /* Hint overlay — slides up from bottom of card */
 .hint-overlay {
@@ -454,7 +468,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
         <div class="card-alt"     id="cardAlt"    style="display:none"></div>
         <div class="card-hint-text" id="cardHintText"></div>
         <div class="tap-hint" id="tapHint">tap to flip</div>
-        <button class="expr-replay-btn" id="exprReplayBtn" onclick="exprReplayAudio(event)">🔊 replay</button>
+        <button class="expr-replay-btn" id="exprReplayBtn" onclick="exprReplayAudio(event)" ontouchend="exprReplayAudio(event)">▶︎</button>
         <!-- Hint overlay lives inside card face -->
         <div class="hint-overlay" id="hintOverlay">
           <div class="hint-row">
@@ -479,6 +493,12 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
   <div class="bottom-bar" id="bottomBar">
     <button class="nav-btn"  onclick="prev()">←</button>
     <button class="flip-btn" id="flipBtn" onclick="reveal()">Flip</button>
+    <button class="expr-speed-btn" id="exprSpeedBtn" ontouchend="toggleExprSpeedTray(event)" onclick="toggleExprSpeedTray(event)" title="Playback speed">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2.2" stroke-linecap="round"/>
+        <polygon points="9,7.5 15.5,11 9,14.5" fill="currentColor"/>
+      </svg>
+    </button>
     <button class="hint-btn" id="hintBtn" onclick="toggleHint()">hint</button>
     <button class="nav-btn"  onclick="next()">→</button>
   </div>
@@ -495,9 +515,24 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
   <!-- SR session bottom bar (replaces bottom-bar during study session) -->
   <div class="sr-session-bottom" id="srSessionBottom">
     <button class="flip-btn" id="srFlipBtn" onclick="srFlipCard()">Flip</button>
+    <button class="expr-speed-btn" id="exprSpeedBtnSR" ontouchend="toggleExprSpeedTray(event)" onclick="toggleExprSpeedTray(event)" title="Playback speed">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2.2" stroke-linecap="round"/>
+        <polygon points="9,7.5 15.5,11 9,14.5" fill="currentColor"/>
+      </svg>
+    </button>
     <button class="hint-btn" id="srHintBtn" onclick="srToggleHint()">hint</button>
   </div>
 
+</div>
+
+<!-- Expression speed tray (fixed, slides up from bottom) -->
+<div id="exprSpeedBackdrop" onclick="closeExprSpeedTray()" style="display:none;position:fixed;inset:0;z-index:299;"></div>
+<div class="expr-speed-tray" id="exprSpeedTray">
+  <span class="expr-speed-tray-val" id="exprSpeedVal">1.0×</span>
+  <div class="expr-speed-track">
+    <input type="range" id="exprSpeedSlider" min="0.7" max="1.0" step="0.05" value="1.0" oninput="setExprSpeed(this.value)">
+  </div>
 </div>
 
 <!-- SR rating tray (fixed, slides up from bottom when FLIP tapped) -->
@@ -13383,13 +13418,13 @@ function _srShowCard() {
     _exCurrentCardId = cardId;
     const tag = document.getElementById('cardTag');
     tag.className   = 'card-tag es';
-    tag.textContent = 'AUDIO';
+    tag.textContent = '';
     document.getElementById('cardTarget').innerHTML  = '';
     document.getElementById('cardContext').textContent = '';
     document.getElementById('cardAlt').style.display   = 'none';
     document.getElementById('cardHintText').textContent = '';
     document.getElementById('tapHint').style.display   = 'none';
-    if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E play'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
+    if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
     document.getElementById('srFlipBtn').textContent   = 'Reveal Spanish';
     playExprAudio(_exCurrentCardId); // autoplay — works after first user interaction
   } else {
@@ -13435,19 +13470,21 @@ function srFlipCard() {
       const esCtx = rawCard.esCtx || '';
       document.getElementById('cardContext').innerHTML   = esCtx ? '\u201c'+esCtx+'\u201d' : '';
       document.getElementById('tapHint').style.display   = 'none';
-      if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E replay'; replayBtn.classList.remove('large'); replayBtn.style.display = 'flex'; }
+      if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E'; replayBtn.classList.remove('large'); replayBtn.style.display = 'flex'; }
       document.getElementById('srFlipBtn').textContent   = 'Reveal English';
     } else if (srExRevealState === 1) {
       // Spanish → English + rating tray
       srExRevealState = 2;
-      face.classList.remove('is-back');
-      tag.className   = 'card-tag en';
-      tag.textContent = 'ENGLISH';
-      document.getElementById('cardTarget').textContent  = rawCard.en;
-      const enCtx = rawCard.enCtx || '';
-      document.getElementById('cardContext').innerHTML   = enCtx ? '\u201c'+enCtx+'\u201d' : '';
+      // Card stays dark — append English below Spanish in cardAlt
+      const enText2  = rawCard.en || '';
+      const enCtx2   = rawCard.enCtx || '';
+      const altEl2   = document.getElementById('cardAlt');
+      altEl2.innerHTML = '<span class="expr-en-divider">English</span>'
+        + '<span class="expr-en-word">' + enText2 + '</span>'
+        + (enCtx2 ? '<span class="expr-en-ctx">\u201c' + enCtx2 + '\u201d</span>' : '');
+      altEl2.style.display = 'block';
       document.getElementById('tapHint').style.display   = 'none';
-      if (replayBtn) { replayBtn.classList.remove('large'); replayBtn.style.display = 'none'; }
+      if (replayBtn) { replayBtn.classList.remove('large'); replayBtn.style.display = 'flex'; }
       document.getElementById('srFlipBtn').textContent   = 'Flip';
       // Apply hint-lock and open rating tray
       if (srHintUsed) {
@@ -14250,15 +14287,82 @@ function showTab(tab) {
 
 // ── EXPRESSIONS AUDIO ──
 function updateModeBtnsVisibility() {
-  const g = document.getElementById('modeBtnGroup');
-  if (!g) return;
-  // Hide in SR session, or any time section is Expressions (mode irrelevant there)
-  const hide = srInSession || isExprSection();
-  g.style.display = hide ? 'none' : '';
+  const g   = document.getElementById('modeBtnGroup');
+  const isEx = isExprSection();
+  if (g) g.style.display = (srInSession || isEx) ? 'none' : '';
+  showExprSpeedBtn(isEx);
+  if (isEx) initExprSpeedUI();
 }
 function isExprSection() {
   return sections[currentSubjectIdx] && sections[currentSubjectIdx].prefix === 'EX';
 }
+// ── EXPRESSION PLAYBACK SPEED ──
+let exprPlaybackRate = parseFloat(localStorage.getItem('exprPlaybackRate') || '1.0');
+
+function setExprSpeed(val) {
+  exprPlaybackRate = parseFloat(val);
+  localStorage.setItem('exprPlaybackRate', exprPlaybackRate);
+  const display = exprPlaybackRate % 1 === 0 ? exprPlaybackRate.toFixed(1) : exprPlaybackRate.toString().replace(/0+$/, '');
+  const el = document.getElementById('exprSpeedVal');
+  if (el) el.textContent = display + '\u00D7';
+  if (_exCurrentAudio) _exCurrentAudio.playbackRate = exprPlaybackRate;
+}
+
+function initExprSpeedUI() {
+  const slider = document.getElementById('exprSpeedSlider');
+  const val    = document.getElementById('exprSpeedVal');
+  if (slider) slider.value = exprPlaybackRate;
+  if (val) {
+    const display = exprPlaybackRate % 1 === 0 ? exprPlaybackRate.toFixed(1) : exprPlaybackRate.toString().replace(/0+$/, '');
+    val.textContent = display + '\u00D7';
+  }
+}
+
+function showExprSpeedBtn(visible) {
+  const btn   = document.getElementById('exprSpeedBtn');
+  const btnSR = document.getElementById('exprSpeedBtnSR');
+  if (btn)   btn.classList.toggle('visible', visible);
+  if (btnSR) btnSR.classList.toggle('visible', visible);
+  if (!visible) closeExprSpeedTray();
+}
+
+function toggleExprSpeedTray(e) {
+  if (e) { e.stopPropagation(); e.preventDefault(); }
+  const tray     = document.getElementById('exprSpeedTray');
+  const backdrop = document.getElementById('exprSpeedBackdrop');
+  const btn      = document.getElementById('exprSpeedBtn');
+  const btnSR    = document.getElementById('exprSpeedBtnSR');
+  if (!tray) return;
+  const opening = !tray.classList.contains('open');
+  if (opening) {
+    // Position tray centered above whichever button triggered it
+    const srcBtn = (e && e.currentTarget) || btnSR || btn;
+    if (srcBtn) {
+      const rect  = srcBtn.getBoundingClientRect();
+      const trayW = 52;
+      let left = rect.left + rect.width / 2 - trayW / 2;
+      left = Math.max(8, Math.min(left, window.innerWidth - trayW - 8));
+      tray.style.left  = left + 'px';
+      tray.style.right = 'auto';
+    }
+  }
+  tray.classList.toggle('open', opening);
+  if (backdrop) backdrop.style.display = opening ? 'block' : 'none';
+  if (btn)   btn.classList.toggle('active', opening);
+  if (btnSR) btnSR.classList.toggle('active', opening);
+}
+
+function closeExprSpeedTray() {
+  const tray     = document.getElementById('exprSpeedTray');
+  const backdrop = document.getElementById('exprSpeedBackdrop');
+  const btn      = document.getElementById('exprSpeedBtn');
+  const btnSR    = document.getElementById('exprSpeedBtnSR');
+  if (tray)     tray.classList.remove('open');
+  if (backdrop) backdrop.style.display = 'none';
+  if (btn)      btn.classList.remove('active');
+  if (btnSR)    btnSR.classList.remove('active');
+}
+
 function getExprAudioPath(cardId) {
   // file:// → use relative path from 9_Distribution/ folder
   // http(s):// → audio/ sits alongside index.html (deployed)
@@ -14271,6 +14375,7 @@ function playExprAudio(cardId) {
   if (_exCurrentAudio) { _exCurrentAudio.pause(); _exCurrentAudio.currentTime = 0; _exCurrentAudio = null; }
   if (!cardId) return;
   _exCurrentAudio = new Audio(getExprAudioPath(cardId));
+  _exCurrentAudio.playbackRate = exprPlaybackRate;
   _exCurrentAudio.play().catch(err => console.warn('Audio play failed:', getExprAudioPath(cardId), err));
 }
 function exprReplayAudio(e) {
@@ -14321,7 +14426,7 @@ function showCard() {
     exRevealState = 0;
     _exCurrentCardId = card.id;
     const tag = document.getElementById('cardTag');
-    tag.textContent = 'AUDIO';
+    tag.textContent = '';
     tag.className = 'card-tag es';
     document.getElementById('cardTarget').innerHTML = '';
     document.getElementById('cardContext').innerHTML = '';
@@ -14330,7 +14435,7 @@ function showCard() {
     const tapEl = document.getElementById('tapHint');
     tapEl.textContent = 'tap card to reveal spanish';
     tapEl.style.display = 'block';
-    if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E play'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
+    if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
     playExprAudio(_exCurrentCardId); // autoplay — works after first user interaction
   } else {
     const tag = document.getElementById('cardTag');
@@ -14375,22 +14480,23 @@ function reveal() {
       document.getElementById('cardAlt').style.display = 'none';
       document.getElementById('cardHintText').textContent = '';
       document.getElementById('tapHint').style.display = 'none';
-      if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E replay'; replayBtn.classList.remove('large'); replayBtn.style.display = 'flex'; }
+      if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E'; replayBtn.classList.remove('large'); replayBtn.style.display = 'flex'; }
     } else if (exRevealState === 1) {
-      // State 1 → 2: reveal English
+      // State 1 → 2: add English below Spanish (card stays dark)
       exRevealState = 2;
-      face.classList.remove('is-back');
-      tag.textContent = 'ENGLISH';
-      tag.className = 'card-tag en';
+      // cardTarget + cardContext stay as Spanish — just append English in cardAlt
       const ch = sections[currentSubjectIdx].chapters[currentLessonIdx];
       const raw = (ch.cards || []).find(c => c.id === card.id);
-      document.getElementById('cardTarget').innerHTML  = raw ? raw.en : '';
-      const enCtx = raw ? (raw.enCtx || '') : '';
-      document.getElementById('cardContext').innerHTML = enCtx ? '\u201c'+enCtx+'\u201d' : '';
-      document.getElementById('cardAlt').style.display = 'none';
+      const enText  = raw ? (raw.en || '') : '';
+      const enCtx   = raw ? (raw.enCtx || '') : '';
+      const altEl   = document.getElementById('cardAlt');
+      altEl.innerHTML = '<span class="expr-en-divider">English</span>'
+        + '<span class="expr-en-word">' + enText + '</span>'
+        + (enCtx ? '<span class="expr-en-ctx">\u201c' + enCtx + '\u201d</span>' : '');
+      altEl.style.display = 'block';
       document.getElementById('cardHintText').textContent = '';
       document.getElementById('tapHint').style.display = 'none';
-      if (replayBtn) { replayBtn.classList.remove('large'); replayBtn.style.display = 'none'; }
+      if (replayBtn) { replayBtn.classList.remove('large'); replayBtn.style.display = 'flex'; }
     }
     // State 2: tap does nothing — use → to advance
     return;
@@ -14515,17 +14621,24 @@ function goLessons() {
   }, { passive:true });
 
   face.addEventListener('touchend', e => {
+    closeExprSpeedTray();
     const dx = e.changedTouches[0].clientX - tx;
     const dy = e.changedTouches[0].clientY - ty;
     if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
       dx < 0 ? next() : prev();
     } else if (!moved) {
-      // Check if tap was inside hint overlay — don't flip if so
+      const cx = e.changedTouches[0].clientX;
+      const cy = e.changedTouches[0].clientY;
+      // Don't flip if tap was inside hint overlay
       const hint = document.getElementById('hintOverlay');
-      const rect = hint.getBoundingClientRect();
-      const cx   = e.changedTouches[0].clientX;
-      const cy   = e.changedTouches[0].clientY;
-      if (hintOpen && cx>=rect.left && cx<=rect.right && cy>=rect.top && cy<=rect.bottom) return;
+      const hRect = hint.getBoundingClientRect();
+      if (hintOpen && cx>=hRect.left && cx<=hRect.right && cy>=hRect.top && cy<=hRect.bottom) return;
+      // Don't flip if tap was on the replay button
+      const rb = document.getElementById('exprReplayBtn');
+      if (rb && rb.style.display !== 'none') {
+        const rRect = rb.getBoundingClientRect();
+        if (cx>=rRect.left && cx<=rRect.right && cy>=rRect.top && cy<=rRect.bottom) { exprReplayAudio(); return; }
+      }
       reveal();
     }
   }, { passive:true });
