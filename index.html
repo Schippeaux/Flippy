@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Learning Spanish — v12.3</title>
+<title>Learning Spanish — v12.4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
@@ -158,6 +158,11 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 /* Tap hint */
 .tap-hint { position:absolute; bottom:1rem; right:1.4rem; font-size:0.52rem; color:var(--text-light); letter-spacing:0.1em; text-transform:uppercase; font-family:'Inconsolata',monospace; pointer-events:none; }
 .card-face.is-back .tap-hint { color:rgba(240,236,228,0.25); }
+
+/* Expression audio replay button */
+.expr-replay-btn { margin-top:1.2rem; padding:0.45rem 1.1rem; border:1px solid rgba(255,255,255,0.22); border-radius:20px; background:transparent; color:rgba(240,236,228,0.6); font-family:'Inconsolata',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; display:none; align-items:center; gap:0.4rem; transition:opacity 0.15s; pointer-events:auto; }
+.expr-replay-btn:active { opacity:0.6; }
+.expr-replay-btn.large { position:absolute; top:50%; left:50%; transform:translate(-50%,-60%); font-size:1.1rem; padding:0.9rem 2rem; border:2px solid var(--accent); color:var(--accent); letter-spacing:0.08em; border-radius:30px; }
 
 /* Hint overlay — slides up from bottom of card */
 .hint-overlay {
@@ -377,7 +382,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 <div class="screen" id="splashScreen">
   <div class="splash-header" style="position:relative">
     <div class="splash-logo">Learning Spanish</div>
-    <div class="splash-sub">Buenos Aires · v12.3</div>
+    <div class="splash-sub">Buenos Aires · v12.4</div>
     <button class="splash-settings-btn" onclick="openSettings()" title="Settings">⚙️</button>
   </div>
   <div class="splash-grid" id="splashGrid"></div>
@@ -449,6 +454,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
         <div class="card-alt"     id="cardAlt"    style="display:none"></div>
         <div class="card-hint-text" id="cardHintText"></div>
         <div class="tap-hint" id="tapHint">tap to flip</div>
+        <button class="expr-replay-btn" id="exprReplayBtn" onclick="exprReplayAudio(event)">🔊 replay</button>
         <!-- Hint overlay lives inside card face -->
         <div class="hint-overlay" id="hintOverlay">
           <div class="hint-row">
@@ -13356,35 +13362,52 @@ function _srShowCard() {
   // Reset per-card state
   srHintUsed = false;
   document.getElementById('srCircle4').classList.remove('hint-locked');
+  const replayBtn = document.getElementById('exprReplayBtn');
+  if (replayBtn) replayBtn.style.display = 'none';
 
   // Update session info bar
   document.getElementById('srSessionInfo').textContent =
     `${srChapterId}  ·  Card ${srQueueIdx + 1} of ${srQueue.length}`;
 
-  // Populate card face (front = English)
   const face = document.getElementById('cardFace');
   face.classList.remove('is-back');
   document.getElementById('hintOverlay').classList.remove('open');
   document.getElementById('srHintBtn').classList.remove('active');
-
-  const tag = document.getElementById('cardTag');
-  tag.className   = 'card-tag en';
-  tag.textContent = 'ENGLISH';
-  document.getElementById('cardTarget').textContent  = rawCard.en;
-  document.getElementById('cardContext').textContent = '';
-  document.getElementById('cardAlt').style.display   = 'none';
-  document.getElementById('cardHintText').textContent = '';
-  document.getElementById('tapHint').style.display   = 'block';
-
-  // Pre-load hint content
-  const hintParts = rawCard.hint ? rawCard.hint.split('\n') : [];
-  const _clean = s => s.replace(/^\[?(?:verb|order|literal|key\s*word):\s*/i,'').replace(/\]$/,'').trim();
-  document.getElementById('hintVerb').textContent    = hintParts[0] ? _clean(hintParts[0]) : (rawCard.es || '—');
-  document.getElementById('hintLiteral').textContent = hintParts[1] ? _clean(hintParts[1]) : '—';
-
-  // Reset flip button label and close rating tray
-  document.getElementById('srFlipBtn').textContent = 'Flip';
   document.getElementById('srRatingTray').classList.remove('open');
+
+  if (isExprSection()) {
+    // Expressions: audio-only front state
+    srExRevealState = 0;
+    const tag = document.getElementById('cardTag');
+    tag.className   = 'card-tag es';
+    tag.textContent = 'AUDIO';
+    document.getElementById('cardTarget').innerHTML  = '';
+    document.getElementById('cardContext').textContent = '';
+    document.getElementById('cardAlt').style.display   = 'none';
+    document.getElementById('cardHintText').textContent = '';
+    document.getElementById('tapHint').style.display   = 'none';
+    if (replayBtn) { replayBtn.textContent = '▶︎ play'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
+    document.getElementById('srFlipBtn').textContent   = 'Reveal Spanish';
+    // Audio plays on first Flip tap (user gesture) — not here
+  } else {
+    // Normal: front = English
+    const tag = document.getElementById('cardTag');
+    tag.className   = 'card-tag en';
+    tag.textContent = 'ENGLISH';
+    document.getElementById('cardTarget').textContent  = rawCard.en;
+    document.getElementById('cardContext').textContent = '';
+    document.getElementById('cardAlt').style.display   = 'none';
+    document.getElementById('cardHintText').textContent = '';
+    document.getElementById('tapHint').style.display   = 'block';
+
+    // Pre-load hint content
+    const hintParts = rawCard.hint ? rawCard.hint.split('\n') : [];
+    const _clean = s => s.replace(/^\[?(?:verb|order|literal|key\s*word):\s*/i,'').replace(/\]$/,'').trim();
+    document.getElementById('hintVerb').textContent    = hintParts[0] ? _clean(hintParts[0]) : (rawCard.es || '—');
+    document.getElementById('hintLiteral').textContent = hintParts[1] ? _clean(hintParts[1]) : '—';
+
+    document.getElementById('srFlipBtn').textContent = 'Flip';
+  }
 }
 
 function srFlipCard() {
@@ -13392,10 +13415,49 @@ function srFlipCard() {
   const rawCard = srLiveCards.find(c => c.id === cardId);
   if (!rawCard) return;
 
-  // Flip to back
-  const face = document.getElementById('cardFace');
+  const face      = document.getElementById('cardFace');
+  const tag       = document.getElementById('cardTag');
+  const replayBtn = document.getElementById('exprReplayBtn');
+
+  if (isExprSection()) {
+    if (srExRevealState === 0) {
+      // Audio → Spanish (audio plays here — direct user gesture)
+      srExRevealState = 1;
+      playExprAudio(cardId);
+      face.classList.add('is-back');
+      tag.className   = 'card-tag es';
+      tag.textContent = 'ESPAÑOL';
+      document.getElementById('cardTarget').textContent  = rawCard.es;
+      const esCtx = rawCard.esCtx || '';
+      document.getElementById('cardContext').innerHTML   = esCtx ? '\u201c'+esCtx+'\u201d' : '';
+      document.getElementById('tapHint').style.display   = 'none';
+      if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E replay'; replayBtn.classList.remove('large'); replayBtn.style.display = 'flex'; }
+      document.getElementById('srFlipBtn').textContent   = 'Reveal English';
+    } else if (srExRevealState === 1) {
+      // Spanish → English + rating tray
+      srExRevealState = 2;
+      face.classList.remove('is-back');
+      tag.className   = 'card-tag en';
+      tag.textContent = 'ENGLISH';
+      document.getElementById('cardTarget').textContent  = rawCard.en;
+      const enCtx = rawCard.enCtx || '';
+      document.getElementById('cardContext').innerHTML   = enCtx ? '\u201c'+enCtx+'\u201d' : '';
+      document.getElementById('tapHint').style.display   = 'none';
+      if (replayBtn) { replayBtn.classList.remove('large'); replayBtn.style.display = 'none'; }
+      document.getElementById('srFlipBtn').textContent   = 'Flip';
+      // Apply hint-lock and open rating tray
+      if (srHintUsed) {
+        document.getElementById('srCircle4').classList.add('hint-locked');
+      } else {
+        document.getElementById('srCircle4').classList.remove('hint-locked');
+      }
+      document.getElementById('srRatingTray').classList.add('open');
+    }
+    return;
+  }
+
+  // Normal: flip to back (Spanish) and open rating tray
   face.classList.add('is-back');
-  const tag = document.getElementById('cardTag');
   tag.className   = 'card-tag es';
   tag.textContent = 'ESPAÑOL';
   document.getElementById('cardTarget').textContent  = rawCard.es;
@@ -13652,9 +13714,12 @@ let deck       = [];
 let cardIdx    = 0;
 let revealed   = false;
 let mode       = 'en-es';
-let hintOpen   = false;
-let conceptIdx = 0;
-let savedCardIdx = 0;
+let hintOpen      = false;
+let conceptIdx    = 0;
+let savedCardIdx  = 0;
+let exRevealState   = 0;    // 0=audio-only, 1=spanish, 2=english (Expressions deck mode)
+let srExRevealState = 0;    // same for SR session
+let _exCurrentAudio = null; // currently-playing Audio object
 
 // ── SUBJECT CONFIG ──
 const subjectConfig = {
@@ -14178,12 +14243,43 @@ function showTab(tab) {
   }
 }
 
+// ── EXPRESSIONS AUDIO ──
+function isExprSection() {
+  return sections[currentSubjectIdx] && sections[currentSubjectIdx].prefix === 'EX';
+}
+function getExprAudioPath(cardId) {
+  // file:// → use relative path from 9_Distribution/ folder
+  // http(s):// → audio/ sits alongside index.html (deployed)
+  const base = location.protocol === 'file:'
+    ? '../10_Expressions/audio/'
+    : 'audio/';
+  return base + cardId + '.mp3';
+}
+function playExprAudio(cardId) {
+  if (_exCurrentAudio) { _exCurrentAudio.pause(); _exCurrentAudio.currentTime = 0; _exCurrentAudio = null; }
+  if (!cardId) return;
+  _exCurrentAudio = new Audio(getExprAudioPath(cardId));
+  _exCurrentAudio.play().catch(err => console.warn('Audio play failed:', getExprAudioPath(cardId), err));
+}
+function exprReplayAudio(e) {
+  if (e) e.stopPropagation();
+  // Deck mode
+  if (deck.length && deck[cardIdx] && deck[cardIdx].id) {
+    playExprAudio(deck[cardIdx].id); return;
+  }
+  // SR session mode — srQueue holds card IDs directly
+  if (srInSession && srQueue.length && srQueueIdx < srQueue.length) {
+    playExprAudio(srQueue[srQueueIdx]);
+  }
+}
+
 // ── DECK ──
 function buildDeck(cardsOverride) {
   const ch = sections[currentSubjectIdx].chapters[currentLessonIdx];
   const cardsSrc = cardsOverride || ch.cards;
   function mc(c, fwd) {
     return {
+      id:           c.id,
       frontLang:    fwd ? 'ENGLISH' : 'ESPAÑOL',
       frontTarget:  fwd ? c.en : c.es,
       frontContext: fwd ? (c.enCtx||'') : (c.esCtx||''),
@@ -14212,15 +14308,36 @@ function showCard() {
   const face = document.getElementById('cardFace');
   face.classList.remove('is-back');
   closeHint();
-  const tag = document.getElementById('cardTag');
-  tag.textContent = card.frontLang;
-  tag.className = 'card-tag ' + (card.frontLang==='ENGLISH'?'en':'es');
-  document.getElementById('cardTarget').innerHTML = card.frontTarget;
-  const fc = card.frontContext;
-  document.getElementById('cardContext').innerHTML = fc ? '\u201c'+fc+'\u201d' : '';
-  document.getElementById('cardAlt').style.display = 'none';
-  document.getElementById('cardHintText').textContent = '';
-  document.getElementById('tapHint').style.display = 'block';
+  const replayBtn = document.getElementById('exprReplayBtn');
+  if (replayBtn) replayBtn.style.display = 'none';
+
+  if (isExprSection()) {
+    // Expressions: audio-only front state
+    exRevealState = 0;
+    const tag = document.getElementById('cardTag');
+    tag.textContent = 'AUDIO';
+    tag.className = 'card-tag es';
+    document.getElementById('cardTarget').innerHTML = '';
+    document.getElementById('cardContext').innerHTML = '';
+    document.getElementById('cardAlt').style.display = 'none';
+    document.getElementById('cardHintText').textContent = '';
+    const tapEl = document.getElementById('tapHint');
+    tapEl.textContent = 'tap card to reveal spanish';
+    tapEl.style.display = 'block';
+    if (replayBtn) { replayBtn.textContent = '▶︎ play'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
+  } else {
+    const tag = document.getElementById('cardTag');
+    tag.textContent = card.frontLang;
+    tag.className = 'card-tag ' + (card.frontLang==='ENGLISH'?'en':'es');
+    document.getElementById('cardTarget').innerHTML = card.frontTarget;
+    const fc = card.frontContext;
+    document.getElementById('cardContext').innerHTML = fc ? '\u201c'+fc+'\u201d' : '';
+    document.getElementById('cardAlt').style.display = 'none';
+    document.getElementById('cardHintText').textContent = '';
+    const tapEl = document.getElementById('tapHint');
+    tapEl.textContent = 'tap to flip';
+    tapEl.style.display = 'block';
+  }
   updateProgress();
 }
 
@@ -14230,6 +14347,47 @@ function reveal() {
   const card = deck[cardIdx];
   const face = document.getElementById('cardFace');
   const tag  = document.getElementById('cardTag');
+  const replayBtn = document.getElementById('exprReplayBtn');
+
+  // ── Expressions: 3-state flip (audio → spanish → english) ──
+  if (isExprSection()) {
+    if (exRevealState === 0) {
+      // State 0 → 1: reveal Spanish (audio plays here — direct user gesture)
+      exRevealState = 1;
+      playExprAudio(card.id);
+      face.classList.add('is-back');
+      tag.textContent = 'ESPAÑOL';
+      tag.className = 'card-tag es';
+      const ch = sections[currentSubjectIdx].chapters[currentLessonIdx];
+      const raw = (ch.cards || []).find(c => c.id === card.id);
+      document.getElementById('cardTarget').innerHTML  = raw ? raw.es : '';
+      const esCtx = raw ? (raw.esCtx || '') : '';
+      document.getElementById('cardContext').innerHTML = esCtx ? '\u201c'+esCtx+'\u201d' : '';
+      document.getElementById('cardAlt').style.display = 'none';
+      document.getElementById('cardHintText').textContent = '';
+      document.getElementById('tapHint').style.display = 'none';
+      if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E replay'; replayBtn.classList.remove('large'); replayBtn.style.display = 'flex'; }
+    } else if (exRevealState === 1) {
+      // State 1 → 2: reveal English
+      exRevealState = 2;
+      face.classList.remove('is-back');
+      tag.textContent = 'ENGLISH';
+      tag.className = 'card-tag en';
+      const ch = sections[currentSubjectIdx].chapters[currentLessonIdx];
+      const raw = (ch.cards || []).find(c => c.id === card.id);
+      document.getElementById('cardTarget').innerHTML  = raw ? raw.en : '';
+      const enCtx = raw ? (raw.enCtx || '') : '';
+      document.getElementById('cardContext').innerHTML = enCtx ? '\u201c'+enCtx+'\u201d' : '';
+      document.getElementById('cardAlt').style.display = 'none';
+      document.getElementById('cardHintText').textContent = '';
+      document.getElementById('tapHint').style.display = 'none';
+      if (replayBtn) { replayBtn.classList.remove('large'); replayBtn.style.display = 'none'; }
+    }
+    // State 2: tap does nothing — use → to advance
+    return;
+  }
+
+  // ── Normal 2-state flip ──
   if (!revealed) {
     revealed = true;
     tag.textContent = card.backLang;
