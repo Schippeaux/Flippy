@@ -403,7 +403,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 <div class="screen hidden" id="cardScreen">
   <div class="topbar">
     <div class="topbar-back" onclick="goLessons()">←</div>
-    <div class="topbar-right">
+    <div class="topbar-right" id="modeBtnGroup">
       <button class="mode-btn active" id="mBtn0" onclick="setMode('en-es')">EN▸ES</button>
       <button class="mode-btn"        id="mBtn1" onclick="setMode('es-en')">ES▸EN</button>
       <button class="mode-btn"        id="mBtn2" onclick="setMode('mix')">Mix</button>
@@ -13284,6 +13284,7 @@ function srContinueSession() {
 function _srStartSession() {
   srInSession = true;
   srHintUsed  = false;
+  updateModeBtnsVisibility();
   // Show card viewport + session bars, hide study landing
   document.getElementById('studyPanel').classList.remove('active');
   document.getElementById('studyPanel').style.display = 'none';
@@ -13299,6 +13300,7 @@ function srBackToLanding() {
     srSaveSession(srChapterId, srLevel, srQueue, srQueueIdx);
   }
   srInSession = false;
+  updateModeBtnsVisibility();
   document.getElementById('srRatingTray').classList.remove('open');
   document.getElementById('hintOverlay').classList.remove('open');
   document.getElementById('srHintBtn').classList.remove('active');
@@ -13378,6 +13380,7 @@ function _srShowCard() {
   if (isExprSection()) {
     // Expressions: audio-only front state
     srExRevealState = 0;
+    _exCurrentCardId = cardId;
     const tag = document.getElementById('cardTag');
     tag.className   = 'card-tag es';
     tag.textContent = 'AUDIO';
@@ -13386,9 +13389,9 @@ function _srShowCard() {
     document.getElementById('cardAlt').style.display   = 'none';
     document.getElementById('cardHintText').textContent = '';
     document.getElementById('tapHint').style.display   = 'none';
-    if (replayBtn) { replayBtn.textContent = '▶︎ play'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
+    if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E play'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
     document.getElementById('srFlipBtn').textContent   = 'Reveal Spanish';
-    // Audio plays on first Flip tap (user gesture) — not here
+    playExprAudio(_exCurrentCardId); // autoplay — works after first user interaction
   } else {
     // Normal: front = English
     const tag = document.getElementById('cardTag');
@@ -13421,9 +13424,10 @@ function srFlipCard() {
 
   if (isExprSection()) {
     if (srExRevealState === 0) {
-      // Audio → Spanish (audio plays here — direct user gesture)
+      // Audio → Spanish
       srExRevealState = 1;
-      playExprAudio(cardId);
+      _exCurrentCardId = cardId;
+      playExprAudio(_exCurrentCardId);
       face.classList.add('is-back');
       tag.className   = 'card-tag es';
       tag.textContent = 'ESPAÑOL';
@@ -13719,7 +13723,8 @@ let conceptIdx    = 0;
 let savedCardIdx  = 0;
 let exRevealState   = 0;    // 0=audio-only, 1=spanish, 2=english (Expressions deck mode)
 let srExRevealState = 0;    // same for SR session
-let _exCurrentAudio = null; // currently-playing Audio object
+let _exCurrentAudio  = null; // currently-playing Audio object
+let _exCurrentCardId = null; // ID of card whose audio should play
 
 // ── SUBJECT CONFIG ──
 const subjectConfig = {
@@ -14244,6 +14249,13 @@ function showTab(tab) {
 }
 
 // ── EXPRESSIONS AUDIO ──
+function updateModeBtnsVisibility() {
+  const g = document.getElementById('modeBtnGroup');
+  if (!g) return;
+  // Hide in SR session, or any time section is Expressions (mode irrelevant there)
+  const hide = srInSession || isExprSection();
+  g.style.display = hide ? 'none' : '';
+}
 function isExprSection() {
   return sections[currentSubjectIdx] && sections[currentSubjectIdx].prefix === 'EX';
 }
@@ -14263,14 +14275,7 @@ function playExprAudio(cardId) {
 }
 function exprReplayAudio(e) {
   if (e) e.stopPropagation();
-  // Deck mode
-  if (deck.length && deck[cardIdx] && deck[cardIdx].id) {
-    playExprAudio(deck[cardIdx].id); return;
-  }
-  // SR session mode — srQueue holds card IDs directly
-  if (srInSession && srQueue.length && srQueueIdx < srQueue.length) {
-    playExprAudio(srQueue[srQueueIdx]);
-  }
+  if (_exCurrentCardId) playExprAudio(_exCurrentCardId);
 }
 
 // ── DECK ──
@@ -14314,6 +14319,7 @@ function showCard() {
   if (isExprSection()) {
     // Expressions: audio-only front state
     exRevealState = 0;
+    _exCurrentCardId = card.id;
     const tag = document.getElementById('cardTag');
     tag.textContent = 'AUDIO';
     tag.className = 'card-tag es';
@@ -14324,7 +14330,8 @@ function showCard() {
     const tapEl = document.getElementById('tapHint');
     tapEl.textContent = 'tap card to reveal spanish';
     tapEl.style.display = 'block';
-    if (replayBtn) { replayBtn.textContent = '▶︎ play'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
+    if (replayBtn) { replayBtn.textContent = '\u25B6\uFE0E play'; replayBtn.classList.add('large'); replayBtn.style.display = 'flex'; }
+    playExprAudio(_exCurrentCardId); // autoplay — works after first user interaction
   } else {
     const tag = document.getElementById('cardTag');
     tag.textContent = card.frontLang;
@@ -14338,6 +14345,7 @@ function showCard() {
     tapEl.textContent = 'tap to flip';
     tapEl.style.display = 'block';
   }
+  updateModeBtnsVisibility();
   updateProgress();
 }
 
@@ -14352,9 +14360,10 @@ function reveal() {
   // ── Expressions: 3-state flip (audio → spanish → english) ──
   if (isExprSection()) {
     if (exRevealState === 0) {
-      // State 0 → 1: reveal Spanish (audio plays here — direct user gesture)
+      // State 0 → 1: reveal Spanish
       exRevealState = 1;
-      playExprAudio(card.id);
+      _exCurrentCardId = card.id;
+      playExprAudio(_exCurrentCardId);
       face.classList.add('is-back');
       tag.textContent = 'ESPAÑOL';
       tag.className = 'card-tag es';
