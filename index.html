@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Learning Spanish — v20.3</title>
+<title>Learning Spanish — v20.4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
@@ -443,6 +443,15 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 .sl-explainer h2 { font-family:'Lora',serif; font-size:1.3rem; font-weight:500; color:var(--text-dark); margin-bottom:1.1rem; }
 .sl-explainer p { font-family:'Lora',serif; font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:0.75rem; }
 
+/* ── EDGE SWIPE CAPTURE ZONES ── */
+/* Invisible fixed strips on left/right edges. touch-action:none tells the browser
+   to stop claiming these touches for its own back/forward navigation gesture.
+   pointer-events:none by default — only enabled during active deck. */
+.edge-swipe-zone { position:fixed; top:0; bottom:0; width:32px; z-index:9999; touch-action:none; pointer-events:none; background:transparent; }
+.edge-swipe-zone.active { pointer-events:auto; }
+.edge-swipe-left  { left:0; }
+.edge-swipe-right { right:0; }
+
 /* ── DECK BOTTOM BAR ── */
 .deck-bottom-bar { flex-shrink:0; display:none; align-items:center; justify-content:space-between; padding:0.55rem 1rem calc(0.55rem + env(safe-area-inset-bottom,0px)); background:var(--card-bg); border-top:1px solid var(--border); gap:0.5rem; }
 .deck-bottom-bar.active { display:flex; }
@@ -466,7 +475,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 <div class="screen" id="splashScreen">
   <div class="splash-header" style="position:relative">
     <div class="splash-logo">Learning Spanish</div>
-    <div class="splash-sub">Buenos Aires · v20.3</div>
+    <div class="splash-sub">Buenos Aires · v20.4</div>
     <button class="splash-settings-btn" onclick="openSettings()" title="Settings">⚙️</button>
   </div>
   <div class="splash-grid" id="splashGrid"></div>
@@ -601,6 +610,10 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 
 <!-- Audio player -->
 <audio id="listenAudioPlayer" preload="auto"></audio>
+
+<!-- Edge swipe capture zones: invisible strips that intercept browser back/forward gestures -->
+<div class="edge-swipe-zone edge-swipe-left"  id="edgeSwipeLeft"></div>
+<div class="edge-swipe-zone edge-swipe-right" id="edgeSwipeRight"></div>
 
 <script>
 // ── CARD DATA ──
@@ -44173,6 +44186,11 @@ function _setDeckMode(active) {
   if (chapterTabs) chapterTabs.style.display = active ? 'none' : '';
   if (progressArea) progressArea.style.display = 'none';  // always hidden; moved to browseProgressBar
   if (deckBar) deckBar.classList.toggle('active', active);
+  // Activate/deactivate edge capture zones
+  ['edgeSwipeLeft','edgeSwipeRight'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('active', active);
+  });
 }
 
 // Back button in deck bottom bar
@@ -45787,7 +45805,7 @@ function goLessons() {
     _srPlayAudio(_currentCardAudioSrc);
   }
 
-  // ── Touch: listen on document to capture edge swipes from ring device ──
+  // ── Touch: listen on document for swipes in the main card area ──
   document.addEventListener('touchstart', e => {
     tx = e.touches[0].clientX;
     ty = e.touches[0].clientY;
@@ -45813,6 +45831,33 @@ function goLessons() {
       _handleTap(e);
     }
   }, { passive:true });
+
+  // ── Edge zones: need their own listeners because touch-action:none isolates them ──
+  // They use the same tx/ty state set by the document listener above, but if the
+  // browser didn't fire the document touchstart (claimed the edge), we capture it here.
+  function _edgeTouchStart(e) {
+    tx = e.touches[0].clientX;
+    ty = e.touches[0].clientY;
+    moved = false;
+  }
+  function _edgeTouchMove(e) {
+    if (Math.abs(e.touches[0].clientX - tx) > 8 ||
+        Math.abs(e.touches[0].clientY - ty) > 8) moved = true;
+  }
+  function _edgeTouchEnd(e) {
+    if (!_deckActive()) return;
+    const dx = e.changedTouches[0].clientX - tx;
+    const dy = e.changedTouches[0].clientY - ty;
+    if (moved) _handleSwipe(dx, dy);
+  }
+  // Attach after DOM ready (elements exist at this point)
+  ;['edgeSwipeLeft','edgeSwipeRight'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('touchstart', _edgeTouchStart, { passive:true });
+    el.addEventListener('touchmove',  _edgeTouchMove,  { passive:true });
+    el.addEventListener('touchend',   _edgeTouchEnd,   { passive:true });
+  });
 
   // ── Mouse (desktop testing) ──
   const face = document.getElementById('cardFace');
