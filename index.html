@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Learning Spanish — v20.4</title>
+<title>Learning Spanish — v10.5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
@@ -467,6 +467,24 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 .card-counter-watermark { position:absolute; bottom:0.7rem; right:0.9rem; font-family:'Inconsolata',monospace; font-size:0.56rem; letter-spacing:0.06em; pointer-events:none; color:rgba(240,236,228,0.22); }
 .card-face:not(.is-back) .card-counter-watermark { color:rgba(0,0,0,0.1); }
 
+/* ── IN-CARD SWIPE INDICATORS ── */
+.swipe-indicators { position:absolute; inset:0; pointer-events:none; display:none; }
+.swipe-indicators.active { display:block; }
+.swipe-ind { position:absolute; display:flex; flex-direction:column; align-items:center; gap:3px; }
+.swipe-ind-arrow { font-size:0.9rem; line-height:1; }
+.swipe-ind-label { font-family:'Inconsolata',monospace; font-size:0.42rem; letter-spacing:0.08em; text-transform:uppercase; }
+/* Positions */
+.swipe-ind-left  { left:0.6rem;  top:50%; transform:translateY(-50%); }
+.swipe-ind-right { right:0.6rem; top:50%; transform:translateY(-50%); }
+.swipe-ind-up    { top:0.6rem;   left:50%; transform:translateX(-50%); }
+.swipe-ind-down  { bottom:1.8rem; left:50%; transform:translateX(-50%); }
+/* Colours — front face (light bg) */
+.swipe-indicators .swipe-ind-arrow { color:rgba(0,0,0,0.18); }
+.swipe-indicators .swipe-ind-label { color:rgba(0,0,0,0.14); }
+/* Colours — back face (dark bg): .card-scene gets .card-flipped class via JS */
+.card-scene.card-flipped .swipe-indicators .swipe-ind-arrow { color:rgba(255,255,255,0.22); }
+.card-scene.card-flipped .swipe-indicators .swipe-ind-label { color:rgba(255,255,255,0.18); }
+
 </style>
 </head>
 <body>
@@ -475,7 +493,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 <div class="screen" id="splashScreen">
   <div class="splash-header" style="position:relative">
     <div class="splash-logo">Learning Spanish</div>
-    <div class="splash-sub">Buenos Aires · v20.4</div>
+    <div class="splash-sub">Buenos Aires · v10.5</div>
     <button class="splash-settings-btn" onclick="openSettings()" title="Settings">⚙️</button>
   </div>
   <div class="splash-grid" id="splashGrid"></div>
@@ -569,6 +587,25 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
         <div class="big">🧉</div>
         <p>Lesson done!</p>
         <small>← swipe to review</small>
+      </div>
+      <!-- In-card swipe indicators (shown during active deck) -->
+      <div class="swipe-indicators" id="swipeIndicators">
+        <div class="swipe-ind swipe-ind-left">
+          <span class="swipe-ind-arrow">←</span>
+          <span class="swipe-ind-label" id="indLeftLabel">Back</span>
+        </div>
+        <div class="swipe-ind swipe-ind-right">
+          <span class="swipe-ind-arrow">→</span>
+          <span class="swipe-ind-label" id="indRightLabel">Next</span>
+        </div>
+        <div class="swipe-ind swipe-ind-up">
+          <span class="swipe-ind-arrow">↑</span>
+          <span class="swipe-ind-label" id="indUpLabel">Flip</span>
+        </div>
+        <div class="swipe-ind swipe-ind-down">
+          <span class="swipe-ind-arrow">↓</span>
+          <span class="swipe-ind-label" id="indDownLabel">Flip</span>
+        </div>
       </div>
     </div>
   </div>
@@ -43832,7 +43869,7 @@ function _srShowCard() {
   // Comprehension (ES→EN): front=Spanish, back=English
   const isRecall = srSessionMode === 'recall';
   const face = document.getElementById('cardFace');
-  face.classList.remove('is-back');
+  face.classList.remove('is-back'); document.getElementById('cardScene').classList.remove('card-flipped');
   document.getElementById('hintOverlay').classList.remove('open');
   document.getElementById('srHintBtn').classList.remove('active');
 
@@ -43868,7 +43905,7 @@ function srFlipCard() {
   // Flip to back — direction depends on session mode
   const isRecall = srSessionMode === 'recall';
   const face = document.getElementById('cardFace');
-  face.classList.add('is-back');
+  face.classList.add('is-back'); document.getElementById('cardScene').classList.add('card-flipped');
   const tag = document.getElementById('cardTag');
   tag.className   = isRecall ? 'card-tag es' : 'card-tag en';
   tag.textContent = isRecall ? 'ESPAÑOL' : 'ENGLISH';
@@ -43892,7 +43929,7 @@ function srUnflipCard() {
 
   const isRecall = srSessionMode === 'recall';
   const face = document.getElementById('cardFace');
-  face.classList.remove('is-back');
+  face.classList.remove('is-back'); document.getElementById('cardScene').classList.remove('card-flipped');
   const tag = document.getElementById('cardTag');
   tag.className   = isRecall ? 'card-tag en' : 'card-tag es';
   tag.textContent = isRecall ? 'ENGLISH' : 'ESPAÑOL';
@@ -43921,6 +43958,9 @@ function srRate(rating) {
   const cardId  = srQueue[srQueueIdx];
   const card    = srLiveDeck.find(c => c.id === cardId);
   if (!card) { srQueueIdx++; _srShowCard(); return; }
+
+  // Play rating sound (positive = got it / rating 4, negative = didn't / rating 1)
+  _playRatingSound(rating >= 4);
 
   card.recordReview(today, rating);
   srSaveDeck(srSessionMode, srChapterId, srLevel, srLiveDeck);
@@ -44172,8 +44212,63 @@ function _updateMuteBtn() {
 // Play a specific audio src (respects mute). Stores src so swipe-up can replay.
 // ── SWIPE HINT BAR ───────────────────────────────────────────
 // Updates the swipe hint bar labels based on current mode and card state.
-function _updateSwipeHints() { /* swipe hint bar removed */ }
-function _hideSwipeHints()  { /* swipe hint bar removed */ }
+function _updateSwipeHints() {
+  const el = document.getElementById('swipeIndicators');
+  if (!el) return;
+  const leftLbl  = document.getElementById('indLeftLabel');
+  const rightLbl = document.getElementById('indRightLabel');
+  const upLbl    = document.getElementById('indUpLabel');
+  const downLbl  = document.getElementById('indDownLabel');
+  if (srInSession) {
+    if (leftLbl)  leftLbl.textContent  = 'Got it';
+    if (rightLbl) rightLbl.textContent = "Didn't";
+    if (upLbl)    upLbl.textContent    = 'Flip';
+    if (downLbl)  downLbl.textContent  = 'Flip';
+  } else {
+    if (leftLbl)  leftLbl.textContent  = 'Back';
+    if (rightLbl) rightLbl.textContent = 'Next';
+    if (upLbl)    upLbl.textContent    = 'Reveal';
+    if (downLbl)  downLbl.textContent  = 'Reveal';
+  }
+}
+function _hideSwipeHints()  {
+  const el = document.getElementById('swipeIndicators');
+  if (el) el.classList.remove('active');
+}
+
+// ── RATING SOUNDS (synthesised — no audio files needed) ──────────────────
+let _audioCtx = null;
+function _getRatingAudioCtx() {
+  if (!_audioCtx) {
+    try { _audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+  return _audioCtx;
+}
+function _playRatingSound(positive) {
+  const ctx = _getRatingAudioCtx();
+  if (!ctx) return;
+  // Resume context if suspended (browser autoplay policy)
+  if (ctx.state === 'suspended') ctx.resume();
+  const osc  = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.type = 'sine';
+  const now = ctx.currentTime;
+  if (positive) {
+    // High-pitched double pop — bright, satisfying
+    osc.frequency.setValueAtTime(900, now);
+    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.04);
+  } else {
+    // Low-pitched single thud
+    osc.frequency.setValueAtTime(220, now);
+    osc.frequency.exponentialRampToValueAtTime(110, now + 0.06);
+  }
+  gain.gain.setValueAtTime(0.18, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+  osc.start(now);
+  osc.stop(now + 0.13);
+}
 
 // ── DECK MODE HELPERS ─────────────────────────────────────
 // Toggle deck-active state: hide topbar, show deck bottom bar + progress
@@ -44191,6 +44286,10 @@ function _setDeckMode(active) {
     const el = document.getElementById(id);
     if (el) el.classList.toggle('active', active);
   });
+  // Activate/deactivate in-card swipe indicators
+  const indicators = document.getElementById('swipeIndicators');
+  if (indicators) indicators.classList.toggle('active', active);
+  if (active) _updateSwipeHints();
 }
 
 // Back button in deck bottom bar
@@ -45605,7 +45704,7 @@ function showCard() {
   const card = deck[cardIdx];
   revealed = false;
   const face = document.getElementById('cardFace');
-  face.classList.remove('is-back');
+  face.classList.remove('is-back'); document.getElementById('cardScene').classList.remove('card-flipped');
   closeHint();
   const tag = document.getElementById('cardTag');
   tag.textContent = card.frontLang;
@@ -45642,7 +45741,7 @@ function reveal() {
       altEl.style.display = 'none';
     }
     document.getElementById('cardHintText').textContent = '';
-    face.classList.add('is-back');
+    face.classList.add('is-back'); document.getElementById('cardScene').classList.add('card-flipped');
     _updateSwipeHints();
     _srPlayAudio(card.backAudio);
   } else {
@@ -45654,7 +45753,7 @@ function reveal() {
     document.getElementById('cardContext').innerHTML = fc ? '\u201c'+fc+'\u201d' : '';
     document.getElementById('cardAlt').style.display = 'none';
     document.getElementById('cardHintText').textContent = '';
-    face.classList.remove('is-back');
+    face.classList.remove('is-back'); document.getElementById('cardScene').classList.remove('card-flipped');
     closeHint();
     _updateSwipeHints();
     _srPlayAudio(card.frontAudio);
@@ -45778,8 +45877,8 @@ function goLessons() {
 
     if (isHoriz) {
       if (srInSession) {
-        // SR: left = got it, right = didn't get it (only when card is flipped)
-        if (_cardIsFlipped()) { dx < 0 ? srRate(4) : srRate(1); }
+        // SR: left = got it, right = didn't get it (from either face)
+        dx < 0 ? srRate(4) : srRate(1);
       } else {
         // Browse: left = next, right = prev
         dx < 0 ? next() : prev();
