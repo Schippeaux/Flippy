@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Learning Spanish — v22.4</title>
+<title>Learning Spanish — v22.5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
@@ -528,6 +528,25 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 .vc-check-pill.active { background:var(--text-dark); color:var(--card-bg); border-color:var(--text-dark); }
 .vc-apply-btn { margin-top:1.25rem; width:100%; padding:0.7rem; border:none; border-radius:12px; background:var(--text-dark); color:var(--card-bg); font-family:'Inconsolata',monospace; font-size:0.78rem; letter-spacing:0.08em; cursor:pointer; }
 
+/* Verb detail screen — conjugation table + practice buttons */
+.vc-detail-meta { display:flex; align-items:center; gap:0.6rem; padding:0.85rem 1.25rem 0.6rem; flex-shrink:0; border-bottom:1px solid var(--border); }
+.vc-detail-meaning { font-family:'Inconsolata',monospace; font-style:italic; font-size:0.78rem; color:var(--text-mid); flex:1; min-width:0; }
+
+.vc-detail-table-wrap { flex:1; overflow-y:auto; padding:0.9rem 1.25rem 1.25rem; }
+.vc-table-section { margin-bottom:1.2rem; }
+.vc-table-tense-label { font-family:'Inconsolata',monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.45rem; padding-bottom:0.35rem; border-bottom:1px solid var(--border); }
+.vc-conj-table { display:flex; flex-direction:column; }
+.vc-conj-row { display:flex; align-items:baseline; justify-content:space-between; padding:0.38rem 0; border-bottom:1px solid rgba(0,0,0,0.045); gap:1rem; }
+.vc-conj-row:last-child { border-bottom:none; }
+.vc-conj-person { font-family:'Inconsolata',monospace; font-size:0.68rem; color:var(--text-light); flex-shrink:0; min-width:6rem; }
+.vc-conj-form { font-family:'Lora',serif; font-size:0.95rem; color:var(--text-dark); text-align:right; }
+
+.vc-detail-practice-bar { flex-shrink:0; display:flex; gap:0.6rem; padding:0.7rem 1.25rem calc(0.7rem + env(safe-area-inset-bottom,0px)); background:var(--card-bg); border-top:1px solid var(--border); }
+.vc-practice-btn { flex:1; display:flex; align-items:center; justify-content:center; gap:0.4rem; padding:0.8rem 0.5rem; border:none; border-radius:12px; font-family:'Inconsolata',monospace; font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; transition:transform 0.1s; }
+.vc-practice-btn:active { transform:scale(0.97); }
+.vc-practice-understanding { background:rgba(116,172,223,0.14); color:var(--accent); }
+.vc-practice-speaking { background:var(--text-dark); color:var(--card-bg); }
+
 /* Empty state */
 .vc-empty { padding:3rem 1.25rem; text-align:center; font-family:'Inconsolata',monospace; font-size:0.78rem; color:var(--text-light); }
 
@@ -552,7 +571,7 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 <div class="screen" id="splashScreen">
   <div class="splash-header" style="position:relative">
     <div class="splash-logo">Learning Spanish</div>
-    <div class="splash-sub">Buenos Aires · v22.4</div>
+    <div class="splash-sub">Buenos Aires · v22.5</div>
     <button class="splash-settings-btn" onclick="openSettings()" title="Settings">⚙️</button>
   </div>
   <div class="splash-grid" id="splashGrid"></div>
@@ -735,6 +754,46 @@ html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text
 
       <div class="vc-settings-section-label">Dialect</div>
       <div class="vc-settings-radios" id="vcDialectRadios"></div>
+
+      <button class="vc-apply-btn" onclick="vcApplySettings()">Apply</button>
+    </div>
+  </div>
+</div>
+
+<!-- VC VERB DETAIL SCREEN (conjugation table) -->
+<div class="screen hidden" id="vcDetailScreen">
+  <div class="topbar">
+    <div class="topbar-back" onclick="closeVerbDetail()">←</div>
+    <div class="topbar-title" id="vcDetailTitle">hablar</div>
+    <div style="margin-left:auto"></div>
+    <button class="vc-gear-btn" onclick="vcToggleSettings()" title="Settings">⚙</button>
+  </div>
+
+  <div class="vc-detail-meta">
+    <span class="vc-detail-meaning" id="vcDetailMeaning"></span>
+    <span class="vc-regularity-badge" id="vcDetailRegularity"></span>
+  </div>
+
+  <div class="vc-detail-table-wrap" id="vcDetailTableWrap"></div>
+
+  <div class="vc-detail-practice-bar">
+    <button class="vc-practice-btn vc-practice-understanding" onclick="vcStartPractice('understanding')">Understanding</button>
+    <button class="vc-practice-btn vc-practice-speaking" onclick="vcStartPractice('speaking')">Speaking</button>
+  </div>
+
+  <!-- Settings panel -->
+  <div class="vc-settings-panel hidden" id="vcDetailSettingsPanel">
+    <div class="vc-settings-inner">
+      <div class="vc-settings-title">Settings</div>
+
+      <div class="vc-settings-section-label">Tenses</div>
+      <div class="vc-settings-checks" id="vcDetailTenseChecks"></div>
+
+      <div class="vc-settings-section-label">Persons</div>
+      <div class="vc-settings-checks" id="vcDetailPersonChecks"></div>
+
+      <div class="vc-settings-section-label">Dialect</div>
+      <div class="vc-settings-radios" id="vcDetailDialectRadios"></div>
 
       <button class="vc-apply-btn" onclick="vcApplySettings()">Apply</button>
     </div>
@@ -55974,6 +56033,7 @@ let vcCardIndex        = 0;
 let vcRevealed         = false;   // mirrors browse-mode 'revealed'
 let vcBrowseActive     = false;   // true when VC deck screen is open (hooks into swipe handler)
 let vcSettingsOpen     = false;
+let vcPracticeDirection = 'speaking';  // 'speaking' (EN→ES) | 'understanding' (ES→EN) — set by the detail screen's practice buttons
 
 const VC_SETTINGS_KEY = 'vc_settings';
 
@@ -56101,36 +56161,42 @@ function vcRenderSettingsPanelInto(tenseContainerId, personContainerId, dialectC
   });
 }
 
-function vcToggleSettings() {
-  // Determine which screen is active
-  const onDeck = !document.getElementById('vcDeckScreen').classList.contains('hidden');
-  const panelId      = onDeck ? 'vcDeckSettingsPanel'    : 'vcSettingsPanel';
-  const tenseId      = onDeck ? 'vcDeckTenseChecks'      : 'vcTenseChecks';
-  const personId     = onDeck ? 'vcDeckPersonChecks'     : 'vcPersonChecks';
-  const dialectId    = onDeck ? 'vcDeckDialectRadios'    : 'vcDialectRadios';
+// Which VC screen is currently visible — drives which settings panel/ids to use
+function vcActiveScreenKind() {
+  if (!document.getElementById('vcDeckScreen').classList.contains('hidden'))   return 'deck';
+  if (!document.getElementById('vcDetailScreen').classList.contains('hidden')) return 'detail';
+  return 'list';
+}
 
-  const panel = document.getElementById(panelId);
+function vcSettingsIdsFor(kind) {
+  return {
+    list:   { panel:'vcSettingsPanel',       tense:'vcTenseChecks',       person:'vcPersonChecks',       dialect:'vcDialectRadios' },
+    detail: { panel:'vcDetailSettingsPanel', tense:'vcDetailTenseChecks', person:'vcDetailPersonChecks', dialect:'vcDetailDialectRadios' },
+    deck:   { panel:'vcDeckSettingsPanel',   tense:'vcDeckTenseChecks',   person:'vcDeckPersonChecks',   dialect:'vcDeckDialectRadios' },
+  }[kind];
+}
+
+function vcToggleSettings() {
+  const ids = vcSettingsIdsFor(vcActiveScreenKind());
+
+  const panel = document.getElementById(ids.panel);
   if (!panel.classList.contains('hidden')) {
     panel.classList.add('hidden');
     vcSettingsOpen = false;
     return;
   }
-  vcRenderSettingsPanelInto(tenseId, personId, dialectId);
+  vcRenderSettingsPanelInto(ids.tense, ids.person, ids.dialect);
   panel.classList.remove('hidden');
   vcSettingsOpen = true;
 }
 
 function vcApplySettings() {
-  // Collect from whichever panel is open
-  const onDeck    = !document.getElementById('vcDeckScreen').classList.contains('hidden');
-  const tenseId   = onDeck ? 'vcDeckTenseChecks'   : 'vcTenseChecks';
-  const personId  = onDeck ? 'vcDeckPersonChecks'  : 'vcPersonChecks';
-  const dialectId = onDeck ? 'vcDeckDialectRadios' : 'vcDialectRadios';
-  const panelId   = onDeck ? 'vcDeckSettingsPanel' : 'vcSettingsPanel';
+  const kind = vcActiveScreenKind();
+  const ids  = vcSettingsIdsFor(kind);
 
-  const tenses  = [...document.getElementById(tenseId).querySelectorAll('.vc-check-pill.active')].map(p => p.dataset.key);
-  const persons = [...document.getElementById(personId).querySelectorAll('.vc-check-pill.active')].map(p => p.dataset.key);
-  const dialectPill = document.getElementById(dialectId).querySelector('.vc-check-pill.active');
+  const tenses  = [...document.getElementById(ids.tense).querySelectorAll('.vc-check-pill.active')].map(p => p.dataset.key);
+  const persons = [...document.getElementById(ids.person).querySelectorAll('.vc-check-pill.active')].map(p => p.dataset.key);
+  const dialectPill = document.getElementById(ids.dialect).querySelector('.vc-check-pill.active');
   const dialect = dialectPill ? dialectPill.dataset.dialectVal : 'rio';
 
   if (!tenses.length || !persons.length) {
@@ -56141,16 +56207,20 @@ function vcApplySettings() {
   vcSettings = { tenses, persons, dialect };
   vcSaveSettings(vcSettings);
 
-  document.getElementById(panelId).classList.add('hidden');
+  document.getElementById(ids.panel).classList.add('hidden');
   vcSettingsOpen = false;
 
-  // Rebuild deck if we're on the deck screen
-  if (onDeck && vcCurrentVerbIndex !== null) {
+  if (kind === 'deck' && vcCurrentVerbIndex !== null) {
+    // Rebuild the practice deck with the new tense/person selection
     const verb = verbConjugationData[vcCurrentVerbIndex];
     vcDeck      = buildVerbDeck(verb, vcSettings);
     vcCardIndex = 0;
-    vcFlipped   = false;
-    vcRenderCard();
+    vcRevealed  = false;
+    vcShowCard();
+  } else if (kind === 'detail' && vcCurrentVerbIndex !== null) {
+    // Rebuild the conjugation table with the new tense/person selection
+    const verb = verbConjugationData[vcCurrentVerbIndex];
+    vcRenderConjugationTable(verb, vcSettings);
   } else {
     // Refresh verb list in case dialect changed
     vcRenderVerbList(document.getElementById('vcSearchInput').value.trim());
@@ -56198,7 +56268,7 @@ function vcRenderVerbList(query) {
       </div>
       <span class="vc-regularity-badge">${verb.regularity || ''}</span>
       <span class="vc-verb-arrow">›</span>`;
-    row.onclick = () => openVerbDeck(idx);
+    row.onclick = () => openVerbDetail(idx);
     list.appendChild(row);
   });
 }
@@ -56208,10 +56278,81 @@ function vcFilterList() {
   vcRenderVerbList(q);
 }
 
-// ── VC DECK SCREEN ──
-function openVerbDeck(verbIndex) {
+// ── VC VERB DETAIL SCREEN (conjugation table) ──
+function openVerbDetail(verbIndex) {
   if (!vcSettings) vcSettings = vcLoadSettings();
   vcCurrentVerbIndex = verbIndex;
+  const verb = verbConjugationData[verbIndex];
+
+  document.getElementById('vcDetailTitle').textContent    = verb.infinitive;
+  document.getElementById('vcDetailMeaning').textContent   = verb.meaning || '';
+  document.getElementById('vcDetailRegularity').textContent = verb.regularity || '';
+
+  vcRenderConjugationTable(verb, vcSettings);
+  showScreen('vcDetailScreen');
+}
+
+function closeVerbDetail() {
+  document.getElementById('vcDetailSettingsPanel').classList.add('hidden');
+  showScreen('vcListScreen');
+}
+
+// Render the full conjugation table (one section per selected tense, one row per selected person)
+function vcRenderConjugationTable(verb, settings) {
+  const wrap = document.getElementById('vcDetailTableWrap');
+  wrap.innerHTML = '';
+
+  if (!settings.tenses.length || !settings.persons.length) {
+    wrap.innerHTML = '<div class="vc-empty">No tenses/persons selected.<br>Open settings (⚙) to choose some.</div>';
+    return;
+  }
+
+  let rendered = 0;
+  settings.tenses.forEach(tense => {
+    const conjs = verb.conjugaciones?.[tense];
+    if (!conjs) return;
+
+    const section = document.createElement('div');
+    section.className = 'vc-table-section';
+
+    const label = document.createElement('div');
+    label.className = 'vc-table-tense-label';
+    label.textContent = VC_TENSE_LABELS[tense] || tense;
+    section.appendChild(label);
+
+    const table = document.createElement('div');
+    table.className = 'vc-conj-table';
+    settings.persons.forEach(person => {
+      const form = conjs[person];
+      if (!form) return;
+      const row = document.createElement('div');
+      row.className = 'vc-conj-row';
+      row.innerHTML = `
+        <span class="vc-conj-person">${VC_PERSON_LABELS[person] || person}</span>
+        <span class="vc-conj-form">${form}</span>`;
+      table.appendChild(row);
+    });
+    section.appendChild(table);
+    wrap.appendChild(section);
+    rendered++;
+  });
+
+  if (!rendered) {
+    wrap.innerHTML = '<div class="vc-empty">No conjugation data for the selected tenses.</div>';
+  }
+}
+
+// Launch practice deck in a given direction from the detail screen
+function vcStartPractice(direction) {
+  if (vcCurrentVerbIndex === null) return;
+  openVerbDeck(vcCurrentVerbIndex, direction);
+}
+
+// ── VC DECK SCREEN ──
+function openVerbDeck(verbIndex, direction) {
+  if (!vcSettings) vcSettings = vcLoadSettings();
+  vcCurrentVerbIndex = verbIndex;
+  if (direction) vcPracticeDirection = direction;
   const verb = verbConjugationData[verbIndex];
 
   document.getElementById('vcDeckTitle').textContent = verb.infinitive;
@@ -56232,7 +56373,7 @@ function openVerbDeck(verbIndex) {
 function closeVerbDeck() {
   vcBrowseActive = false;
   document.getElementById('vcDeckSettingsPanel').classList.add('hidden');
-  showScreen('vcListScreen');
+  showScreen('vcDetailScreen');
 }
 
 // Render the current card (front face — English side)
@@ -56257,16 +56398,25 @@ function vcShowCard() {
   // Card counter watermark
   document.getElementById('vcCardCounter').textContent = `${vcCardIndex + 1} / ${vcDeck.length}`;
 
-  // Front: English
+  // Front face — direction-dependent:
+  //   Speaking      (EN→ES): front = English example sentence
+  //   Understanding (ES→EN): front = Spanish example sentence
   const face = document.getElementById('vcCardFace');
   face.classList.remove('is-back');
   document.getElementById('vcCardScene').classList.remove('card-flipped');
 
   const tag = document.getElementById('vcCardTag');
-  tag.className   = 'card-tag en';
-  tag.textContent = 'ENGLISH';
-  document.getElementById('vcCardTarget').textContent  = card.en || '—';
-  document.getElementById('vcCardContext').textContent = '';
+  if (vcPracticeDirection === 'understanding') {
+    tag.className   = 'card-tag es';
+    tag.textContent = 'ESPAÑOL';
+    document.getElementById('vcCardTarget').textContent  = card.es || card.conjugated || '—';
+    document.getElementById('vcCardContext').textContent = '';
+  } else {
+    tag.className   = 'card-tag en';
+    tag.textContent = 'ENGLISH';
+    document.getElementById('vcCardTarget').textContent  = card.en || '—';
+    document.getElementById('vcCardContext').textContent = '';
+  }
 
   _vcUpdateSwipeHints(false);
 }
@@ -56282,20 +56432,24 @@ function vcReveal() {
     vcRevealed = true;
     face.classList.add('is-back');
     document.getElementById('vcCardScene').classList.add('card-flipped');
-    tag.className   = 'card-tag es';
-    tag.textContent = 'ESPAÑOL';
-    document.getElementById('vcCardTarget').textContent  = card.conjugated;
-    document.getElementById('vcCardContext').textContent = card.es ? '“' + card.es + '”' : '';
+    if (vcPracticeDirection === 'understanding') {
+      // Back = English translation, with the bare conjugated form as context
+      tag.className   = 'card-tag en';
+      tag.textContent = 'ENGLISH';
+      document.getElementById('vcCardTarget').textContent  = card.en || '—';
+      document.getElementById('vcCardContext').textContent = card.conjugated ? '“' + card.conjugated + '”' : '';
+    } else {
+      // Back = the conjugated Spanish form, with the full Spanish sentence as context
+      tag.className   = 'card-tag es';
+      tag.textContent = 'ESPAÑOL';
+      document.getElementById('vcCardTarget').textContent  = card.conjugated;
+      document.getElementById('vcCardContext').textContent = card.es ? '“' + card.es + '”' : '';
+    }
     _vcUpdateSwipeHints(true);
   } else {
-    vcRevealed = false;
-    face.classList.remove('is-back');
-    document.getElementById('vcCardScene').classList.remove('card-flipped');
-    tag.className   = 'card-tag en';
-    tag.textContent = 'ENGLISH';
-    document.getElementById('vcCardTarget').textContent  = card.en || '—';
-    document.getElementById('vcCardContext').textContent = '';
-    _vcUpdateSwipeHints(false);
+    // Flip back to front — reuse the front-render logic
+    vcShowCard();
+    return;
   }
 }
 
@@ -56872,7 +57026,8 @@ function showScreen(id) {
     else if (id==='cardScreen')      { (s.id==='splashScreen'||s.id==='lessonScreen') ? s.classList.add('slide-left') : s.classList.add('hidden'); }
     else if (id==='dictionaryScreen'){ s.classList.add('slide-left'); }
     else if (id==='vcListScreen')    { s.id==='splashScreen' ? s.classList.add('slide-left') : s.classList.add('hidden'); }
-    else if (id==='vcDeckScreen')    { (s.id==='splashScreen'||s.id==='vcListScreen') ? s.classList.add('slide-left') : s.classList.add('hidden'); }
+    else if (id==='vcDetailScreen')  { (s.id==='splashScreen'||s.id==='vcListScreen') ? s.classList.add('slide-left') : s.classList.add('hidden'); }
+    else if (id==='vcDeckScreen')    { (s.id==='splashScreen'||s.id==='vcListScreen'||s.id==='vcDetailScreen') ? s.classList.add('slide-left') : s.classList.add('hidden'); }
   });
 }
 function goHome()    { showScreen('splashScreen'); }
